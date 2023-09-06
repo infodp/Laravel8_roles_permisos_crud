@@ -12,17 +12,21 @@
                       <div class="card-body">
                                                    
                              
-
-                         <form  class="d-flex">
+                      <a class="btn btn-warning" href="{{ route('usuarios.create') }}">Nuevo</a>
+                      <div>
+                      <br>
+                      </div>
+                      
+                         <!-- <form  class="d-flex">
                          <a class="btn btn-warning" href="{{ route('usuarios.create') }}">Nuevo</a>
                          &emsp;
                           <input class="form-control me-2 light-table-filter" data-table="table_id" type="text" placeholder="Ingresa el nombre a buscar...">
                           
-                         </form>
+                         </form> -->
 
                          
-
-                            <table class="table table-striped mt-2 table_id">
+            
+                            <table class="table table-striped mt-2 table_id" id="miTabla">
                               <thead style="background-color:#6777ef">                                     
                                   <th style="display: none;">ID</th>
                                   <th style="color:#fff;">Nombre</th>
@@ -55,10 +59,7 @@
                                 @endforeach
                               </tbody>
                             </table>
-                            <!-- Centramos la paginacion a la derecha -->
-                          <div class="pagination justify-content-end">
-                            {!! $usuarios->links() !!}
-                          </div>     
+                            <!-- Centramos la paginacion a la derecha -->   
                             
                       </div>
                   </div>
@@ -66,4 +67,30 @@
           </div>
       </div>
     </section>
+    <!-- JQUERY -->
+    <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+    <!-- DATATABLES -->
+    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+    <!-- BOOTSTRAP -->
+    <script src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js"></script>
+    <script>
+        new DataTable('#miTabla', {
+    lengthMenu: [
+        [2, 5, 10],
+        [2, 5, 10]
+    ],
+
+    columns: [
+        { Id: 'Id' },
+        { Nombre: 'Nombre' },
+        { Email: 'E-mail' },
+        { Rol: 'Rol' },
+        { Acciones: 'Acciones' }
+    ],
+
+    language: {
+        url: 'https://cdn.datatables.net/plug-ins/1.13.6/i18n/es-ES.json',
+    }
+});
+    </script>
 @endsection

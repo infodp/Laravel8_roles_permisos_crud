@@ -18,6 +18,14 @@
 <!-- Template CSS -->
     <link rel="stylesheet" href="{{ asset('web/css/style.css') }}">
     <link rel="stylesheet" href="{{ asset('web/css/components.css')}}">
+    <style>
+      .toolbar {
+    float: left;
+    }
+    .searching{
+        float: right;
+    }
+    </style>
     @yield('page_css')
 
 
