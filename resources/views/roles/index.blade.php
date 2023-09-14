@@ -10,45 +10,75 @@
                 <div class="col-lg-12">
                     <div class="card">
                         <div class="card-body">
-        
-                        @can('crear-rol')
-                        <a class="btn btn-warning" href="{{ route('roles.create') }}">Nuevo</a>                        
+                            <a class="btn btn-warning" href="{{ route('roles.create') }}" title="Crear nuevo rol">Nuevo rol</a>
+                        <div>
+                            <br>
+                        </div>
+                        {{-- @can('crear-rol')
+                        <a class="btn btn-warning" href="{{ route('roles.create') }}">Nuevo</a>
                         @endcan
-        
-                
-                            <table class="table table-striped mt-2">
-                                <thead style="background-color:#6777ef">                                                       
+                         --}}
+
+                            <table class="table table-striped mt-2 table_id" id="miTabla2">
+                                <thead style="background-color:#6777ef">
+                                    <th style="display: none;">ID</th>
                                     <th style="color:#fff;">Rol</th>
                                     <th style="color:#fff;">Acciones</th>
-                                </thead>  
+                                </thead>
                                 <tbody>
                                 @foreach ($roles as $role)
-                                <tr>                           
+                                <tr>
+                                    <td style="display: none;">{{ $role->id }}</td>
                                     <td>{{ $role->name }}</td>
-                                    <td>                                
+                                    <td>
                                         @can('editar-rol')
-                                            <a class="btn btn-primary" href="{{ route('roles.edit',$role->id) }}">Editar</a>
+                                            <a class="btn btn-primary" href="{{ route('roles.edit',$role->id) }}" title="Editar role">Editar</a>
                                         @endcan
-                                        
+
                                         @can('borrar-rol')
                                             {!! Form::open(['method' => 'DELETE','route' => ['roles.destroy', $role->id],'style'=>'display:inline']) !!}
-                                                {!! Form::submit('Borrar', ['class' => 'btn btn-danger']) !!}
+                                                {!! Form::submit('Borrar',['class' => 'btn btn-danger']) !!}
                                             {!! Form::close() !!}
                                         @endcan
                                     </td>
                                 </tr>
                                 @endforeach
-                                </tbody>               
+                                </tbody>
                             </table>
 
                             <!-- Centramos la paginacion a la derecha -->
                             <div class="pagination justify-content-end">
-                                {!! $roles->links() !!} 
-                            </div>                    
+                                {!! $roles->links() !!}
+                            </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
+    <!-- JQUERY -->
+    <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+    <!-- DATATABLES -->
+    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+    <!-- BOOTSTRAP -->
+    <script src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js"></script>
+    <script>
+        new DataTable('#miTabla2', {
+    lengthMenu: [
+        [2, 5, 10],
+        [2, 5, 10]
+    ],
+
+    columns: [
+        { Id: 'Id' },
+        { Name: 'Name' },
+        // { Guard_name: 'Guard_name'},
+        { Acciones: 'Acciones' }
+    ],
+
+    language: {
+        url: 'https://cdn.datatables.net/plug-ins/1.13.6/i18n/es-ES.json',
+    }
+});
+    </script>
 @endsection

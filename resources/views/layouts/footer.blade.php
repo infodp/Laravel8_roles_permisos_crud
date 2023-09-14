@@ -1,3 +1,3 @@
 <div class="footer-left">
-    All rights reserved &copy; {{ date('Y') }}
+    Todo los derechos reservados de la Agencia municipal de Tlaltinago Etla &copy; {{ date('Y') }}
 </div>
