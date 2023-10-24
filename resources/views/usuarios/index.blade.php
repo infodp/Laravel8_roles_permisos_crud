@@ -10,29 +10,29 @@
               <div class="col-lg-12">
                   <div class="card">
                       <div class="card-body">
-                                                   
-                             
-                      <a class="btn btn-warning" href="{{ route('usuarios.create') }}">Nuevo</a>
+
+
+                      <a class="btn btn-warning" href="{{ route('usuarios.create') }}" title="Crear nuevo usuario">Nuevo usuario</a>
                       <div>
                       <br>
                       </div>
-                      
+
                          <!-- <form  class="d-flex">
                          <a class="btn btn-warning" href="{{ route('usuarios.create') }}">Nuevo</a>
                          &emsp;
                           <input class="form-control me-2 light-table-filter" data-table="table_id" type="text" placeholder="Ingresa el nombre a buscar...">
-                          
+
                          </form> -->
 
-                         
-            
+
+
                             <table class="table table-striped mt-2 table_id" id="miTabla">
-                              <thead style="background-color:#6777ef">                                     
+                              <thead style="background-color:#6777ef">
                                   <th style="display: none;">ID</th>
                                   <th style="color:#fff;">Nombre</th>
-                                  <th style="color:#fff;">E-mail</th>
+                                  <th style="color:#fff;">Correo electronico</th>
                                   <th style="color:#fff;">Rol</th>
-                                  <th style="color:#fff;">Acciones</th>                                                                   
+                                  <th style="color:#fff;">Acciones</th>
                               </thead>
                               <tbody>
                                 @foreach ($usuarios as $usuario)
@@ -42,14 +42,14 @@
                                     <td>{{ $usuario->email }}</td>
                                     <td>
                                       @if(!empty($usuario->getRoleNames()))
-                                        @foreach($usuario->getRoleNames() as $rolNombre)                                       
+                                        @foreach($usuario->getRoleNames() as $rolNombre)
                                           <h5><span class="badge badge-dark">{{ $rolNombre }}</span></h5>
                                         @endforeach
                                       @endif
                                     </td>
 
-                                    <td>                                  
-                                      <a class="btn btn-info" href="{{ route('usuarios.edit',$usuario->id) }}">Editar</a>
+                                    <td>
+                                      <a class="btn btn-info" href="{{ route('usuarios.edit',$usuario->id) }}" title="Editar usuario">Editar</a>
 
                                       {!! Form::open(['method' => 'DELETE','route' => ['usuarios.destroy', $usuario->id],'style'=>'display:inline']) !!}
                                           {!! Form::submit('Borrar', ['class' => 'btn btn-danger']) !!}
@@ -59,8 +59,8 @@
                                 @endforeach
                               </tbody>
                             </table>
-                            <!-- Centramos la paginacion a la derecha -->   
-                            
+                            <!-- Centramos la paginacion a la derecha -->
+
                       </div>
                   </div>
               </div>
