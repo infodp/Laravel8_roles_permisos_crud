@@ -9,5 +9,5 @@ class Ciudadano extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['nombre','apellido_p', 'apellido_m','sexo','calle','numero','cargo_id'];
+    protected $fillable = ['id','nombre','apellido_p', 'apellido_m','sexo','calle','num_calle','cargo_id'];
 }
