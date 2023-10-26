@@ -24,50 +24,69 @@
                         @endif
 
 
-                    <form action="{{ route('ciudadanos.update',$ciudadano->id) }}" method="POST">
-                        @csrf
-                        @method('PUT')
-                        <div class="row">
-                            <div class="col-xs-12 col-sm-12 col-md-12">
-                                <div class="form-group">
-                                   <label for="nombre">Nombre</label>
-                                   <input type="text" name="nombre" class="form-control" value="{{ $ciudadano->nombre }}">
+                        <form action="{{ route('ciudadanos.update', $ciudadano->id) }}" method="POST">
+                            @csrf
+                            @method('PUT')
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="nombre">Nombre: </label></label><span class="required text-danger">*</span>
+                                        <input type="text" name="nombre" class="form-control" value="{{ $ciudadano->nombre }}">
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="apellido_p">Apellido paterno: </label></label><span class="required text-danger">*</span>
+                                        <input type="text" name="apellido_p" class="form-control" value="{{ $ciudadano->apellido_p }}">
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="apellido_m">Apellido materno: </label></label><span class="required text-danger">*</span>
+                                        <input type="text" name="apellido_m" class="form-control" value="{{ $ciudadano->apellido_m }}">
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="sexo">Sexo: </label></label><span class="required text-danger">*</span>
+                                        <select name="sexo" class="form-control">
+                                            <option value="Hombre" {{ $ciudadano->sexo === 'Hombre' ? 'selected' : '' }}>Hombre</option>
+                                            <option value="Mujer" {{ $ciudadano->sexo === 'Mujer' ? 'selected' : '' }}>Mujer</option>
+                                            <option value="Otro" {{ $ciudadano->sexo === 'Otro' ? 'selected' : '' }}>Otro</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="calle">Calle: </label></label><span class="required text-danger">*</span>
+                                        <input type="text" name="calle" class="form-control" value="{{ $ciudadano->calle }}">
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="num_calle">Numero de calle: </label></label><span class="required text-danger">*</span>
+                                        <input type="text" name="num_calle" class="form-control" value="{{ $ciudadano->num_calle }}">
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="cargo_id">Cargo: </label></label><span class="required text-danger">*</span>
+                                        <select name="cargo_id" class="form-control">
+                                            <option value="">Seleccionar cargo</option>
+                                            @foreach(\App\Models\Cargo::get() as $cargo)
+                                                <option value="{{$cargo->id}}" {{ $ciudadano->cargo_id == $cargo->id ? 'selected' : '' }}>{{ $cargo->nombre }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <button type="submit" class="btn btn-primary">Guardar</button>
+                                    <a href="/ciudadanos" class="btn btn-warning">Cancelar</a>
                                 </div>
                             </div>
-                            <div class="col-xs-12 col-sm-12 col-md-12">
-                                <div class="form-group">
-                                   <label for="apellido_p">Apellido paterno</label>
-                                   <input type="text" name="apellido_p" class="form-control" value="{{ $ciudadano->apellido_m }}">
-                                </div>
-                            </div>
-                            <div class="col-xs-12 col-sm-12 col-md-12">
-                                <div class="form-group">
-                                   <label for="apellido_m">Apellido materno</label>
-                                   <input type="text" name="apellido_m" class="form-control" value="{{ $ciudadano->apellido_m }}">
-                                </div>
-                            </div>
-                            <div class="col-xs-12 col-sm-12 col-md-12">
-                                <div class="form-group">
-                                   <label for="sexo">Sexo</label>
-                                   <input type="text" name="sexo" class="form-control" value="{{ $ciudadano->sexo }}">
-                                </div>
-                            </div>
-                            <div class="col-xs-12 col-sm-12 col-md-12">
-                                <div class="form-group">
-                                   <label for="calle">Calle</label>
-                                   <input type="text" name="calle" class="form-control" value="{{ $ciudadano->calle}}">
-                                </div>
-                            </div>
-                            <div class="col-xs-12 col-sm-12 col-md-12">
-                                <div class="form-group">
-                                   <label for="num_calle">Numero de calle</label>
-                                   <input type="text" name="num_calle" class="form-control" value="{{ $ciudadano->num_calle}}">
-                                </div>
-                            </div>
-                            <br>
-                            <button type="submit" class="btn btn-primary">Guardar</button>
-                        </div>
-                    </form>
+                        </form>
+
 
                         </div>
                     </div>

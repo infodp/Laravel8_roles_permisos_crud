@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 
 class CiudadanoController extends Controller
 {
+    public $ver = false;
     /**
      * Display a listing of the resource.
      *
@@ -24,6 +25,7 @@ class CiudadanoController extends Controller
 
     public function index()
     {
+        // $this->ver = true;
         $ciudadanos = Ciudadano::all();
         return view('ciudadanos.index', compact('ciudadanos'));
     }
@@ -53,11 +55,12 @@ class CiudadanoController extends Controller
             'sexo' => 'required',
             'calle' => 'required',
             'num_calle' => 'required',
+            'cargo_id' => 'required',
         ]);
 
         Ciudadano::create($request->all());
 
-        return redirect()->route('ciudadanos.index');
+        return redirect()->route('ciudadanos.index')->with('success', 'Ciudadano guardado exitosamente.');
     }
 
     /**
@@ -66,9 +69,11 @@ class CiudadanoController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Ciudadano $ciudadano)
     {
-        //
+        // $ciudadano=Ciudadano::find($ciudadano-)
+        $this->ver = true;
+        return view('ciudadanos.ver',compact('elemento'));
     }
 
     /**
@@ -103,7 +108,7 @@ class CiudadanoController extends Controller
 
         $ciudadano->update($request->all());
 
-        return redirect()->route('ciudadanos.index');
+        return redirect()->route('ciudadanos.index')->with('success', 'Ciudadano guardado exitosamente.');
     }
 
     /**
@@ -116,4 +121,10 @@ class CiudadanoController extends Controller
     {
         //
     }
+    public function showModal()
+    {
+        dd('ddd');
+        return view('ciudadanos.ver');
+    }
+
 }

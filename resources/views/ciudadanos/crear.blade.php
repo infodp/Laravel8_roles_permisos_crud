@@ -11,6 +11,7 @@
                     <div class="card">
                         <div class="card-body">
 
+                        <label class="text-danger">Los campos con * son obligatorios</label>
                         @if ($errors->any())
                             <div class="alert alert-dark alert-dismissible fade show" role="alert">
                             <strong>¡Revise los campos!</strong>
@@ -23,56 +24,63 @@
                             </div>
                         @endif
 
-                    <form action="{{ route('ciudadanos.store') }}" method="POST">
-                        @csrf
-                        <div class="row">
-                            <div class="col-xs-12 col-sm-12 col-md-12">
-                                <div class="form-group">
-                                   <label for="nombre">Nombre</label>
-                                   <input type="text" name="nombre" class="form-control">
+                        <form action="{{ route('ciudadanos.store') }}" method="POST">
+                            @csrf
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="nombre">Nombre: </label><span class="required text-danger">*</span>
+                                        <input type="text" name="nombre" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="apellido_p">Apellido paterno: </label><span class="required text-danger">*</span>
+                                        <input type="text" name="apellido_p" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="apellido_m">Apellido Materno: </label><span class="required text-danger">*</span>
+                                        <input type="text" name="apellido_m" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="sexo">Sexo: </label><span class="required text-danger">*</span>
+                                        <input type="text" name="sexo" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="calle">Calle: </label><span class="required text-danger">*</span>
+                                        <input type="text" name="calle" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="num_calle">Numero de calle: </label><span class="required text-danger">*</span>
+                                        <input type="text" name="num_calle" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="cargo_id">Cargo: </label><span class="required text-danger">*</span>
+                                        <select name="cargo_id" class="form-control">
+                                            @foreach(\App\Models\Cargo::get() as $cargo)
+                                                <option value="{{$cargo->id}}">{{ $cargo->nombre }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <button type="submit" class="btn btn-primary">Guardar</button>
+                                    <a href="/ciudadanos" class="btn btn-warning">Cancelar</a>
                                 </div>
                             </div>
-                            <div class="col-xs-12 col-sm-12 col-md-12">
-                                <div class="form-group">
-                                   <label for="apellido_p">Apellido paterno</label>
-                                   <input type="text" name="apellido_p" class="form-control">
-                                </div>
-                            </div>
-                            <div class="col-xs-12 col-sm-12 col-md-12">
-                                <div class="form-group">
-                                   <label for="apellido_m">Apellido Materno</label>
-                                   <input type="text" name="apellido_m" class="form-control">
-                                </div>
-                            </div>
-                            <div class="col-xs-12 col-sm-12 col-md-12">
-                                <div class="form-group">
-                                   <label for="sexo">Sexo</label>
-                                   <input type="text" name="sexo" class="form-control">
-                                </div>
-                            </div>
-                            <div class="col-xs-12 col-sm-12 col-md-12">
-                                <div class="form-group">
-                                   <label for="calle">Calle</label>
-                                   <input type="text" name="calle" class="form-control">
-                                </div>
-                            </div>
-                            <div class="col-xs-12 col-sm-12 col-md-12">
-                                <div class="form-group">
-                                   <label for="num_calle">Numero de calle</label>
-                                   <input type="text" name="num_calle" class="form-control">
-                                </div>
-                            </div>
-                            <div class="col-xs-12 col-sm-12 col-md-12">
-                                <select class="form-select" aria-label="Default select example">
-                                    <option value="">Selecciona un cargo</option>
-                                    @foreach (\App\Models\Cargo::get() as $group)
-                                        <option value="{{ $group->id }}">{{ $group->nombre }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                            <button type="submit" class="btn btn-primary">Guardar</button>
-                        </div>
-                    </form>
+                        </form>
+
+
 
                         </div>
                     </div>

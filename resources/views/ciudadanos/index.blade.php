@@ -38,13 +38,14 @@
                                             @can('editar-ciudadanos')
                                             <a class="btn btn-info" href="{{ route('ciudadanos.edit',$ciudadano->id) }}">Editar</a>
                                             @endcan
-
                                             @csrf
                                             @method('DELETE')
                                             @can('borrar-ciudadanos')
                                             <button type="submit" class="btn btn-danger">Borrar</button>
                                             @endcan
+
                                         </form>
+                                        {{-- <i class="fa-solid fa-pen-to-square"></i> --}}
                                     </td>
                                   </tr>
                                 @endforeach
@@ -57,6 +58,8 @@
               </div>
           </div>
       </div>
+
+
     </section>
     <!-- JQUERY -->
     <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
@@ -84,4 +87,8 @@
     }
 });
     </script>
+
 @endsection
+
+
+
