@@ -76,17 +76,18 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-  <form name="formEvento" id="formEvento" action="javascript:void(0);" class="datepickers">
+  <form name="formEvento" id="formEvento" action="{{ route('agenda.store') }}" method="post" class="datepickers">
+    {{ csrf_field() }}
 		<div class="form-group">
 			<label for="evento" class="col-sm-12 control-label">Nombre del Evento</label>
 			<div class="col-sm-10">
-				<input type="text" class="form-control"  name="evento" id="evento" placeholder="Nombre del Evento" required/>
+				<input type="text" class="form-control"  name="nombre" id="nombre" placeholder="Nombre del Evento" required/>
 			</div>
 		</div>
         <div class="form-group">
 			<label for="eventoDescripcion" class="col-sm-12 control-label">Descripción del Evento</label>
 			<div class="col-sm-10">
-				<input type="text" rows="4" class="form-control" name="eventoDescripcion" id="eventoDescripcion" placeholder="Descripció del Evento" required/>
+				<input type="text" rows="4" class="form-control" name="descripcion" id="descripcion" placeholder="Descripció del Evento" required/>
 			</div>
 		</div>
     <div class="form-group">
@@ -98,15 +99,16 @@
     <div class="form-group">
       <label for="fecha_fin" class="col-sm-12 control-label">Fecha Final</label>
       <div class="col-sm-10">
-        <label type="text" class="form-control" name="fecha_fin" id="fecha_fin" placeholder="Fecha Final">
+        <input type="text" class="form-control" name="fecha_fin" id="fecha_fin" placeholder="Fecha Final" disabled>
+        <input type="hidden" class="form-control" value=" " name="fecha_final" id="fecha_final" placeholder="Fecha Final">
       </div>
     </div>
-    <div class="form-group">
+    <!-- <div class="form-group">
       <label for="fecha_inicio" class="col-sm-12 control-label">Hora Inicio</label>
       <div class="col-sm-10" id="id_0">
         <input type="text" class="form-control" name="hora_inicio" id="hora_inicio" placeholder="Hora Inicio"/>
       </div>
-    </div>
+    </div> -->
 
   <!-- <div class="col-md-12" id="grupoRadio">
   
@@ -218,28 +220,35 @@
 
   select: function(start, end){
       $("#exampleModal").modal();
-      $("input[name=fecha_inicio]").val(start.format('DD-MM-YYYY'));
+      // $("input[name=fecha_inicio]").val(start.format('DD-MM-YYYY'));
+      $("input[name=fecha_inicio]").val(start.format('YYYY-MM-DD'));
        
-      var valorFechaFin = end.format("DD-MM-YYYY");
-      var F_final = moment(valorFechaFin, "DD-MM-YYYY").subtract(1, 'days').format('DD-MM-YYYY'); //Le resto 1 dia
-      document.getElementById("fecha_fin").innerHTML = F_final; 
+      // var valorFechaFin = end.format("DD-MM-YYYY");
+      var valorFechaFin = end.format("YYYY-MM-DD");
+      var F_final = moment(valorFechaFin, "YYYY-MM-DD").subtract(1, 'days').format('YYYY-MM-DD'); //Le resto 1 dia
+      $("input[name=fecha_fin]").val(F_final);
+      $("input[name=fecha_final]").val(F_final);
+      // document.getElementById("fecha_fin").innerHTML = F_final;
+      // document.getElementById("fecha_final").innerHtml = F_final;
       
-      $.ajax({
-                    type: "POST",
-                    url: "{{ route('agenda.store') }}",
-                    data: {nombre: name,
-                        message: chatMessageValue
-                    }
-                });
+      // $.ajax({
+      //               type: "POST",
+      //               url: "{{ route('agenda.store') }}",
+      //               data: {nombre: name,
+      //                   message: chatMessageValue
+      //               }
+      //           });
 
-            $("#calendar").addEvent({
-            id: uuidv4(),
-            title: getTitleValue,
-            start: setModalStartDateValue,
-            end: setModalEndDateValue,
-            allDay: true,
-            extendedProps: { calendar: getModalCheckedRadioBtnValue }
-        })
+        //     $("#calendar").addEvent({
+        //     // id: uuidv4(),
+        //     nombre: $('#evento').val(),
+        //     descripcion: $('#eventoDescripcion').val(),
+        //     fecha_inicio: $('#fecha_inicio').val(),
+        //     fecha_fin: $('#fecha_fin').val(),
+        //     // create_at: setModalEndDateValue,
+        //     // update_at: true,
+        //     color: '#8BC34A'
+        // })
     },
       
     

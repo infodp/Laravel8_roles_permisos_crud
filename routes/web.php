@@ -24,7 +24,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::resource('agenda', 'AgendaController');
+// Route::resource('agenda', 'AgendaController');
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
@@ -41,6 +41,5 @@ Route::group(['middleware' => ['auth']], function() {
     Route::resource('usuarios', UsuarioController::class);
     Route::resource('blogs', BlogController::class);
     Route::resource('agenda', AgendaController::class);
-    Route::resource('agenda/nuevoEvento', AgendaController::class);
     Route::resource('ciudadanos', CiudadanoController::class);
 });

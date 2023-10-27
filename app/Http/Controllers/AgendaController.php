@@ -3,14 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
-//agregamos lo siguiente
-use App\Http\Controllers\Controller;
-use App\Models\Evento;
-use Spatie\Permission\Models\Role;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Arr;
+
+use App\Models\Evento;
 
 class AgendaController extends Controller
 {
@@ -45,7 +40,49 @@ class AgendaController extends Controller
      */
     public function store(Request $request)
     {
+        $this->validate($request,[
+            'nombre' => 'required',
+            'descripcion' => 'required',
+            'fecha_inicio' => 'required',
+            'fecha_final' => 'required',
+        ]);
+
+        $event = new Evento;
+
+        $event->nombre = $request->input('nombre');
+        $event->descripcion = $request->input('descripcion');
+        $event->fecha_inicio = $request->input('fecha_inicio');
+        $event->fecha_fin = $request->input('fecha_final');
+
+        $event->save();
+
+        // $nombre = $_POST['nombre'];
+        // $descripcion = $_POST['descripcion'];
+        // $fecha_inicio = $_POST['fecha_inicio'];
+        // $fecha_final = $_POST['fecha_final'];
+
+        // echo $nombre;
+        // echo $descripcion;
+        // echo $fecha_inicio;
+        // echo $fecha_final;
+
+        // echo $fecha_fin;
+
+        // DB::insert('insert into eventos (nombre, descripcion, fecha_inicio, fecha_fin) values (?, ?, ?, ?)', [$nombre, $descripcion, $fecha_inicio, $fecha_fin]);
+
+        // // dd('Hola');
+        // request()->validate([
+        //     'nombre' => 'required',
+        //     'descripcion' => 'required',
+        //     'fecha_inicio' => 'required',
+        //     'fecha_final' => 'required',
+        // ]);
         
+        // // $datosEvento = request()->all();
+
+        // Evento::insert(request()->all());
+
+        return redirect()->route('agenda.index')->with('success', 'Evento guardado exitosamente.');
     }
 
     /**
