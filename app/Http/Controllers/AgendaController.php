@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 
 //agregamos lo siguiente
 use App\Http\Controllers\Controller;
-use App\Models\User;
+use App\Models\Evento;
 use Spatie\Permission\Models\Role;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
@@ -24,6 +24,8 @@ class AgendaController extends Controller
         return view('agenda.index');
 
     }
+
+    
 
     /**
      * Show the form for creating a new resource.

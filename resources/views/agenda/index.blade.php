@@ -19,9 +19,6 @@
                 </div>
             </div>
         </div>
-
-        <!-- Modal -->
-        
     </section>
 
     

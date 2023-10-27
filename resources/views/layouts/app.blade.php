@@ -6,7 +6,7 @@
     <title>@yield('title') | {{ config('app.name') }}</title>
     <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
     <!-- Bootstrap 4.1.1 -->
-    <link href="{{ asset('assets/css/bootstrap.min.css') }}" rel="stylesheet" type="text/css"/>
+    <!-- <link href="{{ asset('assets/css/bootstrap.min.css') }}" rel="stylesheet" type="text/css"/> -->
     <!-- Ionicons -->
     <link href="//fonts.googleapis.com/css?family=Lato&display=swap" rel="stylesheet">
     <link href="{{ asset('assets/css/@fortawesome/fontawesome-free/css/all.css') }}" rel="stylesheet" type="text/css">
@@ -14,17 +14,25 @@
     <link href="{{ asset('assets/css/sweetalert.css') }}" rel="stylesheet" type="text/css"/>
     <link href="{{ asset('assets/css/select2.min.css') }}" rel="stylesheet" type="text/css"/>
 
+    <!-- Nuevo -->
+    <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700&display=swap" rel="stylesheet">
+
+	  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
     <!-- FullCalendar css -->
     <link rel="stylesheet" type="text/css" href="{{ asset('css/fullcalendar.min.css') }}">
 	<link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 	<link rel="stylesheet" type="text/css" href="{{ asset('css/bootstrap.min.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ asset('css/home.css') }}">
+    <!-- <link rel="stylesheet" type="text/css" href="{{ asset('css/home.css') }}"> -->
 
 @yield('page_css')
 <!-- Template CSS -->
     <link rel="stylesheet" href="{{ asset('web/css/style.css') }}">
     <link rel="stylesheet" href="{{ asset('web/css/components.css')}}">
+
+    <link rel="stylesheet" href="{{ asset('css/bootstrap-datetimepicker.min.css')}}">
+
     <style>
       .toolbar {
     float: left;
@@ -68,7 +76,7 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-  <form name="formEvento" id="formEvento" action="nuevoEvento.php" class="form-horizontal" method="POST">
+  <form name="formEvento" id="formEvento" action="javascript:void(0);" class="datepickers">
 		<div class="form-group">
 			<label for="evento" class="col-sm-12 control-label">Nombre del Evento</label>
 			<div class="col-sm-10">
@@ -78,7 +86,7 @@
         <div class="form-group">
 			<label for="eventoDescripcion" class="col-sm-12 control-label">Descripción del Evento</label>
 			<div class="col-sm-10">
-				<input type="textarea" rows="4" class="form-control" name="eventoDescripcion" id="eventoDescripcion" placeholder="Descripció del Evento" required/>
+				<input type="text" rows="4" class="form-control" name="eventoDescripcion" id="eventoDescripcion" placeholder="Descripció del Evento" required/>
 			</div>
 		</div>
     <div class="form-group">
@@ -95,12 +103,12 @@
     </div>
     <div class="form-group">
       <label for="fecha_inicio" class="col-sm-12 control-label">Hora Inicio</label>
-      <div class="col-sm-10">
-        <input type="text" class="form-control" name="hora_inicio" id="hora_inicio" placeholder="Hora Inicio">
+      <div class="col-sm-10" id="id_0">
+        <input type="text" class="form-control" name="hora_inicio" id="hora_inicio" placeholder="Hora Inicio"/>
       </div>
     </div>
 
-  <div class="col-md-12" id="grupoRadio">
+  <!-- <div class="col-md-12" id="grupoRadio">
   
   <input type="radio" name="color_evento" id="orange" value="#FF5722" checked>
   <label for="orange" class="circu" style="background-color: #FF5722;"> </label>
@@ -120,7 +128,7 @@
   <input type="radio" name="color_evento" id="indigo" value="#9c27b0">  
   <label for="indigo" class="circu" style="background-color: #9c27b0;"> </label>
 
-</div>
+</div> -->
 		
 	   <div class="modal-footer">
       	<button type="submit" class="btn btn-success">Guardar Evento</button>
@@ -155,8 +163,16 @@
 <script src="{{ mix('assets/js/profile.js') }}"></script>
 <script src="{{ mix('assets/js/custom/custom.js') }}"></script>
 <script src="{{ asset('assets/js/custom/buscador.js') }}"></script>
+
+<!-- Nuevo -->
+<script src="{{ asset('js/popper.js') }}"></script>
+<script src="{{ asset('js/moment-with-locales.min.js') }}"></script>
+<script src="{{ asset('js/bootstrap-datetimepicker.min.js') }}"></script>
+<script src="{{ asset('js/main.js') }}"></script>
+
 @yield('page_js')
 @yield('scripts')
+
 <script>
     let loggedInUser =@json(\Illuminate\Support\Facades\Auth::user());
     let loginUrl = '{{ route('login') }}';
@@ -208,7 +224,22 @@
       var F_final = moment(valorFechaFin, "DD-MM-YYYY").subtract(1, 'days').format('DD-MM-YYYY'); //Le resto 1 dia
       document.getElementById("fecha_fin").innerHTML = F_final; 
       
+      $.ajax({
+                    type: "POST",
+                    url: "{{ route('agenda.store') }}",
+                    data: {nombre: name,
+                        message: chatMessageValue
+                    }
+                });
 
+            $("#calendar").addEvent({
+            id: uuidv4(),
+            title: getTitleValue,
+            start: setModalStartDateValue,
+            end: setModalEndDateValue,
+            allDay: true,
+            extendedProps: { calendar: getModalCheckedRadioBtnValue }
+        })
     },
       
     
@@ -287,7 +318,4 @@ eventClick:function(event){
 });
 
 </script>
-<script>
-    
-    </script>
 </html>
