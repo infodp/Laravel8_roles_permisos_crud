@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.appAgenda')
 
 @section('content')
     <section class="section">
@@ -21,5 +21,5 @@
         </div>
     </section>
 
-    
 @endsection
+

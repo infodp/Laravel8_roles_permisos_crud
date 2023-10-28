@@ -16,7 +16,22 @@ class AgendaController extends Controller
      */
     public function index(Request $request)
     {
-        return view('agenda.index');
+        $eventos= Evento::all();
+        // $eventos = DB::table('eventos')->get();
+        // $sql = 'SELECT * FROM eventos';
+        // $eventos = DB::select($sql);
+        // return $eventos;
+        // echo $eventos;
+        // while($evento = mysqli_fetch_array($eventos))
+        //    {
+        //    echo $evento['id'];
+        //    echo $evento['nombre'];
+        //    echo $evento['fecha_inicio'];
+        //    echo $evento['fecha_fin'];
+        // //    <!-- color: '#8BC34A' -->
+        //    }
+        
+        return view('agenda.index')->with('eventos', $eventos);
 
     }
 
@@ -55,32 +70,6 @@ class AgendaController extends Controller
         $event->fecha_fin = $request->input('fecha_final');
 
         $event->save();
-
-        // $nombre = $_POST['nombre'];
-        // $descripcion = $_POST['descripcion'];
-        // $fecha_inicio = $_POST['fecha_inicio'];
-        // $fecha_final = $_POST['fecha_final'];
-
-        // echo $nombre;
-        // echo $descripcion;
-        // echo $fecha_inicio;
-        // echo $fecha_final;
-
-        // echo $fecha_fin;
-
-        // DB::insert('insert into eventos (nombre, descripcion, fecha_inicio, fecha_fin) values (?, ?, ?, ?)', [$nombre, $descripcion, $fecha_inicio, $fecha_fin]);
-
-        // // dd('Hola');
-        // request()->validate([
-        //     'nombre' => 'required',
-        //     'descripcion' => 'required',
-        //     'fecha_inicio' => 'required',
-        //     'fecha_final' => 'required',
-        // ]);
-        
-        // // $datosEvento = request()->all();
-
-        // Evento::insert(request()->all());
 
         return redirect()->route('agenda.index')->with('success', 'Evento guardado exitosamente.');
     }
@@ -128,6 +117,11 @@ class AgendaController extends Controller
      */
     public function destroy($id)
     {
-        
+        DB::table('eventos')->whereId($id)->delete();
+    }
+
+    public function eliminar($id)
+    {
+        DB::table('eventos')->whereId($id)->delete();
     }
 }
