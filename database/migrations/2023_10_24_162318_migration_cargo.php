@@ -18,6 +18,7 @@ class MigrationCargo extends Migration
             $table->string('nombre');
             $table->date('fecha_inicio');
             $table->date('fecha_fin');
+            $table->boolean('estado');
             $table->timestamps();
         });
     }

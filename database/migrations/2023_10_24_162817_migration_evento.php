@@ -19,6 +19,8 @@ class MigrationEvento extends Migration
             $table->text('descripcion');
             $table->date('fecha_inicio');
             $table->date('fecha_fin');
+            $table->time('hora');
+            $table->boolean('estado');
             $table->timestamps();
         });
     }

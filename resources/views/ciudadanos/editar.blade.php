@@ -30,59 +30,93 @@
                             <div class="row">
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <label for="nombre">Nombre: </label></label><span class="required text-danger">*</span>
-                                        <input type="text" name="nombre" class="form-control" value="{{ $ciudadano->nombre }}">
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label for="apellido_p">Apellido paterno: </label></label><span class="required text-danger">*</span>
-                                        <input type="text" name="apellido_p" class="form-control" value="{{ $ciudadano->apellido_p }}">
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label for="apellido_m">Apellido materno: </label></label><span class="required text-danger">*</span>
-                                        <input type="text" name="apellido_m" class="form-control" value="{{ $ciudadano->apellido_m }}">
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label for="sexo">Sexo: </label></label><span class="required text-danger">*</span>
-                                        <select name="sexo" class="form-control">
-                                            <option value="Hombre" {{ $ciudadano->sexo === 'Hombre' ? 'selected' : '' }}>Hombre</option>
-                                            <option value="Mujer" {{ $ciudadano->sexo === 'Mujer' ? 'selected' : '' }}>Mujer</option>
-                                            <option value="Otro" {{ $ciudadano->sexo === 'Otro' ? 'selected' : '' }}>Otro</option>
-                                        </select>
+                                        <label for="nombre">Nombre: <span class="required text-danger">*</span></label>
+                                        <input type="text" name="nombre" pattern="[A-Za-záéíóúüñÁÉÍÓÚÜÑ\s]+" class="form-control" value="{{ $ciudadano->nombre }}" autocomplete="off">
                                     </div>
                                 </div>
 
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <label for="calle">Calle: </label></label><span class="required text-danger">*</span>
-                                        <input type="text" name="calle" class="form-control" value="{{ $ciudadano->calle }}">
+                                        <label for="apellido_p">Apellido paterno: <span class="required text-danger">*</span></label>
+                                        <input type="text" name="apellido_p" pattern="[A-Za-záéíóúüñÁÉÍÓÚÜÑ\s]+" class="form-control" value="{{ $ciudadano->apellido_p }}">
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="apellido_m">Apellido materno: <span class="required text-danger">*</span></label>
+                                        <input type="text" name="apellido_m" pattern="[A-Za-záéíóúüñÁÉÍÓÚÜÑ\s]+" class="form-control" value="{{ $ciudadano->apellido_m }}">
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <label for="num_calle">Numero de calle: </label></label><span class="required text-danger">*</span>
-                                        <input type="text" name="num_calle" class="form-control" value="{{ $ciudadano->num_calle }}">
+                                        <label for="sexo">Sexo: <span class="required text-danger">*</span></label>
+                                        <select name="sexo" class="form-control">
+                                            <option disabled selected>Selecciona sexo</option>
+                                            <option value="Masculino" {{ $ciudadano->sexo === 'Masculino' ? 'selected' : '' }}>Masculino</option>
+                                            <option value="Femenino" {{ $ciudadano->sexo === 'Femenino' ? 'selected' : '' }}>Femenino</option>
+                                        </select>
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <label for="cargo_id">Cargo: </label></label><span class="required text-danger">*</span>
+                                        <label for="curp">Curp: <span class="required text-danger">*</span></label>
+                                        <input type="text" name="curp" class="form-control" value="{{ $ciudadano->curp }}">
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="fecha_nacimiento">Fecha de nacimiento: <span class="required text-danger">*</span></label>
+                                        <input type="date" name="fecha_nacimiento" class="form-control" value="{{ $ciudadano->fecha_nacimiento }}">
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="num_telefonico">Numero telefonico: <span class="required text-danger">*</span></label>
+                                        <input type="tel" name="num_telefonico" pattern="[0-9]*" class="form-control" value="{{ $ciudadano->num_telefonico }}">
+                                    </div>
+                                </div>
+
+                                {{-- datos del domicilio --}}
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="calle">Calle: <span class="required text-danger">*</span></label>
+                                        <input type="text" name="calle" pattern="[A-Za-záéíóúüñÁÉÍÓÚÜÑ\s]+" class="form-control" value="{{ $ciudadano->calle }}">
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="num_calle">Numero de calle: <span class="required text-danger">*</span></label>
+                                        <input type="text" name="num_calle" pattern="[0-9]*" class="form-control" value="{{ $ciudadano->num_calle }}">
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="cargo_id">Cargo: <span class="required text-danger">*</span></label>
                                         <select name="cargo_id" class="form-control">
                                             <option value="">Seleccionar cargo</option>
                                             @foreach(\App\Models\Cargo::get() as $cargo)
-                                                <option value="{{$cargo->id}}" {{ $ciudadano->cargo_id == $cargo->id ? 'selected' : '' }}>{{ $cargo->nombre }}</option>
+                                                <option value="{{ $cargo->id }}" {{ $ciudadano->cargo_id == $cargo->id ? 'selected' : '' }}>
+                                                    {{ $cargo->nombre }}
+                                                </option>
                                             @endforeach
                                         </select>
                                     </div>
                                 </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="estado">Estado: <span class="required text-danger">*</span></label>
+                                        <select name="estado" class="form-control">
+                                            <option disabled>Selecciona Estado</option>
+                                            <option value="1" {{ $ciudadano->estado === 1 ? 'selected' : '' }}>Activo</option>
+                                            <option value="0" {{ $ciudadano->estado === 0 ? 'selected' : '' }}>Inactivo</option>
+                                        </select>
+                                    </div>
+                                </div>
+
                                 <div class="col-md-12">
                                     <button type="submit" class="btn btn-primary">Guardar</button>
-                                    <a href="/ciudadanos" class="btn btn-warning">Cancelar</a>
+                                    <a href="{{ route('ciudadanos.index') }}" class="btn btn-warning">Cancelar</a>
                                 </div>
                             </div>
                         </form>

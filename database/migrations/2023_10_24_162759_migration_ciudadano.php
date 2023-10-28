@@ -19,8 +19,12 @@ class MigrationCiudadano extends Migration
             $table->string('apellido_p');
             $table->string('apellido_m');
             $table->string('sexo');
+            $table->string('curp');
+            $table->date('fecha_nacimiento');
             $table->string('calle');
             $table->bigInteger('num_calle');
+            $table->boolean('estado');
+            $table->bigInteger('num_telefonico');
             $table->foreignId('cargo_id') ->nullable()
             ->constrained()
             ->onDelete('set null');

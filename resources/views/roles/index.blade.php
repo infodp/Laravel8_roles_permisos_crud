@@ -10,7 +10,7 @@
                 <div class="col-lg-12">
                     <div class="card">
                         <div class="card-body">
-                            <a class="btn btn-warning" href="{{ route('roles.create') }}" title="Crear nuevo rol">Nuevo rol</a>
+                            <a class="btn btn-warning" href="{{ route('roles.create') }}" title="Crear nuevo rol"> <i class="fa fa-plus" aria-hidden="true"></i> Nuevo rol</a>
                         <div>
                             <br>
                         </div>
@@ -32,7 +32,7 @@
                                     <td>{{ $role->name }}</td>
                                     <td>
                                         @can('editar-rol')
-                                            <a class="btn btn-primary" href="{{ route('roles.edit',$role->id) }}" title="Editar role">Editar</a>
+                                            <a class="btn btn-primary" href="{{ route('roles.edit',$role->id) }}" title="Editar role"> <i class="fa fa-pencil" aria-hidden="true"></i> Editar</a>
                                         @endcan
 
                                         @can('borrar-rol')

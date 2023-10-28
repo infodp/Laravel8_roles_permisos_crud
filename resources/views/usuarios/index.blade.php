@@ -12,7 +12,7 @@
                       <div class="card-body">
 
 
-                      <a class="btn btn-warning" href="{{ route('usuarios.create') }}" title="Crear nuevo usuario">Nuevo usuario</a>
+                      <a class="btn btn-warning" href="{{ route('usuarios.create') }}" title="Crear nuevo usuario"> <i class="fa fa-plus" aria-hidden="true"></i> Nuevo usuario</a>
                       <div>
                       <br>
                       </div>
@@ -49,7 +49,7 @@
                                     </td>
 
                                     <td>
-                                      <a class="btn btn-info" href="{{ route('usuarios.edit',$usuario->id) }}" title="Editar usuario">Editar</a>
+                                      <a class="btn btn-info" href="{{ route('usuarios.edit',$usuario->id) }}" title="Editar usuario"><i class="fa fa-pencil" aria-hidden="true"></i> Editar</a>
 
                                       {!! Form::open(['method' => 'DELETE','route' => ['usuarios.destroy', $usuario->id],'style'=>'display:inline']) !!}
                                           {!! Form::submit('Borrar', ['class' => 'btn btn-danger']) !!}

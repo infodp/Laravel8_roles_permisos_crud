@@ -30,4 +30,7 @@
         <i class=" fas fa-user-circle fa-lg"></i><span>Ciudadanos</span>
     </a>
     @endcan
+    <a class="nav-link" href="/cargos">
+        <i class=" fas fa-university fa-lg"></i><span>Cargos</span>
+    </a>
 </li>

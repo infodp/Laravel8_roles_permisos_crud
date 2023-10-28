@@ -8,6 +8,7 @@ use App\Http\Controllers\UsuarioController;
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\AgendaController;
 use App\Http\Controllers\CiudadanoController;
+use App\Http\Controllers\CargoController;
 
 /*
 |--------------------------------------------------------------------------
@@ -42,4 +43,5 @@ Route::group(['middleware' => ['auth']], function() {
     Route::resource('blogs', BlogController::class);
     Route::resource('agenda', AgendaController::class);
     Route::resource('ciudadanos', CiudadanoController::class);
+    Route::resource('cargos', CargoController::class);
 });

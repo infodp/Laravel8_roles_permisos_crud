@@ -3,7 +3,7 @@
 @section('content')
 <section class="section">
   <div class="section-header">
-      <h3 class="page__heading">Ciudadanos</h3>
+      <h3 class="page__heading">Cargos</h3>
   </div>
       <div class="section-body">
           <div class="row">
@@ -16,41 +16,45 @@
                             </div>
                         @endif
 
-                      <a class="btn btn-warning" href="{{ route('ciudadanos.create') }}" title="Crear nuevo ciudadano"><i class="fa fa-plus" aria-hidden="true"></i> Nuevo Ciudadano</a>
-                      <div>
-                      <br>
-                      </div>
+                        <a class="btn btn-warning" href="{{ route('cargos.create') }}" title="Crear nuevo Cargo"><i class="fa fa-plus" aria-hidden="true"></i> Nuevo Cargo</a>
+                        <div>
+                            <br>
+                        </div>
                         <div class="table-responsive">
                             <table class="table table-striped mt-2 table_id" id="miTabla2">
                               <thead style="background-color:#6777ef">
                                   <th style="display: none;">ID</th>
-                                  <th style="color:#fff;">Nombre</th>
-                                  <th style="color:#fff;">Apellido paterno</th>
-                                  <th style="color:#fff;">Apellido Materno</th>
+                                  <th style="color:#fff;">Nombre <i class="fas fa-sort-desc fa-2x" aria-hidden="true"></i></th>
+                                  <th style="color:#fff;">Fecha de inicio</th>
+                                  <th style="color:#fff;">Fecha fin</th>
                                   <th style="color:#fff;">Estado</th>
-                                  <th style="color:#fff;">Cargo</th>
                                   <th style="color:#fff;">Acciones</th>
                               </thead>
                               <tbody>
-                                @foreach ($ciudadanos as $ciudadano)
+                                @foreach ($cargos as $cargo)
                                   <tr>
-                                    <td style="display: none;">{{ $ciudadano->id }}</td>
-                                    <td>{{ $ciudadano->nombre }}</td>
-                                    <td>{{ $ciudadano->apellido_p }}</td>
-                                    <td>{{ $ciudadano->apellido_m }}</td>
+                                    <td style="display: none;">{{ $cargo->id }}</td>
+                                    <td>{{ $cargo->nombre }}</td>
+                                    <td>{{ $cargo->fecha_inicio}}</td>
+                                    {{-- <td>{{ $cargo->fecha_fin->diffForHumans() }}</td> --}}
+                                    @php
+                                        \Carbon\Carbon::setlocale(LC_TIME, 'es_ES.utf8');
+                                     @endphp
+
+                                    <td>{{ \Carbon\Carbon::createFromFormat('Y-m-d', $cargo->fecha_fin)->formatLocalized('%d de %B de %Y') }}</td>
+
                                     <td>
-                                        @if ($ciudadano->estado==1)
+                                        @if ($cargo->estado==1)
                                             {{'Activo'}}
                                         @endif
-                                        @if($ciudadano->estado==0)
+                                        @if($cargo->estado==0)
                                             {{'Inhactivo'}}
                                         @endif
-                                    </td>
-                                    <td>{{ $ciudadano->cargo }}</td>
+                                     </td>
                                     <td>
-                                        <form action="{{ route('ciudadanos.destroy',$ciudadano->id) }}" method="POST">
+                                        <form action="{{ route('cargos.destroy',$cargo->id) }}" method="POST">
                                             @can('editar-ciudadanos')
-                                            <a class="btn btn-info" href="{{ route('ciudadanos.edit',$ciudadano->id) }}"><i class="fa fa-pencil" aria-hidden="true"></i> Editar</a>
+                                            <a class="btn btn-info" href="{{ route('cargos.edit',$cargo->id) }}"><i class="fa fa-pencil" aria-hidden="true"></i> Editar</a>
                                             @endcan
                                             @csrf
                                             @method('DELETE')
@@ -91,10 +95,9 @@
     columns: [
         { Id: 'Id' },
         { Nombre: 'Nombre' },
-        { Apellido_p: 'Apellido_p' },
-        { Apellido_m: 'Apellido_m' },
+        { Fecha_inicio: 'Fecha_inicio' },
+        { Fecha_fin: 'Fecha_fin' },
         { Estado: 'Estado' },
-        { Cargo: 'Cargo' },
         { Acciones: 'Acciones' }
     ],
 

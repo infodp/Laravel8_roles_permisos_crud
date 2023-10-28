@@ -8,5 +8,5 @@ use Illuminate\Database\Eloquent\Model;
 class Cargo extends Model
 {
     use HasFactory;
-    protected $fillable = ['nombre', 'fecha_inicio','fecha_fin'];
+    protected $fillable = ['nombre', 'fecha_inicio','fecha_fin','estado'];
 }
