@@ -1,7 +1,13 @@
 @extends('layouts.appAgenda')
 
 @section('content')
+
     <section class="section">
+    @if(session('success'))
+        <div class="alert alert-success">
+            {{ session('success') }}
+        </div>
+    @endif
         <div class="section-header">
             <h3 class="page__heading">Agenda</h3>
         </div>
