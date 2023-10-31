@@ -10,8 +10,8 @@ class Evento extends Model
     // use HasFactory;
     protected $table="eventos";
     protected $primaryKey="id";
-    protected $fillable = ['nombre','descripcion','estado', 'fecha_inicio','fecha_fin'];
+    protected $fillable = ['nombre','descripcion', 'fecha_inicio','fecha_fin','hora','estado'];
 
-    public $timestamps = false;
+    // public $timestamps = false;
 
 }

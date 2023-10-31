@@ -35,6 +35,10 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 Route::post('agenda/eliminar/{id}',[AgendaController::class, 'eliminar'])->name('agenda.eliminar');
 
+Route::post('agenda/actualizar/',[AgendaController::class, 'actualizar'])->name('agenda.actualizar');
+
+Route::post('agenda/drag_drop/',[AgendaController::class, 'drag_drop'])->name('agenda.drag_drop');
+
 
 //y creamos un grupo de rutas protegidas para los controladores
 Route::group(['middleware' => ['auth']], function() {

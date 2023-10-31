@@ -24,7 +24,7 @@
 	<link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 	<link rel="stylesheet" type="text/css" href="{{ asset('css/bootstrap.min.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ asset('css/home.css') }}">
+    <!-- <link rel="stylesheet" type="text/css" href="{{ asset('css/home.css') }}"> -->
 
 @yield('page_css')
 <!-- Template CSS -->

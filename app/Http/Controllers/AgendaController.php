@@ -60,7 +60,22 @@ class AgendaController extends Controller
             'descripcion' => 'required',
             'fecha_inicio' => 'required',
             'fecha_final' => 'required',
+            'hora_inicio' => 'required',
         ]);
+
+        $hora = $request->input('hora_inicio');
+        $horaa = substr($hora, 0, 2);
+        $horaa = (int)$horaa;
+        $minuto = substr($hora, 3, 2);
+        $minuto = (int)$minuto;
+        $segundo = substr($hora, 6, 2);
+        $segundo = (int)$segundo;
+        $formato = substr($hora, 9, 2);
+        if($formato=="PM" && $horaa!=12){
+            $horaa = $horaa + 12;
+        }
+
+        $horaEvento = "$horaa:$minuto:$segundo";
 
         $event = new Evento;
 
@@ -68,6 +83,8 @@ class AgendaController extends Controller
         $event->descripcion = $request->input('descripcion');
         $event->fecha_inicio = $request->input('fecha_inicio');
         $event->fecha_fin = $request->input('fecha_final');
+        $event->hora = $horaEvento;
+        $event->estado = true;
 
         $event->save();
 
@@ -106,7 +123,7 @@ class AgendaController extends Controller
      */
     public function update(Request $request, $id)
     {
-        
+        echo 'estas en la actualización';
     }
 
     /**
@@ -123,5 +140,54 @@ class AgendaController extends Controller
     public function eliminar($id)
     {
         DB::table('eventos')->whereId($id)->delete();
+    }
+
+    public function actualizar(Request $request)
+    {
+        $this->validate($request,[
+            'evento' => 'required',
+            'descripcionn' => 'required',
+            'fecha_inicioo' => 'required',
+            'fecha_finall' => 'required',
+            'hora_inicioo' => 'required',
+        ]);
+        $hora = $_POST['hora_inicioo'];
+        $horaa = substr($hora, 0, 2);
+        $horaa = (int)$horaa;
+        $minuto = substr($hora, 3, 2);
+        $minuto = (int)$minuto;
+        $segundo = substr($hora, 6, 2);
+        $segundo = (int)$segundo;
+        $formato = substr($hora, 9, 2);
+        if($formato=="PM" && $horaa!=12){
+            $horaa = $horaa + 12;
+        }
+
+        $horaEvento = "$horaa:$minuto:$segundo";
+        $id = $_POST["idEvento"];
+        $event = evento::findOrFail($id);
+        $event->nombre = $_POST["evento"];
+        $event->descripcion = $_POST['descripcionn'];
+        $event->fecha_inicio = $_POST['fecha_inicioo'];
+        $event->fecha_fin = $_POST['fecha_finall'];
+        $event->hora = $horaEvento;
+
+        $event->save();
+
+        return redirect()->route('agenda.index')->with('success', 'Evento actualizado exitosamente.');
+        // echo $dni;
+        // echo("estas en la actualización");
+    }
+
+    public function drag_drop()
+    {
+        $id         = $_POST['idEvento'];
+        $start            = $_REQUEST['start'];
+        $end              = $_REQUEST['end']; 
+
+        $event = evento::findOrFail($id);
+        $event->fecha_inicio = $_REQUEST['start'];
+        $event->fecha_fin = $_REQUEST['end']; 
+        $event->save();
     }
 }

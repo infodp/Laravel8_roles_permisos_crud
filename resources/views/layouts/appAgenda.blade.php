@@ -152,7 +152,8 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-  <form name="formEventoUpdate" id="formEventoUpdate" action="{{ route('agenda.store') }}" method="post" class="datepickers">
+  <form name="formEventoUpdate" id="formEventoUpdate" action="{{ route('agenda.actualizar') }}" method="post" class="datepickers">
+  @csrf
     <input type="hidden" class="form-control" name="idEvento" id="idEvento">
     <div class="form-group">
       <label for="evento" class="col-sm-12 control-label">Nombre del Evento</label>
@@ -283,6 +284,7 @@
           descripcion: '<?php echo $evento['descripcion']; ?>',
           start: '<?php echo $evento['fecha_inicio']; ?>',
           end:   '<?php echo $evento['fecha_fin']; ?>',
+          our:   '<?php echo $evento['hora']; ?>',
           color: '#009688'
         },
           <?php } ?>
@@ -345,20 +347,14 @@ eventDrop: function (event, delta) {
   if(event.end == null){
     var start = (event.start.format('YYYY-MM-DD'));
     var end = (event.start.format("YYYY-MM-DD"));
-      // $('input[name=fecha_finn').val(event.start.format('YYYY-MM-DD'));
-      // $('input[name=fecha_finall').val(event.start.format('YYYY-MM-DD'));
     } else{
       var start = (event.start.format('YYYY-MM-DD'));
       var end = (event.end.format("YYYY-MM-DD"));
-      // var valorFechaFin = event.end.format("YYYY-MM-DD");
-      // var F_final = moment(valorFechaFin, "YYYY-MM-DD").subtract(1, 'days').format('YYYY-MM-DD'); // Le restamos un día
-      // $('input[name=fecha_finn').val(F_final);
-      // $('input[name=fecha_finall').val(F_final); 
     }
   
 
     $.ajax({
-        url: 'drag_drop_evento.php',
+        url: "agenda/drag_drop/",
         data: 'start=' + start + '&end=' + end + '&idEvento=' + idEvento,
         type: "POST",
         success: function (response) {
@@ -370,11 +366,10 @@ eventDrop: function (event, delta) {
 //Modificar Evento del Calendario 
 eventClick:function(event){
     var idEvento = event._id;
-    console.log(idEvento);
+
     $('input[name=idEvento').val(idEvento);
     $('input[name=evento').val(event.title);
     $('input[name=descripcionn').val(event.descripcion);
-    console.log(event.title);
     $('input[name=fecha_inicioo').val(event.start.format('YYYY-MM-DD'));
     
     console.log(event.start);
@@ -387,8 +382,21 @@ eventClick:function(event){
       $('input[name=fecha_finn').val(F_final);
       $('input[name=fecha_finall').val(F_final); 
     }
-    
-    console.log(event.end);
+    var hora = event.our;
+    var horas = hora.split(':');
+    var horaIn = horas[0];
+    var minuto = horas[1];
+    var segundos = horas[2];
+    console.log(horaIn);
+    if(horaIn > 12){
+      horaIn = horaIn - 12;
+      console.log(horaIn);
+      $('input[name=hora_inicioo').val('0'+horaIn+':'+minuto+':'+segundos+' PM');
+    } else if(horaIn < 12){
+      $('input[name=hora_inicioo').val(event.our+' AM')
+    } else if(horaIn == 12){
+      $('input[name=hora_inicioo').val(event.our+' PM');
+    }
 
     $("#modalUpdateEvento").modal();
   },
