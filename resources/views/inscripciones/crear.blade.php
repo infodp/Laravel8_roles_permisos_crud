@@ -18,7 +18,7 @@
                                     <th style="color:#fff;">Nombre</th>
                                     <th style="color:#fff;">Apellido paterno</th>
                                     <th style="color:#fff;">Apellido Materno</th>
-                                    <th style="color:#fff;">Acciones</th>
+                                    <th style="color:#fff;">Acción</th>
                                 </thead>
                                 <tbody>
                                     @foreach ($ciudadanos as $ciudadano)
@@ -45,50 +45,50 @@
 
 <!-- Modal para mostrar detalles de la inscripción -->
 @foreach ($ciudadanos as $ciudadano)
-<div class="modal fade" id="myModal-{{ $ciudadano->id }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel-{{ $ciudadano->id }}" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="myModalLabel-{{ $ciudadano->id }}">Detalles de la inscripción</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <!-- Agrega aquí los detalles de la inscripción del ciudadano -->
-                <h4 class="modal-title">Selecciona el cargo al que vas a inscribir al ciudadano:</h4>
-                <p class="modal-title">{{ $ciudadano->nombre }} {{ $ciudadano->apellido_p }} {{ $ciudadano->apellido_m }}</p>
-                <form action="{{ route('store', ['ciudadano' => $ciudadano->id]) }}" method="POST">
-                    @csrf
-                    <div class="row">
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <label for="cargo_id">Cargo: </label><span class="required text-danger">*</span>
-                                <select name="cargo_id" class="form-control custom-select">
-                                    <option disabled selected>Selecciona cargo</option>
-                                    @foreach(\App\Models\Cargo::where('estado', 1)->get() as $cargo)
-                                        <option value="{{$cargo->id}}">{{ $cargo->nombre }}</option>
-                                    @endforeach
-                                </select>
+    <div class="modal fade" id="myModal-{{ $ciudadano->id }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel-{{ $ciudadano->id }}" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="myModalLabel-{{ $ciudadano->id }}">Detalles de la inscripción</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <!-- Agrega aquí los detalles de la inscripción del ciudadano -->
+                    <h4 class="modal-title">Selecciona el cargo al que vas a inscribir al ciudadano:</h4>
+                    <p class="modal-title">{{ $ciudadano->nombre }} {{ $ciudadano->apellido_p }} {{ $ciudadano->apellido_m }}</p>
+                    <form action="{{ route('store', ['ciudadano' => $ciudadano->id]) }}" method="POST">
+                        @csrf
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="cargo_id">Cargo: </label><span class="required text-danger">*</span>
+                                    <select name="cargo_id" class="form-control custom-select">
+                                        <option disabled selected>Selecciona cargo</option>
+                                        @foreach(\App\Models\Cargo::where('estado', 1)->get() as $cargo)
+                                            <option value="{{$cargo->id}}">{{ $cargo->nombre }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="fecha_inscripcion">Fecha de inscripcion:<span class="required text-danger">*</span></label>
+                                    <input type="date" name="fecha_inscripcion" class="form-control">
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <button type="submit" class="btn btn-primary">Guardar</button>
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
                             </div>
                         </div>
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <label for="fecha_inscripcion">Fecha de inscripcion:<span class="required text-danger">*</span></label>
-                                <input type="date" name="fecha_inscripcion" class="form-control">
-                            </div>
-                        </div>
-                        <div class="col-md-12">
-                            <button type="submit" class="btn btn-primary">Guardar</button>
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                        </div>
-                    </div>
-                </form>
+                    </form>
 
+                </div>
             </div>
         </div>
     </div>
-</div>
 @endforeach
 
 

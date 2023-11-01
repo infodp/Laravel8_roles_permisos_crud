@@ -16,7 +16,7 @@
                             </div>
                         @endif
 
-                        <a class="btn btn-warning" href="{{ route('inscripcion.create') }}" title="Crear nuevo Cargo"><i class="fa fa-plus" aria-hidden="true"></i> Nueva inscripcion</a>
+                        <a class="btn btn-warning" href="{{ route('inscripcion.create') }}" title="Inscribir nuevo ciudadano"><i class="fa fa-plus" aria-hidden="true"></i> Nueva inscripción</a>
                         <div>
                             <br>
                         </div>
@@ -28,7 +28,7 @@
                                   <th style="color:#fff;">Apellido Paterno</th>
                                   <th style="color:#fff;">Apellido Materno</th>
                                   <th style="color:#fff;">Cargo inscrito</th>
-                                  <th style="color:#fff;">Acción</th>
+                                  <th style="color:#fff;">Acciones</th>
                               </thead>
                               <tbody>
                                 @foreach ($inscripciones as $inscripcion)
@@ -43,7 +43,7 @@
                                                 @csrf
                                                 @method('DELETE')
                                                 @can('editar-ciudadanos')
-                                                <a class="btn btn-info" href="{{ route('inscripcion.edit', $inscripcion->idd) }}">
+                                                <a class="btn btn-info" href="{{ route('inscripcion.edit', $inscripcion->idd) }}" title="Editar inscripción">
                                                     <i class="fa fa-pencil" aria-hidden="true"></i> Editar
                                                 </a>
                                                 @endcan
@@ -52,12 +52,15 @@
                                                     <i class="fa fa-trash" aria-hidden="true"></i> Borrar
                                                 </button>
                                                 @endcan
+                                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalDetalles-{{ $inscripcion->idd }}" title="Inspeccionar inscripción">
+                                                    <i class="fa fa-eye" aria-hidden="true"></i> Ver Detalles
+                                                </button>
                                             </form>
                                         </td>
                                     </tr>
                                 @endforeach
-                            </tbody>
-                                                        </table>
+                                </tbody>
+                            </table>
                             <!-- Centramos la paginacion a la derecha -->
                         </div>
                       </div>
@@ -65,9 +68,32 @@
               </div>
           </div>
       </div>
-
-
     </section>
+    @foreach ($inscripciones as $inscripcion)
+<div class="modal" id="modalDetalles-{{ $inscripcion->idd }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel-{{ $inscripcion->id }}" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="myModalLabel-{{ $inscripcion->id }}">Detalles de la inscripción</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <h4>Información de la inscripción</h4>
+                <p><strong>Nombre:</strong> {{ $inscripcion->ciudadano }}</p>
+                <p><strong>Apellido Paterno:</strong> {{ $inscripcion->ap }}</p>
+                <p><strong>Apellido Materno:</strong> {{ $inscripcion->am }}</p>
+                <p><strong>Cargo inscrito:</strong> {{ $inscripcion->cargo }}</p>
+                <!-- Agrega más detalles aquí -->
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+@endforeach
     <!-- JQUERY -->
     <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
     <!-- DATATABLES -->
