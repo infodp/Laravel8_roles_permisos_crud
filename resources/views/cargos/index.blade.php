@@ -36,32 +36,50 @@
                                     <td style="display: none;">{{ $cargo->id }}</td>
                                     <td>{{ $cargo->nombre }}</td>
                                     <td>{{ $cargo->fecha_inicio}}</td>
-                                    {{-- <td>{{ $cargo->fecha_fin->diffForHumans() }}</td> --}}
                                     @php
                                         \Carbon\Carbon::setlocale(LC_TIME, 'es_ES.utf8');
                                      @endphp
 
                                     <td>{{ \Carbon\Carbon::createFromFormat('Y-m-d', $cargo->fecha_fin)->formatLocalized('%d de %B de %Y') }}</td>
 
-                                    <td>
+                                    {{-- <td>
                                         @if ($cargo->estado==1)
                                             {{'Activo'}}
                                         @endif
                                         @if($cargo->estado==0)
                                             {{'Inhactivo'}}
                                         @endif
-                                     </td>
+                                    </td> --}}
+                                    <td>
+                                        <div class="form-check">
+                                            <input type="checkbox" disabled {{ $cargo->estado == 1 ? 'checked' : '' }} class="form-check-input">
+                                            <label class="form-check-label">
+                                                @if ($cargo->estado == 1)
+                                                    {{ 'Activo' }}
+                                                @elseif ($cargo->estado == 0)
+                                                    {{ 'Inactivo' }}
+                                                @endif
+                                            </label>
+                                        </div>
+                                    </td>
+
                                     <td>
                                         <form action="{{ route('cargos.destroy',$cargo->id) }}" method="POST">
                                             @can('editar-ciudadanos')
                                             <a class="btn btn-info" href="{{ route('cargos.edit',$cargo->id) }}"><i class="fa fa-pencil" aria-hidden="true"></i> Editar</a>
                                             @endcan
-                                            @csrf
-                                            @method('DELETE')
-                                            @can('borrar-ciudadanos')
-                                            <button type="submit" class="btn btn-danger">Borrar</button>
-                                            @endcan
-
+                                            {{-- @php
+                                                $cargoId = $cargo->id; // Reemplaza con el ID del cargo que deseas verificar
+                                                $cargos = \App\Models\Cargo::where('id', $cargoId)
+                                                    ->whereDoesntHave('ciudadanos')->get();
+                                            @endphp
+                                            @if (!$cargos->isEmpty())
+                                                @csrf
+                                                @method('DELETE')
+                                                @can('borrar-ciudadanos')
+                                                    <button type="submit" class="btn btn-danger"><i class="fa fa-trash" aria-hidden="true"></i> Borrar</button>
+                                                @endcan
+                                            @endif --}}
                                         </form>
                                         {{-- <i class="fa-solid fa-pen-to-square"></i> --}}
                                     </td>
@@ -85,6 +103,7 @@
     <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
     <!-- BOOTSTRAP -->
     <script src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js"></script>
+
     <script>
         new DataTable('#miTabla2', {
     lengthMenu: [

@@ -86,17 +86,17 @@
                                         <input type="text" name="num_calle" pattern="[0-9]*" class="form-control">
                                     </div>
                                 </div>
-                                <div class="col-md-4">
+                                {{-- <div class="col-md-4">
                                     <div class="form-group">
                                         <label for="cargo_id">Cargo: </label><span class="required text-danger">*</span>
                                         <select name="cargo_id" class="form-control">
                                             <option disabled selected>Selecciona cargo</option>
-                                            @foreach(\App\Models\Cargo::get() as $cargo)
+                                            @foreach(\App\Models\Cargo::where('estado', 1)->get() as $cargo)
                                                 <option value="{{$cargo->id}}">{{ $cargo->nombre }}</option>
                                             @endforeach
                                         </select>
                                     </div>
-                                </div>
+                                </div> --}}
                                 <div class="col-md-12">
                                     <button type="submit" class="btn btn-primary">Guardar</button>
                                     <a href="/ciudadanos" class="btn btn-warning">Cancelar</a>

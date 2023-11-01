@@ -3,7 +3,30 @@
         <li><a href="#" data-toggle="sidebar" class="nav-link nav-link-lg"><i class="fas fa-bars"></i></a></li>
     </ul>
 </form>
-<ul class="navbar-nav navbar-right">
+
+{{-- Espacio de las notificaciones en la campanita --}}
+<li class="dropdown">
+    <ul class="navbar-nav navbar-right">
+        <li class="nav-item dropdown">
+            <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" id="notificationsDropdown" aria-expanded="false">
+                {{-- @if (count(auth()->user()->unreadNotifications) > 0) --}}
+                    <span class="badge badge-sm badge-danger">
+                        {{-- {{ count(auth()->user()->unreadNotifications) }} --}}
+                        {{2}}
+                    </span>
+                {{-- @endif --}}
+                <i class="fa fa-bell-o" aria-hidden="true" style="color: white;"></i>
+            </a>
+            <ul class="dropdown-menu dropdown-menu-right">
+                <!-- Contenido de notificaciones aquí -->
+                <a class="dropdown-item has-icon" href="/usuarios" >
+                    <i class="fa fa-user"></i> Se veran las notificaciones
+                </a>
+            </ul>
+        </li>
+    </ul>
+</li>
+
 
     @if(\Illuminate\Support\Facades\Auth::user())
         <li class="dropdown">

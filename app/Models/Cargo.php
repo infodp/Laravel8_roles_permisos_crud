@@ -9,4 +9,9 @@ class Cargo extends Model
 {
     use HasFactory;
     protected $fillable = ['nombre', 'fecha_inicio','fecha_fin','estado'];
+
+    public function ciudadanos()
+    {
+        return $this->hasMany(Ciudadano::class);
+    }
 }

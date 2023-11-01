@@ -90,19 +90,19 @@
                                         <input type="text" name="num_calle" pattern="[0-9]*" class="form-control" value="{{ $ciudadano->num_calle }}">
                                     </div>
                                 </div>
-                                <div class="col-md-4">
+                                {{-- <div class="col-md-4">
                                     <div class="form-group">
                                         <label for="cargo_id">Cargo: <span class="required text-danger">*</span></label>
                                         <select name="cargo_id" class="form-control">
                                             <option value="">Seleccionar cargo</option>
-                                            @foreach(\App\Models\Cargo::get() as $cargo)
+                                            @foreach(\App\Models\Cargo::where('estado', 1)->get() as $cargo)
                                                 <option value="{{ $cargo->id }}" {{ $ciudadano->cargo_id == $cargo->id ? 'selected' : '' }}>
                                                     {{ $cargo->nombre }}
                                                 </option>
                                             @endforeach
                                         </select>
                                     </div>
-                                </div>
+                                </div> --}}
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label for="estado">Estado: <span class="required text-danger">*</span></label>

@@ -17,15 +17,6 @@
                       <br>
                       </div>
 
-                         <!-- <form  class="d-flex">
-                         <a class="btn btn-warning" href="{{ route('usuarios.create') }}">Nuevo</a>
-                         &emsp;
-                          <input class="form-control me-2 light-table-filter" data-table="table_id" type="text" placeholder="Ingresa el nombre a buscar...">
-
-                         </form> -->
-
-
-
                             <table class="table table-striped mt-2 table_id" id="miTabla">
                               <thead style="background-color:#6777ef">
                                   <th style="display: none;">ID</th>

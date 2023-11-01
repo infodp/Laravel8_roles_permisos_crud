@@ -25,11 +25,11 @@ class CiudadanoController extends Controller
 
     public function index()
     {
-        $ciudadanos = Ciudadano::query()
-            ->join('cargos', 'cargos.id', '=', 'ciudadanos.cargo_id')
-            ->select('ciudadanos.id', 'ciudadanos.nombre', 'ciudadanos.apellido_p', 'ciudadanos.apellido_m', 'ciudadanos.estado', 'cargos.nombre as cargo')
-            ->get();
-
+        // $ciudadanos = Ciudadano::query()
+        //     ->join('cargos', 'cargos.id', '=', 'ciudadanos.cargo_id')
+        //     ->select('ciudadanos.id', 'ciudadanos.nombre', 'ciudadanos.apellido_p', 'ciudadanos.apellido_m', 'ciudadanos.estado', 'cargos.nombre as cargo')
+        //     ->get();
+        $ciudadanos = Ciudadano::all();
         return view('ciudadanos.index', compact('ciudadanos'));
     }
 
@@ -62,7 +62,6 @@ class CiudadanoController extends Controller
             'num_telefonico' => 'required|regex:/^[0-9]{10}$/',
             'calle' => 'required',
             'num_calle' => 'required',
-            'cargo_id' => 'required',
         ]);
         $ciudadanoData = $request->all();
         $ciudadanoData['estado'] = true;
@@ -83,8 +82,8 @@ class CiudadanoController extends Controller
     public function show(Ciudadano $ciudadano)
     {
         // $ciudadano=Ciudadano::find($ciudadano-)
-        $this->ver = true;
-        return view('ciudadanos.ver',compact('elemento'));
+        // $this->ver = true;
+        return view('ciudadanos.ver');
     }
 
     /**
@@ -118,7 +117,6 @@ class CiudadanoController extends Controller
             'num_telefonico' => 'required|regex:/^[0-9]{10}$/',
             'calle' => 'required',
             'num_calle' => 'required',
-            'cargo_id' => 'required',
             'estado'=>'required',
         ]);
 
@@ -137,10 +135,15 @@ class CiudadanoController extends Controller
     {
         //
     }
-    public function showModal()
+    public function showModal(Ciudadano $ciudadano)
     {
-        dd('ddd');
+        // dd('ddd');
         return view('ciudadanos.ver');
     }
 
+    // public function showDetails(Ciudadano $ciudadano)
+    // {
+    //     dd($ciudadano);
+    //     return view('ciudadanos.ver', compact('ciudadano'));
+    // }
 }

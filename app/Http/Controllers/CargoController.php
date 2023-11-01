@@ -17,6 +17,7 @@ class CargoController extends Controller
     public function index()
     {
        $cargos = Cargo::all();
+        // $cargos = Cargo::whereDoesntHave('ciudadanos')->get();
         return view('cargos.index', compact('cargos'));
     }
 

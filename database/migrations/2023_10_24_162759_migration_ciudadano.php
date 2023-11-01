@@ -25,9 +25,9 @@ class MigrationCiudadano extends Migration
             $table->bigInteger('num_calle');
             $table->boolean('estado');
             $table->bigInteger('num_telefonico');
-            $table->foreignId('cargo_id') ->nullable()
-            ->constrained()
-            ->onDelete('set null');
+            // $table->foreignId('cargo_id') ->nullable()
+            // ->constrained()
+            // ->onDelete('set null');
             $table->timestamps();
         });
     }

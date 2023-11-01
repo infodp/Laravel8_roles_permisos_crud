@@ -33,4 +33,7 @@
     <a class="nav-link" href="/cargos">
         <i class=" fas fa-university fa-lg"></i><span>Cargos</span>
     </a>
+    <a class="nav-link" href="/inscripcion">
+        <i class=" fas fa-university fa-lg"></i><span>Inscripciones</span>
+    </a>
 </li>

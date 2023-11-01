@@ -28,7 +28,6 @@
                                   <th style="color:#fff;">Apellido paterno</th>
                                   <th style="color:#fff;">Apellido Materno</th>
                                   <th style="color:#fff;">Estado</th>
-                                  <th style="color:#fff;">Cargo</th>
                                   <th style="color:#fff;">Acciones</th>
                               </thead>
                               <tbody>
@@ -46,12 +45,16 @@
                                             {{'Inhactivo'}}
                                         @endif
                                     </td>
-                                    <td>{{ $ciudadano->cargo }}</td>
                                     <td>
                                         <form action="{{ route('ciudadanos.destroy',$ciudadano->id) }}" method="POST">
                                             @can('editar-ciudadanos')
                                             <a class="btn btn-info" href="{{ route('ciudadanos.edit',$ciudadano->id) }}"><i class="fa fa-pencil" aria-hidden="true"></i> Editar</a>
                                             @endcan
+                                            {{-- <a class="btn btn-info" href="{{ route('ciudadanos.show',$ciudadano->id) }}"><i class="fa fa-pencil" aria-hidden="true"></i> modal</a> --}}
+                                            {{-- <a class="btn btn-info" href="{{ route('ciudadanos.details', $ciudadano->id) }}" data-toggle="modal" data-target="#myModal">
+                                                <i class="fa fa-pencil" aria-hidden="true"></i> Ver Detalles
+                                            </a> --}}
+
                                             @csrf
                                             @method('DELETE')
                                             @can('borrar-ciudadanos')
@@ -94,7 +97,6 @@
         { Apellido_p: 'Apellido_p' },
         { Apellido_m: 'Apellido_m' },
         { Estado: 'Estado' },
-        { Cargo: 'Cargo' },
         { Acciones: 'Acciones' }
     ],
 

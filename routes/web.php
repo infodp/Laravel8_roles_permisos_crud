@@ -9,7 +9,7 @@ use App\Http\Controllers\BlogController;
 use App\Http\Controllers\AgendaController;
 use App\Http\Controllers\CiudadanoController;
 use App\Http\Controllers\CargoController;
-
+use App\Http\Controllers\InscripcionController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -38,8 +38,8 @@ Route::post('agenda/eliminar/{id}',[AgendaController::class, 'eliminar'])->name(
 Route::post('agenda/actualizar/',[AgendaController::class, 'actualizar'])->name('agenda.actualizar');
 
 Route::post('agenda/drag_drop/',[AgendaController::class, 'drag_drop'])->name('agenda.drag_drop');
-
-
+Route::get('inscribir/{ciudadano}', [App\Http\Controllers\InscripcionController::class, 'inscribir'])->name('inscribir');
+Route::post('inscribir/{ciudadano}', [App\Http\Controllers\InscripcionController::class, 'store'])->name('store');
 //y creamos un grupo de rutas protegidas para los controladores
 Route::group(['middleware' => ['auth']], function() {
     Route::resource('roles', RolController::class);
@@ -48,4 +48,5 @@ Route::group(['middleware' => ['auth']], function() {
     Route::resource('agenda', AgendaController::class);
     Route::resource('ciudadanos', CiudadanoController::class);
     Route::resource('cargos', CargoController::class);
+    Route::resource('inscripcion', InscripcionController::class);
 });
