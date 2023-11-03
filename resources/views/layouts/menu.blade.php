@@ -34,6 +34,9 @@
         <i class=" fas fa-university fa-lg"></i><span>Cargos</span>
     </a>
     <a class="nav-link" href="/inscripcion">
-        <i class=" fas fa-university fa-lg"></i><span>Inscripciones</span>
+        <i class="fas fa-address-book"></i><span>Inscripciones</span>
+    </a>
+    <a class="nav-link" href="/calificacion">
+        <i class="fas fa-graduation-cap"></i><span>Aprobaciones</span>
     </a>
 </li>

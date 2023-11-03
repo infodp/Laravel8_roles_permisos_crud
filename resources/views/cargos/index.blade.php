@@ -42,45 +42,44 @@
 
                                     <td>{{ \Carbon\Carbon::createFromFormat('Y-m-d', $cargo->fecha_fin)->formatLocalized('%d de %B de %Y') }}</td>
 
-                                    {{-- <td>
-                                        @if ($cargo->estado==1)
-                                            {{'Activo'}}
-                                        @endif
-                                        @if($cargo->estado==0)
-                                            {{'Inhactivo'}}
-                                        @endif
-                                    </td> --}}
                                     <td>
-                                        <div class="form-check">
-                                            <input type="checkbox" disabled {{ $cargo->estado == 1 ? 'checked' : '' }} class="form-check-input">
+                                        {{-- <div class="form-check">
+                                            <input type="checkbox" disabled {{ $cargo->estado == 1 ? 'checked' : '' }} class="form-check-input"> --}}
                                             <label class="form-check-label">
                                                 @if ($cargo->estado == 1)
-                                                    {{ 'Activo' }}
-                                                @elseif ($cargo->estado == 0)
-                                                    {{ 'Inactivo' }}
+                                                    <span class="badge badge-success">Activo</span>
+                                                @else
+                                                    <span class="badge badge-danger">No activo</span>
                                                 @endif
                                             </label>
-                                        </div>
+                                        {{-- </div> --}}
                                     </td>
 
                                     <td>
-                                        <form action="{{ route('cargos.destroy',$cargo->id) }}" method="POST">
+                                        <form action="{{ route('cargos.destroy', $cargo->id) }}" method="POST">
+                                            @csrf
+                                            @method('DELETE')
                                             @can('editar-ciudadanos')
-                                            <a class="btn btn-info" href="{{ route('cargos.edit',$cargo->id) }}"><i class="fa fa-pencil" aria-hidden="true"></i> Editar</a>
+                                            <a class="btn btn-info" href="{{ route('cargos.edit', $cargo->id) }}">
+                                                <i class="fa fa-pencil" aria-hidden="true"></i> Editar
+                                            </a>
                                             @endcan
-                                            {{-- @php
-                                                $cargoId = $cargo->id; // Reemplaza con el ID del cargo que deseas verificar
-                                                $cargos = \App\Models\Cargo::where('id', $cargoId)
-                                                    ->whereDoesntHave('ciudadanos')->get();
+                                            @php
+                                                $cargoId = $cargo->id;
+                                                $cargo = \App\Models\Cargo::with('ciudadanos')->find($cargoId);
+                                                $canDelete = $cargo->ciudadanos->isEmpty() && Gate::allows('borrar-ciudadanos');
                                             @endphp
-                                            @if (!$cargos->isEmpty())
-                                                @csrf
-                                                @method('DELETE')
-                                                @can('borrar-ciudadanos')
-                                                    <button type="submit" class="btn btn-danger"><i class="fa fa-trash" aria-hidden="true"></i> Borrar</button>
-                                                @endcan
-                                            @endif --}}
+
+                                                @if ($canDelete)
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="submit" class="btn btn-danger">
+                                                        <i class="fa fa-trash" aria-hidden="true"></i> Borrar
+                                                    </button>
+                                                @endif
+
                                         </form>
+
                                         {{-- <i class="fa-solid fa-pen-to-square"></i> --}}
                                     </td>
                                   </tr>

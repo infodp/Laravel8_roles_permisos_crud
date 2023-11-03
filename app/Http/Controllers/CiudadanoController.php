@@ -131,10 +131,13 @@ class CiudadanoController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Ciudadano $ciudadano)
     {
-        //
+        $ciudadano->delete();
+
+        return redirect()->route('ciudadanos.index')->with('success', 'Ciudadano eliminado exitosamente.');
     }
+
     public function showModal(Ciudadano $ciudadano)
     {
         // dd('ddd');

@@ -35,16 +35,29 @@
                             <div class="form-group">
                                 <label for="">Permisos para este Rol:</label><span class="required text-danger">*</span>
                                 <br/>
-                                @foreach($permission as $value)
-                                    <label>{{ Form::checkbox('permission[]', $value->id, in_array($value->id, $rolePermissions) ? true : false, array('class' => 'name')) }}
-                                    {{ $value->name }}</label>
-                                <br/>
-                                @endforeach
+                                <div class="container">
+                                    @php $permissionsCount = count($permission); @endphp
+                                    @for ($i = 0; $i < $permissionsCount; $i += 4)
+                                        <div class="row">
+                                            @for ($j = $i; $j < min($i + 4, $permissionsCount); $j++)
+                                                <div class="col">
+                                                    <label>
+                                                        {{ Form::checkbox('permission[]', $permission[$j]->id, in_array($permission[$j]->id, $rolePermissions) ? true : false, ['class' => 'name']) }}
+                                                        {{ $permission[$j]->name }}
+                                                    </label>
+                                                </div>
+                                            @endfor
+                                        </div>
+                                    @endfor
+                                </div>
+
                             </div>
                         </div>
 
-                        <button type="submit" class="btn btn-primary">Guardar</button>
-                        <a href="/roles" class="btn btn-warning">Cancelar</a>
+                        <div>
+                            <button type="submit" class="btn btn-primary">Guardar</button>
+                            <a href="/roles" class="btn btn-warning">Cancelar</a>
+                        </div>
 
                     </div>
                     {!! Form::close() !!}

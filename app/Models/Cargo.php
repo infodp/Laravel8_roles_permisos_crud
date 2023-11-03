@@ -12,6 +12,7 @@ class Cargo extends Model
 
     public function ciudadanos()
     {
-        return $this->hasMany(Ciudadano::class);
+        return $this->hasMany(Cargos_has_ciudadano::class, 'cargo_id');
     }
+
 }

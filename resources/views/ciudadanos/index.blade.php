@@ -39,10 +39,10 @@
                                     <td>{{ $ciudadano->apellido_m }}</td>
                                     <td>
                                         @if ($ciudadano->estado==1)
-                                            {{'Activo'}}
+                                            <span class="badge badge-success">Activo</span>
                                         @endif
                                         @if($ciudadano->estado==0)
-                                            {{'Inhactivo'}}
+                                            <span class="badge badge-danger">No activo</span>
                                         @endif
                                     </td>
                                     <td>
@@ -50,16 +50,19 @@
                                             @can('editar-ciudadanos')
                                             <a class="btn btn-info" href="{{ route('ciudadanos.edit',$ciudadano->id) }}"><i class="fa fa-pencil" aria-hidden="true"></i> Editar</a>
                                             @endcan
-                                            {{-- <a class="btn btn-info" href="{{ route('ciudadanos.show',$ciudadano->id) }}"><i class="fa fa-pencil" aria-hidden="true"></i> modal</a> --}}
-                                            {{-- <a class="btn btn-info" href="{{ route('ciudadanos.details', $ciudadano->id) }}" data-toggle="modal" data-target="#myModal">
-                                                <i class="fa fa-pencil" aria-hidden="true"></i> Ver Detalles
-                                            </a> --}}
+                                            @php
+                                                $ciudadanoId = $ciudadano->id;
+                                                $cargo = \App\Models\Ciudadano::with('cargos')->find($ciudadanoId);
+                                                $canDelete = $cargo->cargos->isEmpty() && Gate::allows('borrar-ciudadanos');
+                                            @endphp
 
-                                            @csrf
-                                            @method('DELETE')
-                                            @can('borrar-ciudadanos')
-                                            <button type="submit" class="btn btn-danger">Borrar</button>
-                                            @endcan
+                                            @if ($canDelete)
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="btn btn-danger">
+                                                    <i class="fa fa-trash" aria-hidden="true"></i> Borrar
+                                                </button>
+                                            @endif
 
                                         </form>
                                         {{-- <i class="fa-solid fa-pen-to-square"></i> --}}

@@ -18,7 +18,7 @@ class InscripcionController extends Controller
         $inscripciones = Cargos_has_ciudadano::query()
             ->join('cargos', 'cargos.id', '=', 'cargos_has_ciudadanos.cargo_id')
             ->join('ciudadanos', 'ciudadanos.id', '=', 'cargos_has_ciudadanos.ciudadano_id')
-            ->select('cargos_has_ciudadanos.id as idd','ciudadanos.id', 'ciudadanos.nombre as ciudadano', 'ciudadanos.apellido_p as ap', 'ciudadanos.apellido_m as am', 'cargos.nombre as cargo')
+            ->select('cargos_has_ciudadanos.id as idd','ciudadanos.id', 'ciudadanos.nombre as ciudadano', 'ciudadanos.apellido_p as ap', 'ciudadanos.apellido_m as am', 'cargos.nombre as cargo','cargos.fecha_inicio as fi','cargos.fecha_fin as ff')
             ->get();
         return view('inscripciones.index', compact('inscripciones'));
     }
@@ -89,9 +89,16 @@ class InscripcionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Cargos_has_ciudadano $inscripcion)
     {
-        //
+        request()->validate([
+            'fecha_inscripcion' => 'required',
+            'cargo_id' => 'required',
+        ]);
+
+        $inscripcion->update($request->all());
+
+        return redirect()->route('inscripcion.index')->with('success', 'Inscripción actualizada exitosamente.');
     }
 
     /**
@@ -100,10 +107,10 @@ class InscripcionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Cargos_has_ciudadano $idd)
+    public function destroy(Cargos_has_ciudadano $inscripcion)
     {
-        $idd->delete();
-        return redirect()->route('inscripcion.index')->with('success', 'La inscripción ha sido eliminada exitosamente');
+        $inscripcion->delete();
+        return redirect()->route('inscripcion.index')->with('success', 'Inscripción eliminada exitosamente');
     }
 
 

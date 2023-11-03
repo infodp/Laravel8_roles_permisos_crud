@@ -25,19 +25,17 @@
                               <thead style="background-color:#6777ef">
                                   <th style="display: none;">ID</th>
                                   <th style="color:#fff;">Nombre <i class="fas fa-sort-desc fa-2x" aria-hidden="true"></i></th>
-                                  <th style="color:#fff;">Apellido Paterno</th>
-                                  <th style="color:#fff;">Apellido Materno</th>
                                   <th style="color:#fff;">Cargo inscrito</th>
+                                  <th style="color:#fff;">Periodo del cargo</th>
                                   <th style="color:#fff;">Acciones</th>
                               </thead>
                               <tbody>
                                 @foreach ($inscripciones as $inscripcion)
                                     <tr>
                                         <td style="display: none;">{{ $inscripcion->idd }}</td>
-                                        <td>{{ $inscripcion->ciudadano }}</td>
-                                        <td>{{ $inscripcion->ap }}</td>
-                                        <td>{{ $inscripcion->am }}</td>
+                                        <td>{{ $inscripcion->ciudadano }} {{' '}} {{ $inscripcion->ap }} {{' '}} {{ $inscripcion->am }}</td>
                                         <td>{{ $inscripcion->cargo }}</td>
+                                        <td>{{ date('d/m/Y', strtotime($inscripcion->fi)) }} al {{ date('d/m/Y', strtotime($inscripcion->ff)) }}</td>
                                         <td>
                                             <form action="{{ route('inscripcion.destroy', $inscripcion->idd) }}" method="POST">
                                                 @csrf
@@ -47,14 +45,16 @@
                                                     <i class="fa fa-pencil" aria-hidden="true"></i> Editar
                                                 </a>
                                                 @endcan
+
+                                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalDetalles-{{ $inscripcion->idd }}" title="Inspeccionar inscripción">
+                                                    <i class="fa fa-eye" aria-hidden="true"></i> Ver Detalles
+                                                </button>
+
                                                 @can('borrar-ciudadanos')
                                                 <button type="submit" class="btn btn-danger">
                                                     <i class="fa fa-trash" aria-hidden="true"></i> Borrar
                                                 </button>
                                                 @endcan
-                                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalDetalles-{{ $inscripcion->idd }}" title="Inspeccionar inscripción">
-                                                    <i class="fa fa-eye" aria-hidden="true"></i> Ver Detalles
-                                                </button>
                                             </form>
                                         </td>
                                     </tr>
@@ -111,9 +111,10 @@
     columns: [
         { Id: 'Id' },
         { Ciudadano: 'Ciudadano' },
-        { Ap: 'Ap' },
-        { Am: 'Am' },
+        // { Ap: 'Ap' },
+        // { Am: 'Am' },
         { Cargo: 'Cargo' },
+        { Periodo: 'fi' },
         { Acciones: 'Acciones' }
     ],
 
