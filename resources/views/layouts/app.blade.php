@@ -19,6 +19,9 @@
 
 	  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 
+      <!-- Script de sweet alert 2 -->
+      <script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+
     <!-- FullCalendar css -->
     <link rel="stylesheet" type="text/css" href="{{ asset('css/fullcalendar.min.css') }}">
 	<link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/icon?family=Material+Icons">
@@ -74,6 +77,7 @@
 
 @include('profile.change_password')
 @include('profile.edit_profile')
+@yield('scripts')
 
 </body>
 <script src="{{ asset('assets/js/jquery.min.js') }}"></script>

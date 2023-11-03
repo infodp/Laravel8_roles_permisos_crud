@@ -10,12 +10,6 @@
               <div class="col-lg-12">
                   <div class="card">
                       <div class="card-body">
-                        @if(session('success'))
-                            <div class="alert alert-success">
-                                {{ session('success') }}
-                            </div>
-                        @endif
-
                         <a class="btn btn-warning" href="{{ route('cargos.create') }}" title="Crear nuevo Cargo"><i class="fa fa-plus" aria-hidden="true"></i> Nuevo Cargo</a>
                         <div>
                             <br>
@@ -56,7 +50,7 @@
                                     </td>
 
                                     <td>
-                                        <form action="{{ route('cargos.destroy', $cargo->id) }}" method="POST">
+                                        <form action="{{ route('cargos.destroy', $cargo->id) }}" method="POST" id="frmDatos">
                                             @csrf
                                             @method('DELETE')
                                             @can('editar-ciudadanos')
@@ -125,6 +119,39 @@
 });
     </script>
 
+@endsection
+
+@section('scripts')
+    @if(session('success'))
+        <script>
+            Swal.fire(
+                "Felicidades!",
+                "{{ Session::get('success') }}",
+                "success"
+            )
+        </script>         
+    @endif
+
+    <script>
+        $('#frmDatos').on('submit', function(e){
+            e.preventDefault();
+            Swal.fire({
+                title: '¿Deseas eliminar esta inscripción?',
+                text: "Ya no podrás visualizar esta inscripción en la tabla.",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Si, eliminar',
+                cancelButtonText: "Cancelar"
+            }).then((result) => {
+            if (result.isConfirmed) {
+                this.submit();
+            }
+})
+        })
+         
+    </script>
 @endsection
 
 

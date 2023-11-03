@@ -10,12 +10,6 @@
               <div class="col-lg-12">
                   <div class="card">
                       <div class="card-body">
-                        @if(session('success'))
-                            <div class="alert alert-success">
-                                {{ session('success') }}
-                            </div>
-                        @endif
-
                       <a class="btn btn-warning" href="{{ route('ciudadanos.create') }}" title="Crear nuevo ciudadano"><i class="fa fa-plus" aria-hidden="true"></i> Nuevo Ciudadano</a>
                       <div>
                       <br>
@@ -46,7 +40,7 @@
                                         @endif
                                     </td>
                                     <td>
-                                        <form action="{{ route('ciudadanos.destroy',$ciudadano->id) }}" method="POST">
+                                        <form action="{{ route('ciudadanos.destroy',$ciudadano->id) }}" method="POST" id="frmDatos">
                                             @can('editar-ciudadanos')
                                             <a class="btn btn-info" href="{{ route('ciudadanos.edit',$ciudadano->id) }}"><i class="fa fa-pencil" aria-hidden="true"></i> Editar</a>
                                             @endcan
@@ -111,5 +105,35 @@
 
 @endsection
 
+@section('scripts')
+    @if(session('success'))
+        <script>
+            Swal.fire(
+                "Felicidades!",
+                "{{ Session::get('success') }}",
+                "success"
+            )
+        </script>         
+    @endif
 
-
+    <script>
+        $('#frmDatos').on('submit', function(e){
+            e.preventDefault();
+            Swal.fire({
+                title: '¿Deseas eliminar este ciudadano?',
+                text: "Ya no podrás visualizar este ciudadano en la tabla.",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Si, eliminar',
+                cancelButtonText: "Cancelar"
+            }).then((result) => {
+            if (result.isConfirmed) {
+                // this.submit();
+            }
+})
+        })
+         
+    </script>
+@endsection

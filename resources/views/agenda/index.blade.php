@@ -2,12 +2,14 @@
 
 @section('content')
 
+<div class="alert alert-danger alert-dismissible fade show text-center" role="alert" style="display: none;">
+  El evento fue borrado correctamente.
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+
     <section class="section">
-    @if(session('success'))
-        <div class="alert alert-success">
-            {{ session('success') }}
-        </div>
-    @endif
         <div class="section-header">
             <h3 class="page__heading">Agenda</h3>
         </div>
@@ -29,3 +31,15 @@
 
 @endsection
 
+@section('scripts')
+    @if(session('success'))
+        <script>
+            Swal.fire(
+                "Felicidades!",
+                "{{ Session::get('success') }}",
+                "success"
+            )
+        </script>         
+    @endif
+
+@endsection

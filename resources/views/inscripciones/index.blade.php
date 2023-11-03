@@ -10,12 +10,6 @@
               <div class="col-lg-12">
                   <div class="card">
                       <div class="card-body">
-                        @if(session('success'))
-                            <div class="alert alert-success">
-                                {{ session('success') }}
-                            </div>
-                        @endif
-
                         <a class="btn btn-warning" href="{{ route('inscripcion.create') }}" title="Inscribir nuevo ciudadano"><i class="fa fa-plus" aria-hidden="true"></i> Nueva inscripción</a>
                         <div>
                             <br>
@@ -37,7 +31,7 @@
                                         <td>{{ $inscripcion->cargo }}</td>
                                         <td>{{ date('d/m/Y', strtotime($inscripcion->fi)) }} al {{ date('d/m/Y', strtotime($inscripcion->ff)) }}</td>
                                         <td>
-                                            <form action="{{ route('inscripcion.destroy', $inscripcion->idd) }}" method="POST">
+                                            <form action="{{ route('inscripcion.destroy', $inscripcion->idd) }}" method="POST" id="frmDatos">
                                                 @csrf
                                                 @method('DELETE')
                                                 @can('editar-ciudadanos')
@@ -124,6 +118,39 @@
 });
     </script>
 
+@endsection
+
+@section('scripts')
+    @if(session('success'))
+        <script>
+            Swal.fire(
+                "Felicidades!",
+                "{{ Session::get('success') }}",
+                "success"
+            )
+        </script>         
+    @endif
+
+    <script>
+        $('#frmDatos').on('submit', function(e){
+            e.preventDefault();
+            Swal.fire({
+                title: '¿Deseas eliminar esta inscripción?',
+                text: "Ya no podrás visualizar esta inscripción en la tabla.",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Si, eliminar',
+                cancelButtonText: "Cancelar"
+            }).then((result) => {
+            if (result.isConfirmed) {
+                this.submit();
+            }
+})
+        })
+         
+    </script>
 @endsection
 
 

@@ -18,6 +18,9 @@
     <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700&display=swap" rel="stylesheet">
 
 	  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    
+    <!-- Script de sweet alert 2 -->
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 
     <!-- FullCalendar css -->
     <link rel="stylesheet" type="text/css" href="{{ asset('css/fullcalendar.min.css') }}">
@@ -177,7 +180,8 @@
       <label for="fecha_fin" class="col-sm-12 control-label">Fecha Final</label>
       <div class="col-sm-10">
         <input type="text" class="form-control" name="fecha_finn" id="fecha_finn" placeholder="Fecha Final" disabled>
-        <input type="hidden" class="form-control" value=" " name="fecha_finall" id="fecha_finall">
+        <input type="hidden" class="form-control" value="" name="fecha_finall" id="fecha_finall">
+        <input type="hidden" class="form-control" value=" " name="validar" id="validar">
       </div>
     </div>
     <div class="form-group">
@@ -189,7 +193,7 @@
     
      <div class="modal-footer">
         <button type="submit" class="btn btn-success">Guardar Cambios de mi Evento</button>
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Salir</button>
+        <button type="button" class="btn btn-secondary" id="salir" data-dismiss="modal">Salir</button>
       </div>
   </form>
       
@@ -255,8 +259,15 @@
 <script type="text/javascript" src="{{ asset('js/fullcalendar.min.js') }}"></script>
 <script src="{{ asset('locales/es.js') }}"></script>
 
+<!-- Js de sweet alert 2 -->
+<script src="{{ asset('js/botones.js') }}"></script>
 
 <script type="text/javascript">
+//   function salir(){
+//     // console.log("Hola");
+//     var elemento = document.getElementById('salir');
+//     elemento.click();
+// }
     $(document).ready(function() {
     $("#calendar").fullCalendar({
         header: {
@@ -290,9 +301,15 @@
           <?php } ?>
     ],
 
-//Nuevo Evento
+// //Nuevo Evento
+// function presionar = function(){
+//     var elemento = document.getElementById('salir');
+//     elemento.click();
+// },
 
   select: function(start, end){
+    var op = document.getElementById("validar").value;
+    console.log('El valor de op es: ' + op);
       $("#exampleModal").modal();
       // $("input[name=fecha_inicio]").val(start.format('DD-MM-YYYY'));
       $("input[name=fecha_inicio]").val(start.format('YYYY-MM-DD'));
@@ -310,40 +327,49 @@
 
 
 //Eliminar Evento
+
 eventRender: function(event, element) {
+
     element
       .find(".fc-content")
       .prepend("<span id='btnCerrar'; class='closeon material-icons'>&#xe5cd;</span>");
-    
-    //Eliminar evento
+      
     element.find(".closeon").on("click", function() {
-
-  var pregunta = confirm("Deseas Borrar este Evento?");   
-  if (pregunta) {
-    var aniId = event._id;
-    console.log(aniId);
+      var aniId = event._id;
+      $('input[name=validar').val('no');
+    Swal.fire({
+  title: '¿Deseas eliminar este evento?',
+  text: "Ya no podrás visualizar este evento en el calendario",
+  icon: 'warning',
+  showCancelButton: true,
+  confirmButtonColor: '#3085d6',
+  cancelButtonColor: '#d33',
+  confirmButtonText: 'Si, eliminar',
+  cancelButtonText: "Cancelar"
+}).then((result) => {
+  if (result.isConfirmed) {
     $("#calendar").fullCalendar("removeEvents", event._id);
+    
      $.ajax({
             type: "post",
             url: "agenda/eliminar/"+aniId,
-            success: function(datos)            
-            {
-              $(".alert-danger").show();
-
-              setTimeout(function () {
-                $(".alert-danger").slideUp(500);
-              }, 3000); 
-
-            }
         });
-      }
-    });
-  },
+      Swal.fire(
+      'Eliminado!',
+      'Tu evento se ha eliminado de manera correcta.',
+      'success'
+    )
+  }
+})
+
+});
+},
 
 
 //Moviendo Evento Drag - Drop
 eventDrop: function (event, delta) {
   var idEvento = event._id;
+  $('#modalUpdateEvento').modal('hide');
   if(event.end == null){
     var start = (event.start.format('YYYY-MM-DD'));
     var end = (event.start.format("YYYY-MM-DD"));
@@ -397,8 +423,14 @@ eventClick:function(event){
     } else if(horaIn == 12){
       $('input[name=hora_inicioo').val(event.our+' PM');
     }
-
-    $("#modalUpdateEvento").modal();
+    var op = document.getElementById("validar").value;
+    console.log('El valor de op es: ' + op);
+    if(op == ' '){
+      $("#modalUpdateEvento").modal();
+    } else{
+      $('input[name=validar').val(' ');
+    }
+    
   },
 
 
