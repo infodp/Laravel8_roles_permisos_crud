@@ -10,7 +10,9 @@
               <div class="col-lg-12">
                   <div class="card">
                       <div class="card-body">
-                      <a class="btn btn-warning" href="{{ route('ciudadanos.create') }}" title="Crear nuevo ciudadano"><i class="fa fa-plus" aria-hidden="true"></i> Nuevo Ciudadano</a>
+                        @can('crear-ciudadano')
+                             <a class="btn btn-warning" href="{{ route('ciudadanos.create') }}" title="Crear nuevo ciudadano"><i class="fa fa-plus" aria-hidden="true"></i> Nuevo Ciudadano</a>
+                        @endcan
                       <div>
                       <br>
                       </div>
@@ -41,8 +43,8 @@
                                     </td>
                                     <td>
                                         <form action="{{ route('ciudadanos.destroy',$ciudadano->id) }}" method="POST" id="frmDatos">
-                                            @can('editar-ciudadanos')
-                                            <a class="btn btn-info" href="{{ route('ciudadanos.edit',$ciudadano->id) }}"><i class="fa fa-pencil" aria-hidden="true"></i> Editar</a>
+                                            @can('editar-ciudadano')
+                                                <a class="btn btn-info" href="{{ route('ciudadanos.edit',$ciudadano->id) }}"><i class="fa fa-pencil" aria-hidden="true"></i> Editar</a>
                                             @endcan
                                             @php
                                                 $ciudadanoId = $ciudadano->id;
@@ -53,9 +55,11 @@
                                             @if ($canDelete)
                                                 @csrf
                                                 @method('DELETE')
-                                                <button type="submit" class="btn btn-danger">
-                                                    <i class="fa fa-trash" aria-hidden="true"></i> Borrar
-                                                </button>
+                                                @can('borrar-ciudadano')
+                                                    <button type="submit" class="btn btn-danger">
+                                                        <i class="fa fa-trash" aria-hidden="true"></i> Borrar
+                                                    </button>
+                                                @endcan
                                             @endif
 
                                         </form>
@@ -113,7 +117,7 @@
                 "{{ Session::get('success') }}",
                 "success"
             )
-        </script>         
+        </script>
     @endif
 
     <script>
@@ -132,8 +136,8 @@
             if (result.isConfirmed) {
                 // this.submit();
             }
-})
+            })
         })
-         
+
     </script>
 @endsection

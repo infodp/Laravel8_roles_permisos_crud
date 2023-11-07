@@ -10,7 +10,9 @@
               <div class="col-lg-12">
                   <div class="card">
                       <div class="card-body">
-                        <a class="btn btn-warning" href="{{ route('inscripcion.create') }}" title="Inscribir nuevo ciudadano"><i class="fa fa-plus" aria-hidden="true"></i> Nueva inscripción</a>
+                            @can('crear-inscripcion')
+                                <a class="btn btn-warning" href="{{ route('inscripcion.create') }}" title="Inscribir nuevo ciudadano"><i class="fa fa-plus" aria-hidden="true"></i> Nueva inscripción</a>
+                            @endcan
                         <div>
                             <br>
                         </div>
@@ -34,7 +36,7 @@
                                             <form action="{{ route('inscripcion.destroy', $inscripcion->idd) }}" method="POST" id="frmDatos">
                                                 @csrf
                                                 @method('DELETE')
-                                                @can('editar-ciudadanos')
+                                                @can('editar-inscripcion')
                                                 <a class="btn btn-info" href="{{ route('inscripcion.edit', $inscripcion->idd) }}" title="Editar inscripción">
                                                     <i class="fa fa-pencil" aria-hidden="true"></i> Editar
                                                 </a>
@@ -44,7 +46,7 @@
                                                     <i class="fa fa-eye" aria-hidden="true"></i> Ver Detalles
                                                 </button>
 
-                                                @can('borrar-ciudadanos')
+                                                @can('borrar-inscripcion')
                                                 <button type="submit" class="btn btn-danger">
                                                     <i class="fa fa-trash" aria-hidden="true"></i> Borrar
                                                 </button>
@@ -128,7 +130,7 @@
                 "{{ Session::get('success') }}",
                 "success"
             )
-        </script>         
+        </script>
     @endif
 
     <script>
@@ -149,7 +151,7 @@
             }
 })
         })
-         
+
     </script>
 @endsection
 

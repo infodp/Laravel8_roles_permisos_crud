@@ -52,7 +52,7 @@ class CalificacionController extends Controller
 
         Cargos_has_ciudadano::create($request->all());
 
-        // return redirect()->route('calificacion.index')->with('success', 'Inscripción registrada exitosamente.');
+        return redirect()->route('calificaciones.index')->with('success', 'Calificacion registrada exitosamente.');
     }
 
     /**
@@ -92,7 +92,7 @@ class CalificacionController extends Controller
 
         $inscripcion->update($request->all());
 
-        return redirect()->route('calificacion.index');
+        return redirect()->route('calificacion.index')->with('success', 'Calificación actualizada exitosamente.');
     }
 
     /**
