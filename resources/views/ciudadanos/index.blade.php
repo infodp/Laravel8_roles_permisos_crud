@@ -19,10 +19,10 @@
                         <div class="table-responsive">
                             <table class="table table-striped mt-2 table_id" id="miTabla2">
                               <thead style="background-color:#6777ef">
-                                  <th style="display: none;">ID</th>
-                                  <th style="color:#fff;">Nombre</th>
-                                  <th style="color:#fff;">Apellido paterno</th>
-                                  <th style="color:#fff;">Apellido Materno</th>
+                                  <th style="display: none; cursor: pointer;">ID</th>
+                                  <th style="color:#fff; cursor: pointer;">Nombre <i class="fas fa-caret-square-o-down" aria-hidden="true"></i></th>
+                                  <th style="color:#fff; cursor: pointer;">Apellido Paterno  <i class="fas fa-caret-square-o-down" aria-hidden="true"></i></th>
+                                  <th style="color:#fff; cursor: pointer;">Apellido Materno  <i class="fas fa-caret-square-o-down" aria-hidden="true"></i></th>
                                   <th style="color:#fff;">Estado</th>
                                   <th style="color:#fff;">Acciones</th>
                               </thead>
@@ -30,9 +30,9 @@
                                 @foreach ($ciudadanos as $ciudadano)
                                   <tr>
                                     <td style="display: none;">{{ $ciudadano->id }}</td>
-                                    <td>{{ $ciudadano->nombre }}</td>
-                                    <td>{{ $ciudadano->apellido_p }}</td>
-                                    <td>{{ $ciudadano->apellido_m }}</td>
+                                    <td>{{ ucwords($ciudadano->nombre) }}</td>
+                                    <td>{{ ucwords($ciudadano->apellido_p) }}</td>
+                                    <td>{{ ucwords($ciudadano->apellido_m) }}</td>
                                     <td>
                                         @if ($ciudadano->estado==1)
                                             <span class="badge badge-success">Activo</span>
@@ -43,13 +43,13 @@
                                     </td>
                                     <td>
                                         <!-- <form action="{{ route('ciudadanos.destroy',$ciudadano->id) }}" method="POST"> -->
-                                            @can('editar-ciudadanos')
+                                            @can('editar-ciudadano')
                                             <a class="btn btn-info" href="{{ route('ciudadanos.edit',$ciudadano->id) }}"><i class="fa fa-pencil" aria-hidden="true"></i> Editar</a>
                                             @endcan
                                             @php
                                                 $ciudadanoId = $ciudadano->id;
                                                 $cargo = \App\Models\Ciudadano::with('cargos')->find($ciudadanoId);
-                                                $canDelete = $cargo->cargos->isEmpty() && Gate::allows('borrar-ciudadanos');
+                                                $canDelete = $cargo->cargos->isEmpty() && Gate::allows('borrar-ciudadano');
                                             @endphp
 
                                             @if ($canDelete)

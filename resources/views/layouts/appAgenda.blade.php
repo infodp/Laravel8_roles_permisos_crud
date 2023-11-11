@@ -18,7 +18,7 @@
     <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700&display=swap" rel="stylesheet">
 
 	  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-    
+
     <!-- Script de sweet alert 2 -->
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 
@@ -114,33 +114,33 @@
     </div>
 
   <!-- <div class="col-md-12" id="grupoRadio">
-  
+
   <input type="radio" name="color_evento" id="orange" value="#FF5722" checked>
   <label for="orange" class="circu" style="background-color: #FF5722;"> </label>
 
-  <input type="radio" name="color_evento" id="amber" value="#FFC107">  
+  <input type="radio" name="color_evento" id="amber" value="#FFC107">
   <label for="amber" class="circu" style="background-color: #FFC107;"> </label>
 
-  <input type="radio" name="color_evento" id="lime" value="#8BC34A">  
+  <input type="radio" name="color_evento" id="lime" value="#8BC34A">
   <label for="lime" class="circu" style="background-color: #8BC34A;"> </label>
 
-  <input type="radio" name="color_evento" id="teal" value="#009688">  
+  <input type="radio" name="color_evento" id="teal" value="#009688">
   <label for="teal" class="circu" style="background-color: #009688;"> </label>
 
-  <input type="radio" name="color_evento" id="blue" value="#2196F3">  
+  <input type="radio" name="color_evento" id="blue" value="#2196F3">
   <label for="blue" class="circu" style="background-color: #2196F3;"> </label>
 
-  <input type="radio" name="color_evento" id="indigo" value="#9c27b0">  
+  <input type="radio" name="color_evento" id="indigo" value="#9c27b0">
   <label for="indigo" class="circu" style="background-color: #9c27b0;"> </label>
 
 </div> -->
-		
+
 	   <div class="modal-footer">
       	<button type="submit" class="btn btn-success">Guardar Evento</button>
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Salir</button>
     	</div>
 	</form>
-      
+
     </div>
   </div>
 </div>
@@ -169,7 +169,7 @@
 			  <div class="col-sm-10">
 				  <input type="text" rows="4" class="form-control" name="descripcionn" id="descripcionn" placeholder="Descripción del Evento" required/>
 			  </div>
-		  </div>
+	</div>
     <div class="form-group">
       <label for="fecha_inicio" class="col-sm-12 control-label">Fecha Inicio</label>
       <div class="col-sm-10">
@@ -190,13 +190,13 @@
         <input type="text" class="form-control" name="hora_inicioo" id="hora_inicioo" placeholder="Hora Inicio" required/>
       </div>
     </div>
-    
+
      <div class="modal-footer">
-        <button type="submit" class="btn btn-success">Guardar Cambios de mi Evento</button>
-        <button type="button" class="btn btn-secondary" id="salir" data-dismiss="modal">Salir</button>
+        <button type="submit" class="btn btn-success">Guardar Evento</button>
+        <button type="button" class="btn btn-secondary" id="salir" data-dismiss="modal">Cerrar</button>
       </div>
   </form>
-      
+
     </div>
   </div>
 </div>
@@ -255,7 +255,7 @@
 <script src="{{ asset('js/popper.min.js') }}"></script>
 <!-- <script src="{{ asset('js/bootstrap.min.js') }}"></script> -->
 
-<script type="text/javascript" src="{{ asset('js/moment.min.js') }}"></script>	
+<script type="text/javascript" src="{{ asset('js/moment.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('js/fullcalendar.min.js') }}"></script>
 <script src="{{ asset('locales/es.js') }}"></script>
 
@@ -275,14 +275,14 @@
         center: "title",
         right: "month,agendaWeek,agendaDay"
         },
-            
+
 
     locale: 'es',
 
     defaultView: "month",
-    navLinks: true, 
+    navLinks: true,
     editable: true,
-    eventLimit: true, 
+    eventLimit: true,
     selectable: true,
     selectHelper: false,
     events: [
@@ -309,17 +309,17 @@
       $("#exampleModal").modal();
       // $("input[name=fecha_inicio]").val(start.format('DD-MM-YYYY'));
       $("input[name=fecha_inicio]").val(start.format('YYYY-MM-DD'));
-       
+
       // var valorFechaFin = end.format("DD-MM-YYYY");
       var valorFechaFin = end.format("YYYY-MM-DD");
       var F_final = moment(valorFechaFin, "YYYY-MM-DD").subtract(1, 'days').format('YYYY-MM-DD'); //Le resto 1 dia
       $("input[name=fecha_fin]").val(F_final);
       $("input[name=fecha_final]").val(F_final);
     },
-    
-    
-      
-    
+
+
+
+
 
 
 //Eliminar Evento
@@ -329,7 +329,7 @@ eventRender: function(event, element) {
     element
       .find(".fc-content")
       .prepend("<span id='btnCerrar'; class='closeon material-icons'>&#xe5cd;</span>");
-      
+
     element.find(".closeon").on("click", function() {
       var aniId = event._id;
       $('input[name=validar').val('no');
@@ -345,7 +345,7 @@ eventRender: function(event, element) {
 }).then((result) => {
   if (result.isConfirmed) {
     $("#calendar").fullCalendar("removeEvents", event._id);
-    
+
      $.ajax({
             type: "post",
             url: "agenda/eliminar/"+aniId,
@@ -373,7 +373,7 @@ eventDrop: function (event, delta) {
       var start = (event.start.format('YYYY-MM-DD'));
       var end = (event.end.format("YYYY-MM-DD"));
     }
-  
+
 
     $.ajax({
         url: "agenda/drag_drop/",
@@ -385,7 +385,7 @@ eventDrop: function (event, delta) {
     });
 },
 
-//Modificar Evento del Calendario 
+//Modificar Evento del Calendario
 eventClick:function(event){
     var idEvento = event._id;
 
@@ -393,7 +393,7 @@ eventClick:function(event){
     $('input[name=evento').val(event.title);
     $('input[name=descripcionn').val(event.descripcion);
     $('input[name=fecha_inicioo').val(event.start.format('YYYY-MM-DD'));
-    
+
     console.log(event.start);
     if(event.end == null){
       $('input[name=fecha_finn').val(event.start.format('YYYY-MM-DD'));
@@ -402,7 +402,7 @@ eventClick:function(event){
       var valorFechaFin = event.end.format("YYYY-MM-DD");
       var F_final = moment(valorFechaFin, "YYYY-MM-DD").subtract(1, 'days').format('YYYY-MM-DD'); // Le restamos un día
       $('input[name=fecha_finn').val(F_final);
-      $('input[name=fecha_finall').val(F_final); 
+      $('input[name=fecha_finall').val(F_final);
     }
     var hora = event.our;
     var horas = hora.split(':');
@@ -426,7 +426,7 @@ eventClick:function(event){
     } else{
       $('input[name=validar').val(' ');
     }
-    
+
   },
 
 
@@ -436,7 +436,7 @@ eventClick:function(event){
 //Oculta mensajes de Notificacion
   setTimeout(function () {
     $(".alert").slideUp(300);
-  }, 3000); 
+  }, 3000);
 
 
 });

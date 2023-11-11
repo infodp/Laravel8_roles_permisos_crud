@@ -27,7 +27,7 @@ class InscripcionController extends Controller
         $inscripciones = Cargos_has_ciudadano::query()
             ->join('cargos', 'cargos.id', '=', 'cargos_has_ciudadanos.cargo_id')
             ->join('ciudadanos', 'ciudadanos.id', '=', 'cargos_has_ciudadanos.ciudadano_id')
-            ->select('cargos_has_ciudadanos.id as idd','ciudadanos.id', 'ciudadanos.nombre as ciudadano', 'ciudadanos.apellido_p as ap', 'ciudadanos.apellido_m as am', 'cargos.nombre as cargo','cargos.fecha_inicio as fi','cargos.fecha_fin as ff')
+            ->select('cargos_has_ciudadanos.id as idd','ciudadanos.id', 'ciudadanos.nombre as ciudadano', 'ciudadanos.apellido_p as ap', 'ciudadanos.apellido_m as am', 'cargos.nombre as cargo','cargos.fecha_inicio as fi','cargos.fecha_fin as ff', 'cargos.estado as estado')
             ->get();
         return view('inscripciones.index', compact('inscripciones'));
     }

@@ -20,37 +20,42 @@
                             <table class="table table-striped mt-2 table_id" id="miTabla2">
                               <thead style="background-color:#6777ef">
                                   <th style="display: none;">ID</th>
-                                  <th style="color:#fff;">Nombre <i class="fas fa-sort-desc fa-2x" aria-hidden="true"></i></th>
-                                  <th style="color:#fff;">Cargo inscrito</th>
-                                  <th style="color:#fff;">Periodo del cargo</th>
+                                  <th style="color:#fff; cursor: pointer;">Nombre <i class="fas fa-caret-square-o-down" aria-hidden="true"></i></th>
+                                  <th style="color:#fff; cursor: pointer;">Cargo inscrito <i class="fas fa-caret-square-o-down" aria-hidden="true"></i></th>
+                                  <th style="color:#fff; cursor: pointer;">Periodo del cargo <i class="fas fa-caret-square-o-down" aria-hidden="true"></i></th>
                                   <th style="color:#fff;">Acciones</th>
                               </thead>
                               <tbody>
                                 @foreach ($inscripciones as $inscripcion)
                                     <tr>
                                         <td style="display: none;">{{ $inscripcion->idd }}</td>
-                                        <td>{{ $inscripcion->ciudadano }} {{' '}} {{ $inscripcion->ap }} {{' '}} {{ $inscripcion->am }}</td>
-                                        <td>{{ $inscripcion->cargo }}</td>
+                                        <td>{{ ucwords($inscripcion->ciudadano) }} {{' '}} {{ ucwords($inscripcion->ap) }} {{' '}} {{ ucwords($inscripcion->am) }}</td>
+                                        <td>{{ ucwords($inscripcion->cargo) }}</td>
                                         <td>{{ date('d/m/Y', strtotime($inscripcion->fi)) }} al {{ date('d/m/Y', strtotime($inscripcion->ff)) }}</td>
                                         <td>
                                             <!-- <form action="{{ route('inscripcion.destroy', $inscripcion->idd) }}" method="POST" id="frmDatos"> -->
                                                 @csrf
                                                 @method('DELETE')
-                                                @can('editar-inscripcion')
-                                                <a class="btn btn-info" href="{{ route('inscripcion.edit', $inscripcion->idd) }}" title="Editar inscripción">
-                                                    <i class="fa fa-pencil" aria-hidden="true"></i> Editar
-                                                </a>
-                                                @endcan
-
+                                               @php
+                                                    $date=date("Y-m-d");
+                                               @endphp
+                                                @if($date <= $inscripcion->ff)
+                                                    @can('editar-inscripcion')
+                                                    <a class="btn btn-info" href="{{ route('inscripcion.edit', $inscripcion->idd) }}" title="Editar inscripción">
+                                                        <i class="fa fa-pencil" aria-hidden="true"></i> Editar
+                                                    </a>
+                                                    @endcan
+                                                @endif
                                                 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalDetalles-{{ $inscripcion->idd }}" title="Inspeccionar inscripción">
                                                     <i class="fa fa-eye" aria-hidden="true"></i> Ver Detalles
                                                 </button>
 
                                                 @can('borrar-ciudadanos')
-                                                <button type="submit" class="btn btn-danger">
+                                                <button type="submit" class="btn btn-danger" title="Eliminar inscripción">
                                                     <i class="fa fa-trash" aria-hidden="true"></i> Borrar
                                                 </button>
                                                 @endcan
+
                                             <!-- </form> -->
                                         </td>
                                     </tr>
@@ -151,7 +156,7 @@
             }
 })
         })
-         
+
     </script>
 @endsection
 

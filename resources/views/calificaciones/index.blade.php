@@ -15,18 +15,18 @@
                         <table class="table table-striped mt-2 table_id" id="miTabla2">
                             <thead style="background-color:#6777ef; color: #fff;">
                                 <th style="display: none;">ID</th>
-                                <th style="color:#fff;">Nombre <i class="fas fa-sort-desc fa-2x" aria-hidden="true"></i></th>
-                                <th style="color:#fff;">Cargo inscrito</th>
-                                <th style="color:#fff;">Estado</th>
-                                <th style="color:#fff;">Periodo del cargo</th>
+                                <th style="color:#fff; cursor: pointer;">Nombre <i class="fas fa-caret-square-o-down" aria-hidden="true"></i></i></th>
+                                <th style="color:#fff; cursor: pointer;">Cargo inscrito  <i class="fas fa-caret-square-o-down" aria-hidden="true"></i></th>
+                                <th style="color:#fff; cursor: pointer;">Estatus <i class="fas fa-caret-square-o-down" aria-hidden="true"></i></th>
+                                <th style="color:#fff; cursor: pointer;">Periodo del cargo <i class="fas fa-caret-square-o-down" aria-hidden="true"></i></th>
                                 <th style="color:#fff;">Acciones</th>
                             </thead>
                             <tbody>
                                 @foreach ($inscripciones as $inscripcion)
                                     <tr>
                                         <td style="display: none;">{{ $inscripcion->idd }}</td>
-                                        <td>{{ $inscripcion->ciudadano }} {{' '}} {{ $inscripcion->ap }} {{' '}} {{ $inscripcion->am }}</td>
-                                        <td>{{ $inscripcion->cargo }}</td>
+                                        <td>{{ ucwords($inscripcion->ciudadano) }} {{' '}} {{ ucwords($inscripcion->ap) }} {{' '}} {{ ucwords($inscripcion->am) }}</td>
+                                        <td>{{ ucwords($inscripcion->cargo) }}</td>
                                         <td>
                                             @if($inscripcion->apro == 1)
                                                 <span class="badge badge-success">Aprobado</span>
@@ -36,7 +36,7 @@
                                         </td>
                                         <td>{{ date('d/m/Y', strtotime($inscripcion->fi)) }} al {{ date('d/m/Y', strtotime($inscripcion->ff)) }}</td>
                                         <td>
-                                            <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#myModal-{{ $inscripcion->idd }}" title="Calificar a un cargo">Calificar</a>
+                                            <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#myModal-{{ $inscripcion->idd }}" title="Calificar ciudadano">Calificar</a>
                                         </td>
                                     </tr>
                                 @endforeach

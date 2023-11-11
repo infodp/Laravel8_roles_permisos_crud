@@ -20,18 +20,18 @@
                             <table class="table table-striped mt-2 table_id" id="miTabla2">
                               <thead style="background-color:#6777ef">
                                   <th style="display: none;">ID</th>
-                                  <th style="color:#fff;">Nombre <i class="fas fa-sort-desc fa-2x" aria-hidden="true"></i></th>
-                                  <th style="color:#fff;">Fecha de inicio</th>
-                                  <th style="color:#fff;">Fecha fin</th>
-                                  <th style="color:#fff;">Estado</th>
+                                  <th style="color: #fff; cursor: pointer;">Nombre <i class="fas fa-caret-square-o-down" aria-hidden="true"></i></th>
+                                  <th style="color:#fff; cursor: pointer;">Fecha de inicio <i class="fas fa-caret-square-o-down" aria-hidden="true"></i></th>
+                                  <th style="color:#fff; cursor: pointer;">Fecha fin <i class="fas fa-caret-square-o-down" aria-hidden="true"></i></th>
+                                  <th style="color:#fff">Estado</th>
                                   <th style="color:#fff;">Acciones</th>
                               </thead>
                               <tbody>
                                 @foreach ($cargos as $cargo)
                                   <tr>
                                     <td style="display: none;">{{ $cargo->id }}</td>
-                                    <td>{{ $cargo->nombre }}</td>
-                                    <td>{{ $cargo->fecha_inicio}}</td>
+                                    <td>{{ ucwords( $cargo->nombre) }}</td>
+                                    <td>{{ ucwords($cargo->fecha_inicio)}}</td>
                                     @php
                                         \Carbon\Carbon::setlocale(LC_TIME, 'es_ES.utf8');
                                      @endphp
@@ -63,17 +63,19 @@
                                             @php
                                                 $cargoId = $cargo->id;
                                                 $cargo = \App\Models\Cargo::with('ciudadanos')->find($cargoId);
-                                                $canDelete = $cargo->ciudadanos->isEmpty() && Gate::allows('borrar-ciudadanos');
+                                                $canDelete = $cargo->ciudadanos->isEmpty() && Gate::allows('borrar-cargo');
                                             @endphp
-
+                                                @can('editar-cargo')
                                                 @if ($canDelete)
                                                     @csrf
                                                     @method('DELETE')
-                                                    <button type="submit" class="btn btn-danger" onclick="fntDeleteCargo({{ $cargo->id }})">
-                                                        <i class="fa fa-trash" aria-hidden="true"></i> Borrar
-                                                    </button>
-                                                @endif
 
+                                                        <button type="submit" class="btn btn-danger" onclick="fntDeleteCargo({{ $cargo->id }})" title='Eliminar cargo'>
+                                                            <i class="fa fa-trash" aria-hidden="true"></i> Borrar
+                                                        </button>
+
+                                                @endif
+                                                @endcan
                                         <!-- </form> -->
 
                                         {{-- <i class="fa-solid fa-pen-to-square"></i> --}}

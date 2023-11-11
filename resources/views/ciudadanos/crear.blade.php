@@ -30,19 +30,20 @@
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label for="nombre">Nombre: </label><span class="required text-danger">*</span>
-                                        <input type="text" name="nombre" pattern="[A-Za-záéíóúüñÁÉÍÓÚÜÑ\s]+" class="form-control">
+                                        <input type="text" name="nombre" pattern="[A-Za-záéíóúüñÁÉÍÓÚÜÑ\s]+" title="Solo se permiten letras y espacios" class="form-control" placeholder="Nombre del nuevo ciudadano" required>
                                     </div>
                                 </div>
+
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label for="apellido_p">Apellido paterno: </label><span class="required text-danger">*</span>
-                                        <input type="text" name="apellido_p" pattern="[A-Za-záéíóúüñÁÉÍÓÚÜÑ\s]+" class="form-control">
+                                        <input type="text" name="apellido_p" pattern="[A-Za-záéíóúüñÁÉÍÓÚÜÑ\s]+"  title="Solo se permiten letras" class="form-control" placeholder="Apellido Paterno del nuevo ciudadano" required>
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label for="apellido_m">Apellido Materno: </label><span class="required text-danger">*</span>
-                                        <input type="text" name="apellido_m" pattern="[A-Za-záéíóúüñÁÉÍÓÚÜÑ\s]+" class="form-control">
+                                        <input type="text" name="apellido_m" pattern="[A-Za-záéíóúüñÁÉÍÓÚÜÑ\s]+"  title="Solo se permiten letras" class="form-control" placeholder="Apellido Materno del nuevo ciudadano" required>
                                     </div>
                                 </div>
                                 <div class="col-md-4">
@@ -52,16 +53,16 @@
                                             <option disabled selected>Selecciona sexo</option>
                                             <option value="Masculino">Masculino</option>
                                             <option value="Femenino">Femenino</option>
-                                            <option value="otro">Otro</option>
                                         </select>
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <label for="curp">Curp: </label><span class="required text-danger">*</span>
-                                        <input type="text" name="curp" class="form-control">
+                                        <label for="curp">CURP: </label><span class="required text-danger">*</span>
+                                        <input type="text" name="curp" pattern="[A-Za-z0-9]+" title="Solo se permiten letras y números" placeholder="CURP del nuevo ciudadano"  class="form-control" required>
                                     </div>
                                 </div>
+
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label for="fecha_nacimiento">Fecha de nacimiento: <span class="required text-danger">*</span></label>
@@ -71,19 +72,19 @@
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label for="num_telefonico">Numero telefonico: <span class="required text-danger">*</span></label>
-                                        <input type="text" name="num_telefonico" pattern="[0-9]*" class="form-control">
+                                        <input type="text" name="num_telefonico" pattern="[0-9]*" title="Solo se permiten números" placeholder="Número telefonico" class="form-control">
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label for="calle">Calle: </label><span class="required text-danger">*</span>
-                                        <input type="text" name="calle" class="form-control">
+                                        <input type="text" name="calle" title="Solo se permiten letras" placeholder="Nombre del la calle" required class="form-control">
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label for="num_calle">Numero de calle: </label><span class="required text-danger">*</span>
-                                        <input type="text" name="num_calle" pattern="[0-9]*" class="form-control">
+                                        <input type="text" name="num_calle" pattern="[0-9]*" title="Solo se permiten números" placeholder="Número de casa" required  class="form-control">
                                     </div>
                                 </div>
                                 {{-- <div class="col-md-4">
