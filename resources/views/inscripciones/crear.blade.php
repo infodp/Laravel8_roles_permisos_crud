@@ -68,8 +68,8 @@
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label for="cargo_id">Cargo: </label><span class="required text-danger">*</span>
-                                    <select name="cargo_id" class="form-control custom-select">
-                                        <option disabled selected>Selecciona cargo</option>
+                                    <select name="cargo_id" class="form-control custom-select" required>
+                                        <option disabled selected value="">Selecciona cargo</option>
                                         @foreach(\App\Models\Cargo::where('estado', 1)->get() as $cargo)
                                             <option value="{{$cargo->id}}">{{ $cargo->nombre }}</option>
                                         @endforeach
@@ -79,7 +79,7 @@
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label for="fecha_inscripcion">Fecha de inscripcion:<span class="required text-danger">*</span></label>
-                                    <input type="date" name="fecha_inscripcion" class="form-control">
+                                    <input type="date" name="fecha_inscripcion" class="form-control" required>
                                 </div>
                             </div>
                             <div class="col-md-12">

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 // use Illuminate\Support\Carbon;
 use App\Models\Cargo;
+use Illuminate\Support\Facades\DB;
 // use Carbon\Carbon;
 
 class CargoController extends Controller
@@ -107,5 +108,12 @@ class CargoController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function eliminar($id)
+    {
+        DB::table('cargos')->whereId($id)->delete();
+
+        return redirect()->route('cargos.index')->with('success', 'Cargo eliminado exitosamente.');
     }
 }

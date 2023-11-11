@@ -30,13 +30,13 @@
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label for="nombre">Nombre del cargo: <span class="required text-danger">*</span></label>
-                                        <input type="text" name="nombre" class="form-control">
+                                        <input type="text" name="nombre" class="form-control" required>
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label for="fecha_inicio">Fecha de inicio: <span class="required text-danger">*</span></label>
-                                        <input type="date" name="fecha_inicio" class="form-control">
+                                        <input type="date" name="fecha_inicio" class="form-control" required>
                                     </div>
                                 </div>
 

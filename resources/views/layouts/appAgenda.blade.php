@@ -302,10 +302,6 @@
     ],
 
 // //Nuevo Evento
-// function presionar = function(){
-//     var elemento = document.getElementById('salir');
-//     elemento.click();
-// },
 
   select: function(start, end){
     var op = document.getElementById("validar").value;

@@ -40,7 +40,7 @@
                                         @endif
                                     </td>
                                     <td>
-                                        <form action="{{ route('ciudadanos.destroy',$ciudadano->id) }}" method="POST" id="frmDatos">
+                                        <!-- <form action="{{ route('ciudadanos.destroy',$ciudadano->id) }}" method="POST"> -->
                                             @can('editar-ciudadanos')
                                             <a class="btn btn-info" href="{{ route('ciudadanos.edit',$ciudadano->id) }}"><i class="fa fa-pencil" aria-hidden="true"></i> Editar</a>
                                             @endcan
@@ -53,12 +53,12 @@
                                             @if ($canDelete)
                                                 @csrf
                                                 @method('DELETE')
-                                                <button type="submit" class="btn btn-danger">
+                                                <button type="submit" class="btn btn-danger" onclick="fntDeleteCiudadano({{ $ciudadano->id }})">
                                                     <i class="fa fa-trash" aria-hidden="true"></i> Borrar
                                                 </button>
+                                                
                                             @endif
-
-                                        </form>
+                                        <!-- </form> -->
                                         {{-- <i class="fa-solid fa-pen-to-square"></i> --}}
                                     </td>
                                   </tr>
@@ -77,6 +77,7 @@
     </section>
     <!-- JQUERY -->
     <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+    
     <!-- DATATABLES -->
     <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
     <!-- BOOTSTRAP -->
@@ -116,9 +117,8 @@
         </script>         
     @endif
 
-    <script>
-        $('#frmDatos').on('submit', function(e){
-            e.preventDefault();
+<script>
+        function fntDeleteCiudadano(ciudadanoId){
             Swal.fire({
                 title: '¿Deseas eliminar este ciudadano?',
                 text: "Ya no podrás visualizar este ciudadano en la tabla.",
@@ -130,10 +130,13 @@
                 cancelButtonText: "Cancelar"
             }).then((result) => {
             if (result.isConfirmed) {
-                // this.submit();
+                $.ajax({
+                    type: "post",
+                    url: "ciudadanos/eliminarId/"+ciudadanoId,
+                });
+                window.location="http://127.0.0.1:8000/ciudadanos";
             }
-})
         })
-         
+        }
     </script>
 @endsection

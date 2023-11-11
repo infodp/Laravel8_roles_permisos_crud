@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Cargos_has_ciudadano;
 use App\Models\Ciudadano;
+use Illuminate\Support\Facades\DB;
 
 class InscripcionController extends Controller
 {
@@ -111,6 +112,13 @@ class InscripcionController extends Controller
     {
         $inscripcion->delete();
         return redirect()->route('inscripcion.index')->with('success', 'Inscripción eliminada exitosamente');
+    }
+
+    public function eliminar($id)
+    {
+        DB::table('cargos_has_ciudadanos')->whereId($id)->delete();
+
+        return redirect()->route('inscripcion.index')->with('success', 'Inscripción eliminada exitosamente.');
     }
 
 

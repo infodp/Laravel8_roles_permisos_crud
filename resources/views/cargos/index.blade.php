@@ -50,7 +50,7 @@
                                     </td>
 
                                     <td>
-                                        <form action="{{ route('cargos.destroy', $cargo->id) }}" method="POST" id="frmDatos">
+                                        <!-- <form action="{{ route('cargos.destroy', $cargo->id) }}" method="POST" id="frmDatos"> -->
                                             @csrf
                                             @method('DELETE')
                                             @can('editar-ciudadanos')
@@ -67,12 +67,12 @@
                                                 @if ($canDelete)
                                                     @csrf
                                                     @method('DELETE')
-                                                    <button type="submit" class="btn btn-danger">
+                                                    <button type="submit" class="btn btn-danger" onclick="fntDeleteCargo({{ $cargo->id }})">
                                                         <i class="fa fa-trash" aria-hidden="true"></i> Borrar
                                                     </button>
                                                 @endif
 
-                                        </form>
+                                        <!-- </form> -->
 
                                         {{-- <i class="fa-solid fa-pen-to-square"></i> --}}
                                     </td>
@@ -133,11 +133,10 @@
     @endif
 
     <script>
-        $('#frmDatos').on('submit', function(e){
-            e.preventDefault();
+        function fntDeleteCargo(cargoId){
             Swal.fire({
-                title: '¿Deseas eliminar esta inscripción?',
-                text: "Ya no podrás visualizar esta inscripción en la tabla.",
+                title: '¿Deseas eliminar este cargo?',
+                text: "Ya no podrás visualizar este cargo en la tabla.",
                 icon: 'warning',
                 showCancelButton: true,
                 confirmButtonColor: '#3085d6',
@@ -146,11 +145,14 @@
                 cancelButtonText: "Cancelar"
             }).then((result) => {
             if (result.isConfirmed) {
-                this.submit();
+                $.ajax({
+                    type: "post",
+                    url: "cargos/eliminar/"+cargoId,
+                });
+                window.location="http://127.0.0.1:8000/cargos";
             }
-})
         })
-         
+        }
     </script>
 @endsection
 

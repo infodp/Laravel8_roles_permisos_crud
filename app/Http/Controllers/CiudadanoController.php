@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Ciudadano;
+use Illuminate\Support\Facades\DB;
 // use App\Models\Cargo;
 
 use Illuminate\Http\Request;
@@ -142,6 +143,13 @@ class CiudadanoController extends Controller
     {
         // dd('ddd');
         return view('ciudadanos.ver');
+    }
+
+    public function eliminarId($id)
+    {
+        DB::table('ciudadanos')->whereId($id)->delete();
+
+        return redirect()->route('ciudadanos.index')->with('success', 'Ciudadano eliminado exitosamente.');
     }
 
     // public function showDetails(Ciudadano $ciudadano)

@@ -31,7 +31,7 @@
                                         <td>{{ $inscripcion->cargo }}</td>
                                         <td>{{ date('d/m/Y', strtotime($inscripcion->fi)) }} al {{ date('d/m/Y', strtotime($inscripcion->ff)) }}</td>
                                         <td>
-                                            <form action="{{ route('inscripcion.destroy', $inscripcion->idd) }}" method="POST" id="frmDatos">
+                                            <!-- <form action="{{ route('inscripcion.destroy', $inscripcion->idd) }}" method="POST" id="frmDatos"> -->
                                                 @csrf
                                                 @method('DELETE')
                                                 @can('editar-ciudadanos')
@@ -45,11 +45,11 @@
                                                 </button>
 
                                                 @can('borrar-ciudadanos')
-                                                <button type="submit" class="btn btn-danger">
+                                                <button type="submit" class="btn btn-danger" onclick="fntDeleteInscripcion({{ $inscripcion->idd }})">
                                                     <i class="fa fa-trash" aria-hidden="true"></i> Borrar
                                                 </button>
                                                 @endcan
-                                            </form>
+                                            <!-- </form> -->
                                         </td>
                                     </tr>
                                 @endforeach
@@ -132,8 +132,8 @@
     @endif
 
     <script>
-        $('#frmDatos').on('submit', function(e){
-            e.preventDefault();
+        function fntDeleteInscripcion(inscripcionId){
+            console.log(inscripcionId);
             Swal.fire({
                 title: '¿Deseas eliminar esta inscripción?',
                 text: "Ya no podrás visualizar esta inscripción en la tabla.",
@@ -145,11 +145,14 @@
                 cancelButtonText: "Cancelar"
             }).then((result) => {
             if (result.isConfirmed) {
-                this.submit();
+                $.ajax({
+                    type: "post",
+                    url: "inscripcion/eliminar/"+inscripcionId,
+                });
+                window.location="http://127.0.0.1:8000/inscripcion";
             }
-})
         })
-         
+        }
     </script>
 @endsection
 

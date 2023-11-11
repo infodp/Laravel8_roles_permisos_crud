@@ -39,6 +39,13 @@ Route::post('agenda/eliminar/{id}',[AgendaController::class, 'eliminar'])->name(
 Route::post('agenda/actualizar/',[AgendaController::class, 'actualizar'])->name('agenda.actualizar');
 
 Route::post('agenda/drag_drop/',[AgendaController::class, 'drag_drop'])->name('agenda.drag_drop');
+
+Route::post('ciudadanos/eliminarId/{id}',[CiudadanoController::class, 'eliminarId'])->name('ciudadanos.eliminar');
+
+Route::post('cargos/eliminar/{id}',[CargoController::class, 'eliminar'])->name('cargos.eliminar');
+
+Route::post('inscripcion/eliminar/{id}',[InscripcionController::class, 'eliminar'])->name('inscripciones.eliminar');
+
 Route::get('inscribir/{ciudadano}', [App\Http\Controllers\InscripcionController::class, 'inscribir'])->name('inscribir');
 Route::post('inscribir/{ciudadano}', [App\Http\Controllers\InscripcionController::class, 'store'])->name('store');
 Route::post('calificar/{inscripcion}', [App\Http\Controllers\CalificacionController::class, 'update'])->name('calificaciones.update');
