@@ -69,17 +69,9 @@
                                                 @if ($canDelete)
                                                     @csrf
                                                     @method('DELETE')
-<<<<<<< HEAD
                                                     <button type="submit" class="btn btn-danger" onclick="fntDeleteCargo({{ $cargo->id }})">
                                                         <i class="fa fa-trash" aria-hidden="true"></i> Borrar
                                                     </button>
-=======
-                                                    @can('borrar-cargo')
-                                                        <button type="submit" class="btn btn-danger">
-                                                            <i class="fa fa-trash" aria-hidden="true"></i> Borrar
-                                                        </button>
-                                                    @endcan
->>>>>>> e1670551e994c448c048ac788a05b2e9e68c2bba
                                                 @endif
 
                                         <!-- </form> -->
@@ -162,11 +154,7 @@
                 window.location="http://127.0.0.1:8000/cargos";
             }
         })
-<<<<<<< HEAD
         }
-=======
-
->>>>>>> e1670551e994c448c048ac788a05b2e9e68c2bba
     </script>
 @endsection
 

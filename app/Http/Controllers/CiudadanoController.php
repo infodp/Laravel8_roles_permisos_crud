@@ -151,10 +151,4 @@ class CiudadanoController extends Controller
 
         return redirect()->route('ciudadanos.index')->with('success', 'Ciudadano eliminado exitosamente.');
     }
-
-    // public function showDetails(Ciudadano $ciudadano)
-    // {
-    //     dd($ciudadano);
-    //     return view('ciudadanos.ver', compact('ciudadano'));
-    // }
 }

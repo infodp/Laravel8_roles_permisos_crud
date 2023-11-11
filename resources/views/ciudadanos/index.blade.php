@@ -42,15 +42,9 @@
                                         @endif
                                     </td>
                                     <td>
-<<<<<<< HEAD
                                         <!-- <form action="{{ route('ciudadanos.destroy',$ciudadano->id) }}" method="POST"> -->
                                             @can('editar-ciudadanos')
                                             <a class="btn btn-info" href="{{ route('ciudadanos.edit',$ciudadano->id) }}"><i class="fa fa-pencil" aria-hidden="true"></i> Editar</a>
-=======
-                                        <form action="{{ route('ciudadanos.destroy',$ciudadano->id) }}" method="POST" id="frmDatos">
-                                            @can('editar-ciudadano')
-                                                <a class="btn btn-info" href="{{ route('ciudadanos.edit',$ciudadano->id) }}"><i class="fa fa-pencil" aria-hidden="true"></i> Editar</a>
->>>>>>> e1670551e994c448c048ac788a05b2e9e68c2bba
                                             @endcan
                                             @php
                                                 $ciudadanoId = $ciudadano->id;
@@ -61,18 +55,10 @@
                                             @if ($canDelete)
                                                 @csrf
                                                 @method('DELETE')
-<<<<<<< HEAD
                                                 <button type="submit" class="btn btn-danger" onclick="fntDeleteCiudadano({{ $ciudadano->id }})">
                                                     <i class="fa fa-trash" aria-hidden="true"></i> Borrar
                                                 </button>
-                                                
-=======
-                                                @can('borrar-ciudadano')
-                                                    <button type="submit" class="btn btn-danger">
-                                                        <i class="fa fa-trash" aria-hidden="true"></i> Borrar
-                                                    </button>
-                                                @endcan
->>>>>>> e1670551e994c448c048ac788a05b2e9e68c2bba
+
                                             @endif
                                         <!-- </form> -->
                                         {{-- <i class="fa-solid fa-pen-to-square"></i> --}}
@@ -93,7 +79,7 @@
     </section>
     <!-- JQUERY -->
     <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
-    
+
     <!-- DATATABLES -->
     <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
     <!-- BOOTSTRAP -->
@@ -152,13 +138,7 @@
                 });
                 window.location="http://127.0.0.1:8000/ciudadanos";
             }
-<<<<<<< HEAD
         })
         }
-=======
-            })
-        })
-
->>>>>>> e1670551e994c448c048ac788a05b2e9e68c2bba
     </script>
 @endsection
