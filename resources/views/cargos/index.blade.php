@@ -10,7 +10,9 @@
               <div class="col-lg-12">
                   <div class="card">
                       <div class="card-body">
-                        <a class="btn btn-warning" href="{{ route('cargos.create') }}" title="Crear nuevo Cargo"><i class="fa fa-plus" aria-hidden="true"></i> Nuevo Cargo</a>
+                        @can('crear-cargo')
+                            <a class="btn btn-warning" href="{{ route('cargos.create') }}" title="Crear nuevo Cargo"><i class="fa fa-plus" aria-hidden="true"></i> Nuevo Cargo</a>
+                        @endcan
                         <div>
                             <br>
                         </div>
@@ -53,7 +55,7 @@
                                         <!-- <form action="{{ route('cargos.destroy', $cargo->id) }}" method="POST" id="frmDatos"> -->
                                             @csrf
                                             @method('DELETE')
-                                            @can('editar-ciudadanos')
+                                            @can('editar-cargo')
                                             <a class="btn btn-info" href="{{ route('cargos.edit', $cargo->id) }}">
                                                 <i class="fa fa-pencil" aria-hidden="true"></i> Editar
                                             </a>
@@ -67,9 +69,17 @@
                                                 @if ($canDelete)
                                                     @csrf
                                                     @method('DELETE')
+<<<<<<< HEAD
                                                     <button type="submit" class="btn btn-danger" onclick="fntDeleteCargo({{ $cargo->id }})">
                                                         <i class="fa fa-trash" aria-hidden="true"></i> Borrar
                                                     </button>
+=======
+                                                    @can('borrar-cargo')
+                                                        <button type="submit" class="btn btn-danger">
+                                                            <i class="fa fa-trash" aria-hidden="true"></i> Borrar
+                                                        </button>
+                                                    @endcan
+>>>>>>> e1670551e994c448c048ac788a05b2e9e68c2bba
                                                 @endif
 
                                         <!-- </form> -->
@@ -129,7 +139,7 @@
                 "{{ Session::get('success') }}",
                 "success"
             )
-        </script>         
+        </script>
     @endif
 
     <script>
@@ -152,7 +162,11 @@
                 window.location="http://127.0.0.1:8000/cargos";
             }
         })
+<<<<<<< HEAD
         }
+=======
+
+>>>>>>> e1670551e994c448c048ac788a05b2e9e68c2bba
     </script>
 @endsection
 

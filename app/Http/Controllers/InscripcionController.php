@@ -9,6 +9,14 @@ use Illuminate\Support\Facades\DB;
 
 class InscripcionController extends Controller
 {
+    function __construct()
+    {
+         $this->middleware('permission:ver-inscripcion|crear-inscripcion|editar-inscripcion|borrar-inscripcion')->only('index');
+         $this->middleware('permission:crear-inscripcion', ['only' => ['create','store']]);
+         $this->middleware('permission:editar-inscripcion', ['only' => ['edit','update']]);
+         $this->middleware('permission:borrar-inscripcion', ['only' => ['destroy']]);
+    }
+
     /**
      * Display a listing of the resource.
      *

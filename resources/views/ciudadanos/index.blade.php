@@ -10,7 +10,9 @@
               <div class="col-lg-12">
                   <div class="card">
                       <div class="card-body">
-                      <a class="btn btn-warning" href="{{ route('ciudadanos.create') }}" title="Crear nuevo ciudadano"><i class="fa fa-plus" aria-hidden="true"></i> Nuevo Ciudadano</a>
+                        @can('crear-ciudadano')
+                             <a class="btn btn-warning" href="{{ route('ciudadanos.create') }}" title="Crear nuevo ciudadano"><i class="fa fa-plus" aria-hidden="true"></i> Nuevo Ciudadano</a>
+                        @endcan
                       <div>
                       <br>
                       </div>
@@ -40,9 +42,15 @@
                                         @endif
                                     </td>
                                     <td>
+<<<<<<< HEAD
                                         <!-- <form action="{{ route('ciudadanos.destroy',$ciudadano->id) }}" method="POST"> -->
                                             @can('editar-ciudadanos')
                                             <a class="btn btn-info" href="{{ route('ciudadanos.edit',$ciudadano->id) }}"><i class="fa fa-pencil" aria-hidden="true"></i> Editar</a>
+=======
+                                        <form action="{{ route('ciudadanos.destroy',$ciudadano->id) }}" method="POST" id="frmDatos">
+                                            @can('editar-ciudadano')
+                                                <a class="btn btn-info" href="{{ route('ciudadanos.edit',$ciudadano->id) }}"><i class="fa fa-pencil" aria-hidden="true"></i> Editar</a>
+>>>>>>> e1670551e994c448c048ac788a05b2e9e68c2bba
                                             @endcan
                                             @php
                                                 $ciudadanoId = $ciudadano->id;
@@ -53,10 +61,18 @@
                                             @if ($canDelete)
                                                 @csrf
                                                 @method('DELETE')
+<<<<<<< HEAD
                                                 <button type="submit" class="btn btn-danger" onclick="fntDeleteCiudadano({{ $ciudadano->id }})">
                                                     <i class="fa fa-trash" aria-hidden="true"></i> Borrar
                                                 </button>
                                                 
+=======
+                                                @can('borrar-ciudadano')
+                                                    <button type="submit" class="btn btn-danger">
+                                                        <i class="fa fa-trash" aria-hidden="true"></i> Borrar
+                                                    </button>
+                                                @endcan
+>>>>>>> e1670551e994c448c048ac788a05b2e9e68c2bba
                                             @endif
                                         <!-- </form> -->
                                         {{-- <i class="fa-solid fa-pen-to-square"></i> --}}
@@ -114,7 +130,7 @@
                 "{{ Session::get('success') }}",
                 "success"
             )
-        </script>         
+        </script>
     @endif
 
 <script>
@@ -136,7 +152,13 @@
                 });
                 window.location="http://127.0.0.1:8000/ciudadanos";
             }
+<<<<<<< HEAD
         })
         }
+=======
+            })
+        })
+
+>>>>>>> e1670551e994c448c048ac788a05b2e9e68c2bba
     </script>
 @endsection

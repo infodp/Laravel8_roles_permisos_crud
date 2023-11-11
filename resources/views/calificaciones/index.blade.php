@@ -10,11 +10,11 @@
           <div class="col-lg-12">
               <div class="card">
                   <div class="card-body">
-                    @if(session('success'))
+                    {{-- @if(session('success'))
                         <div class="alert alert-success">
                             {{ session('success') }}
                         </div>
-                    @endif
+                    @endif --}}
 
                     <div class="table-responsive">
                         <table class="table table-striped mt-2 table_id" id="miTabla2">
@@ -124,3 +124,17 @@
     });
 </script>
 @endsection
+@section('scripts')
+    @if(session('success'))
+        <script>
+            Swal.fire(
+                "Felicidades!",
+                "{{ Session::get('success') }}",
+                "success"
+            )
+        </script>
+    @endif
+
+
+@endsection
+

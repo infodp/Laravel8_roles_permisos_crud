@@ -10,14 +10,12 @@
                 <div class="col-lg-12">
                     <div class="card">
                         <div class="card-body">
-                            <a class="btn btn-warning" href="{{ route('roles.create') }}" title="Crear nuevo rol"> <i class="fa fa-plus" aria-hidden="true"></i> Nuevo rol</a>
+                            @can('ver-rol')
+                                <a class="btn btn-warning" href="{{ route('roles.create') }}" title="Crear nuevo rol"> <i class="fa fa-plus" aria-hidden="true"></i> Nuevo rol</a>
+                            @endcan
                         <div>
                             <br>
                         </div>
-                        {{-- @can('crear-rol')
-                        <a class="btn btn-warning" href="{{ route('roles.create') }}">Nuevo</a>
-                        @endcan
-                         --}}
 
                             <table class="table table-striped mt-2 table_id" id="miTabla2">
                                 <thead style="background-color:#6777ef">

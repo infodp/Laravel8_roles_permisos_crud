@@ -11,8 +11,9 @@
                   <div class="card">
                       <div class="card-body">
 
-
-                      <a class="btn btn-warning" href="{{ route('usuarios.create') }}" title="Crear nuevo usuario"> <i class="fa fa-plus" aria-hidden="true"></i> Nuevo usuario</a>
+                        @can('ver-usuario')
+                            <a class="btn btn-warning" href="{{ route('usuarios.create') }}" title="Crear nuevo usuario"> <i class="fa fa-plus" aria-hidden="true"></i> Nuevo usuario</a>
+                        @endcan
                       <div>
                       <br>
                       </div>
