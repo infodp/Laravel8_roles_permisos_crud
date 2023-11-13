@@ -37,11 +37,31 @@ class InscripcionController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
-    {
-        $ciudadanos = Ciudadano::where('estado','1')->get();
-        return view('inscripciones.crear', compact('ciudadanos'));
+    public function create(Request $request)
+{
+    $query = Ciudadano::query();
+
+    // Aplicar filtros según la solicitud
+    if (!$request->has('reset_filtro')) {
+        // No aplicar ningún filtro
+        if ($request->has('filtro')) {
+            switch ($request->get('filtro')) {
+                case 'filtro1':
+                    $query->where('sexo', '=', 'Masculino');
+                    break;
+                case 'filtro2':
+                    $query->where('sexo', '=', 'Femenino');
+                    break;
+            }
+        }
     }
+
+    // Filtrar por ciudadanos con estado igual a 1
+    $ciudadanos = $query->where('estado', '=', 1)->get();
+
+    return view('inscripciones.crear', compact('ciudadanos'));
+}
+
 
     /**
      * Store a newly created resource in storage.

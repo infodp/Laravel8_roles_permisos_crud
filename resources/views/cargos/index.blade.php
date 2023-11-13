@@ -10,11 +10,42 @@
               <div class="col-lg-12">
                   <div class="card">
                       <div class="card-body">
-                        @can('crear-cargo')
-                            <a class="btn btn-warning" href="{{ route('cargos.create') }}" title="Crear nuevo Cargo"><i class="fa fa-plus" aria-hidden="true"></i> Nuevo Cargo</a>
-                        @endcan
-                        <div>
-                            <br>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <!-- Botón para crear nuevo ciudadano -->
+                                @can('crear-cargo')
+                                    <a class="btn btn-warning" href="{{ route('cargos.create') }}" title="Crear nuevo Cargo"><i class="fa fa-plus" aria-hidden="true"></i> Nuevo Cargo</a>
+                                 @endcan
+
+                            </div>
+
+
+                            <div class="col-md-6">
+                                <!-- Dropdown de filtros -->
+                                <div class="dropdown">
+                                    <form action="{{ route('cargos.index') }}" method="GET">
+                                        <!-- Otros campos de formulario según tus necesidades -->
+                                        <div class="dropdown">
+                                            <button class="btn btn-info dropdown-toggle" type="button" id="filtroDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Seleccionar filtros">
+                                                <i class="fa fa-filter" aria-hidden="true"></i> Filtros
+                                            </button>
+                                            <div class="dropdown-menu" aria-labelledby="filtroDropdown">
+                                                <button type="submit" class="dropdown-item {{ request('filtro') === 'filtro1' ? 'active' : '' }}" name="filtro" value="filtro1"  title="Aplicar filtro">Activo</button>
+                                                <button type="submit" class="dropdown-item {{ request('filtro') === 'filtro2' ? 'active' : '' }}" name="filtro" value="filtro2"  title="Aplicar filtro">No activo</button>
+                                                <!-- Puedes agregar más opciones según tus necesidades -->
+
+                                                <button type="submit" class="btn btn-outline-danger btn-md" name="reset_filtro"  title="Eliminar filtros">
+                                                    <i class="fa fa-trash" aria-hidden="true" ></i> Borrar Filtros
+                                                </button>
+
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+
+                            </div>
+                        {{-- <div> --}}
+                            <br> <br>
                         </div>
                         <div class="table-responsive">
                             <table class="table table-striped mt-2 table_id" id="miTabla2">

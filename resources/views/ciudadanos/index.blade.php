@@ -10,11 +10,43 @@
               <div class="col-lg-12">
                   <div class="card">
                       <div class="card-body">
-                        @can('crear-ciudadano')
-                             <a class="btn btn-warning" href="{{ route('ciudadanos.create') }}" title="Crear nuevo ciudadano"><i class="fa fa-plus" aria-hidden="true"></i> Nuevo Ciudadano</a>
-                        @endcan
-                      <div>
-                      <br>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <!-- Botón para crear nuevo ciudadano -->
+                                @can('crear-ciudadano')
+                                    <a class="btn btn-warning" href="{{ route('ciudadanos.create') }}" title="Crear nuevo ciudadano">
+                                        <i class="fa fa-plus" aria-hidden="true"></i> Nuevo Ciudadano
+                                    </a>
+                                @endcan
+                            </div>
+
+                            <div class="col-md-6">
+                                <!-- Dropdown de filtros -->
+                                <div class="dropdown">
+                                    <form action="{{ route('ciudadanos.index') }}" method="GET">
+                                        <!-- Otros campos de formulario según tus necesidades -->
+                                        <div class="dropdown">
+                                            <button class="btn btn-info dropdown-toggle" type="button" id="filtroDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Seleccionar filtros">
+                                                <i class="fa fa-filter" aria-hidden="true"></i> Filtros
+                                            </button>
+                                            <div class="dropdown-menu" aria-labelledby="filtroDropdown">
+                                                <button type="submit" class="dropdown-item {{ request('filtro') === 'filtro1' ? 'active' : '' }}" name="filtro" value="filtro1" title="Aplicar filtro">Masculino</button>
+                                                <button type="submit" class="dropdown-item {{ request('filtro') === 'filtro2' ? 'active' : '' }}" name="filtro" value="filtro2"  title="Aplicar filtro">Femenino</button>
+                                                <button type="submit" class="dropdown-item {{ request('filtro') === 'filtro3' ? 'active' : '' }}" name="filtro" value="filtro3"  title="Aplicar filtro">Activo</button>
+                                                <button type="submit" class="dropdown-item {{ request('filtro') === 'filtro4' ? 'active' : '' }}" name="filtro" value="filtro4"  title="Aplicar filtro">No activo</button>
+                                                <!-- Puedes agregar más opciones según tus necesidades -->
+
+                                                <button type="submit" class="btn btn-outline-danger btn-md" name="reset_filtro"  title="Eliminar filtros">
+                                                    <i class="fa fa-trash" aria-hidden="true" ></i> Borrar Filtros
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+
+                            </div>
+                        {{-- <div> --}}
+                      <br><br>
                       </div>
                         <div class="table-responsive">
                             <table class="table table-striped mt-2 table_id" id="miTabla2">
@@ -23,8 +55,9 @@
                                   <th style="color:#fff; cursor: pointer;">Nombre <i class="fas fa-caret-square-o-down" aria-hidden="true"></i></th>
                                   <th style="color:#fff; cursor: pointer;">Apellido Paterno  <i class="fas fa-caret-square-o-down" aria-hidden="true"></i></th>
                                   <th style="color:#fff; cursor: pointer;">Apellido Materno  <i class="fas fa-caret-square-o-down" aria-hidden="true"></i></th>
-                                  <th style="color:#fff;">Estado</th>
-                                  <th style="color:#fff;">Acciones</th>
+                                  <th style="color:#fff; cursor: pointer;">Estado <i class="fas fa-caret-square-o-down" aria-hidden="true"></i></th>
+                                  <th style="color:#fff;">Sexo</th>
+                                  <th style="color:#fff;" class="text-center">Acciones</th>
                               </thead>
                               <tbody>
                                 @foreach ($ciudadanos as $ciudadano)
@@ -41,6 +74,7 @@
                                             <span class="badge badge-danger">No activo</span>
                                         @endif
                                     </td>
+                                    <td>{{ ucwords($ciudadano->sexo) }}</td>
                                     <td>
                                         <!-- <form action="{{ route('ciudadanos.destroy',$ciudadano->id) }}" method="POST"> -->
                                             @can('editar-ciudadano')
@@ -97,6 +131,7 @@
         { Apellido_p: 'Apellido_p' },
         { Apellido_m: 'Apellido_m' },
         { Estado: 'Estado' },
+        { Sexo: 'Sexo' },
         { Acciones: 'Acciones' }
     ],
 

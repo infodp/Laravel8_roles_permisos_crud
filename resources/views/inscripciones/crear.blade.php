@@ -10,6 +10,30 @@
             <div class="col-lg-12">
                 <div class="card">
                     <div class="card-body">
+                        <div class="col-md-6">
+                            <!-- Dropdown de filtros -->
+                            <div class="dropdown">
+                                <form action="{{ route('inscripcion.create') }}" method="GET">
+                                    <!-- Otros campos de formulario según tus necesidades -->
+                                    <div class="dropdown">
+                                        <button class="btn btn-info dropdown-toggle" type="button" id="filtroDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Seleccionar filtros">
+                                            <i class="fa fa-filter" aria-hidden="true"></i> Filtros
+                                        </button>
+                                        <div class="dropdown-menu" aria-labelledby="filtroDropdown">
+                                            <button type="submit" class="dropdown-item {{ request('filtro') === 'filtro1' ? 'active' : '' }}" name="filtro" value="filtro1" title="Aplicar filtro">Masculino</button>
+                                            <button type="submit" class="dropdown-item {{ request('filtro') === 'filtro2' ? 'active' : '' }}" name="filtro" value="filtro2"  title="Aplicar filtro">Femenino</button>
+                                            <!-- Puedes agregar más opciones según tus necesidades -->
+
+                                            <button type="submit" class="btn btn-outline-danger btn-md" name="reset_filtro"  title="Eliminar filtros">
+                                                <i class="fa fa-trash" aria-hidden="true" ></i> Borrar Filtros
+                                            </button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+
+                        </div>
+                        <br>
                         <!-- Aquí comienza el contenido de tu vista -->
                         <div class="table-responsive">
                             <table class="table table-striped mt-2 table_id" id="miTabla2">

@@ -24,13 +24,32 @@ class CiudadanoController extends Controller
          $this->middleware('permission:borrar-ciudadano', ['only' => ['destroy']]);
     }
 
-    public function index()
+    public function index(Request $request)
     {
-        // $ciudadanos = Ciudadano::query()
-        //     ->join('cargos', 'cargos.id', '=', 'ciudadanos.cargo_id')
-        //     ->select('ciudadanos.id', 'ciudadanos.nombre', 'ciudadanos.apellido_p', 'ciudadanos.apellido_m', 'ciudadanos.estado', 'cargos.nombre as cargo')
-        //     ->get();
-        $ciudadanos = Ciudadano::all();
+        $query = Ciudadano::query();
+
+        // Aplicar filtros según la solicitud
+        if (!$request->has('reset_filtro')) {
+            // No aplicar ningún filtro
+            if ($request->has('filtro')) {
+                switch ($request->get('filtro')) {
+                    case 'filtro1':
+                        $query->where('sexo', '=', 'Masculino');
+                        break;
+                    case 'filtro2':
+                        $query->where('sexo', '=', 'Femenino');
+                        break;
+                    case 'filtro3':
+                        $query->where('estado', '=', 1);
+                        break;
+                        case 'filtro4':
+                        $query->where('estado', '=', 0);
+                        break;
+                }
+            }
+        }
+        $ciudadanos = $query->get();
+        // $ciudadanos = Ciudadano::all();
         return view('ciudadanos.index', compact('ciudadanos'));
     }
 

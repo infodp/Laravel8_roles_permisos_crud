@@ -40,7 +40,7 @@
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
-                            <label for="password" class="control-label">Password
+                            <label for="password" class="control-label">Contraseña
                                 :</label><span
                                     class="text-danger">*</span>
                             <input id="password" type="password"

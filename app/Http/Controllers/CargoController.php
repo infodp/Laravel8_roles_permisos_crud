@@ -23,11 +23,28 @@ class CargoController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-       $cargos = Cargo::all();
+        $query = Cargo::query();
+
+        // Aplicar filtros según la solicitud
+        if (!$request->has('reset_filtro')) {
+            // No aplicar ningún filtro
+            if ($request->has('filtro')) {
+                switch ($request->get('filtro')) {
+                    case 'filtro1':
+                        $query->where('estado', '=', 1);
+                        break;
+                    case 'filtro2':
+                        $query->where('estado', '=', 0);
+                        break;
+                }
+            }
+        }
+        $cargos = $query->get();
         // $cargos = Cargo::whereDoesntHave('ciudadanos')->get();
         return view('cargos.index', compact('cargos'));
+
     }
 
     /**
