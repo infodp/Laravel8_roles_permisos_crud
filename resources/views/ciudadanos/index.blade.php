@@ -45,7 +45,6 @@
                                 </div>
 
                             </div>
-                        {{-- <div> --}}
                       <br><br>
                       </div>
                         <div class="table-responsive">
@@ -77,7 +76,7 @@
                                     <td>{{ ucwords($ciudadano->sexo) }}</td>
                                     <td>
                                         <!-- <form action="{{ route('ciudadanos.destroy',$ciudadano->id) }}" method="POST"> -->
-                                            @can('editar-ciudadano')
+                                            @can('editar-ciudadanos')
                                             <a class="btn btn-info" href="{{ route('ciudadanos.edit',$ciudadano->id) }}"><i class="fa fa-pencil" aria-hidden="true"></i> Editar</a>
                                             @endcan
                                             @php
@@ -92,7 +91,6 @@
                                                 <button type="submit" class="btn btn-danger" onclick="fntDeleteCiudadano({{ $ciudadano->id }})">
                                                     <i class="fa fa-trash" aria-hidden="true"></i> Borrar
                                                 </button>
-
                                             @endif
                                         <!-- </form> -->
                                         {{-- <i class="fa-solid fa-pen-to-square"></i> --}}

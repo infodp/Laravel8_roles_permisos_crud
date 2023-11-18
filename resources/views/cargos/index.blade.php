@@ -44,7 +44,6 @@
                                 </div>
 
                             </div>
-                        {{-- <div> --}}
                             <br> <br>
                         </div>
                         <div class="table-responsive">
