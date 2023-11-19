@@ -134,6 +134,7 @@
                 let request = sendMarkRequest($(this).data('id'));
 
                 request.done(() => {
+                    $( "#recargar" ).load(window.location.href + " #recargar" );
                     var value = $('#nombreModal').val();
                     $('#'+value).modal('hide');
                 });

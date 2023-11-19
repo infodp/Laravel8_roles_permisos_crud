@@ -5,6 +5,7 @@
 </form>
 
 {{-- Espacio de las notificaciones en la campanita --}}
+<div id="recargar" class="recargar">
 <li class="dropdown">
     <ul class="navbar-nav navbar-right">
         <li class="nav-item dropdown">
@@ -45,6 +46,7 @@
         </li>
     </ul>
 </li>
+</div>
 
 
     @if(\Illuminate\Support\Facades\Auth::user())
