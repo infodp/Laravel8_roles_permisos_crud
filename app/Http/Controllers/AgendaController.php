@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-
+use App\Notifications\notificaciones;
 use App\Models\Evento;
+use App\Models\User;
+use App\Events\NotificacionEvento;
 
 class AgendaController extends Controller
 {
@@ -17,19 +19,6 @@ class AgendaController extends Controller
     public function index(Request $request)
     {
         $eventos= Evento::all();
-        // $eventos = DB::table('eventos')->get();
-        // $sql = 'SELECT * FROM eventos';
-        // $eventos = DB::select($sql);
-        // return $eventos;
-        // echo $eventos;
-        // while($evento = mysqli_fetch_array($eventos))
-        //    {
-        //    echo $evento['id'];
-        //    echo $evento['nombre'];
-        //    echo $evento['fecha_inicio'];
-        //    echo $evento['fecha_fin'];
-        // //    <!-- color: '#8BC34A' -->
-        //    }
         
         return view('agenda.index')->with('eventos', $eventos);
 
@@ -87,6 +76,14 @@ class AgendaController extends Controller
         $event->estado = true;
 
         $event->save();
+
+        // auth()->user()->notify(new notificaciones($event));
+        
+        // User::all()
+        // ->each(function(User $user) use ($event){
+        //     $user->notify(new notificaciones($event));
+        // });
+        event(new NotificacionEvento($event));
 
         return redirect()->route('agenda.index')->with('success', 'Evento guardado exitosamente.');
     }

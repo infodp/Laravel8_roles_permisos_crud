@@ -9,20 +9,38 @@
     <ul class="navbar-nav navbar-right">
         <li class="nav-item dropdown">
             <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" id="notificationsDropdown" aria-expanded="false">
-                {{-- @if (count(auth()->user()->unreadNotifications) > 0) --}}
+                 @if (count(auth()->user()->unreadNotifications))
                     <span class="badge badge-sm badge-danger">
-                        {{-- {{ count(auth()->user()->unreadNotifications) }} --}}
-                        {{2}}
+                         {{ count(auth()->user()->unreadNotifications) }}
                     </span>
-                {{-- @endif --}}
+                 @endif 
                 <i class="fa fa-bell-o" aria-hidden="true" style="color: white;"></i>
             </a>
             <ul class="dropdown-menu dropdown-menu-right">
+                <span class="dropdown-header">Notificacion sin leer</span>
                 <!-- Contenido de notificaciones aquí -->
-                <a class="dropdown-item has-icon" href="/usuarios" >
-                    <i class="fa fa-user"></i> Se veran las notificaciones
-                </a>
+                @forelse (auth()->user()->unreadNotifications as $notificacion)
+                
+                    <a class="dropdown-item has-icon" data-toggle="modal" href="#" data-target="#myModal-{{$notificacion->data['eventoID']}}">
+                        <i class="fas fa-envelope mr-2"></i> {{$notificacion->data['nombre']}}
+                    </a>
+                    
+                    @empty
+                    <span class="ml-3 text-muted text-sm">Sin notificaciones por leer</span>
+                @endforelse
+                <div class="dropdown-divider"> </div>
+                <span class="dropdown-header">Notificacion leidas</span>
+                @forelse (auth()->user()->readNotifications as $notificacion)
+                    <a class="dropdown-item has-icon" href="#" >
+                        <i class="fas fa-envelope mr-2"></i> {{$notificacion->data['nombre']}}
+                    </a>
+                    @empty
+                    <span class="ml-3 text-muted text-sm">Sin notificaciones leídas</span>
+                @endforelse
+                <div class="dropdown-divider"> </div>
+                <a class="dropdown-footer dropdown-item" href="#" >Leer todas las notificaciones</a>
             </ul>
+            
         </li>
     </ul>
 </li>
@@ -74,3 +92,4 @@
         </li>
     @endif
 </ul>
+
