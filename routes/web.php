@@ -46,6 +46,10 @@ Route::post('cargos/eliminar/{id}',[CargoController::class, 'eliminar'])->name('
 
 Route::post('inscripcion/eliminar/{id}',[InscripcionController::class, 'eliminar'])->name('inscripciones.eliminar');
 
+Route::post('mark-as-read',[AgendaController::class, 'markNotificacion'])->name('markNotificacion');
+
+// Route::post('/mark-as-read', 'AgendaController@markNotificacion')->name('markNotificacion');
+
 Route::get('inscribir/{ciudadano}', [App\Http\Controllers\InscripcionController::class, 'inscribir'])->name('inscribir');
 Route::post('inscribir/{ciudadano}', [App\Http\Controllers\InscripcionController::class, 'store'])->name('store');
 Route::post('calificar/{inscripcion}', [App\Http\Controllers\CalificacionController::class, 'update'])->name('calificaciones.update');

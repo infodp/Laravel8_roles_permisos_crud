@@ -105,13 +105,39 @@
                             @endif
                         @endif
                     @endif
+                    <input type="hidden" class="form-control" value="myModal-{{$notificacion->data['eventoID']}}" name="nombreModal" id="nombreModal">
                     
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-primary">Marcar como leido</button>
+                    <button type="submit" class="mark-as-read btn btn-primary" data-id="{{$notificacion->id}}">Marcar como leido</button>
                 </div>
             </div>
         </div>
 </div>
 
 @endforeach
+
+@section('scripts')
+    <script>
+        function sendMarkRequest(id=null){
+            console.log(id);
+            return $.ajax("{{ route('markNotificacion') }}", {
+                method: 'POST',
+                data: {
+                    id
+                }
+            });
+        }
+
+        $(function(){
+            $('.mark-as-read').click(function(){
+                let request = sendMarkRequest($(this).data('id'));
+
+                request.done(() => {
+                    var value = $('#nombreModal').val();
+                    $('#'+value).modal('hide');
+                });
+            });
+        })
+    </script>
+@endsection

@@ -8,6 +8,7 @@ use App\Notifications\notificaciones;
 use App\Models\Evento;
 use App\Models\User;
 use App\Events\NotificacionEvento;
+use Illuminate\Notifications\Notifiable;
 
 class AgendaController extends Controller
 {
@@ -186,5 +187,13 @@ class AgendaController extends Controller
         $event->fecha_inicio = $_REQUEST['start'];
         $event->fecha_fin = $_REQUEST['end']; 
         $event->save();
+    }
+
+    public function markNotificacion(Request $request){
+        auth()->user()->unreadNotifications
+            ->when($request->input('id'), function($query) use ($request){
+                return $query->where('id', $request->input('id'));
+            })->markAsRead();
+        return response()->noContent();
     }
 }

@@ -23,6 +23,7 @@
                 
                     <a class="dropdown-item has-icon" data-toggle="modal" href="#" data-target="#myModal-{{$notificacion->data['eventoID']}}">
                         <i class="fas fa-envelope mr-2"></i> {{$notificacion->data['nombre']}}
+                        <span class="ml-3 pull-right text-muted text-sm">{{$notificacion->created_at->diffForHumans()}}</span>
                     </a>
                     
                     @empty

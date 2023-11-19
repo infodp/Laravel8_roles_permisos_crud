@@ -237,6 +237,27 @@
 
 @yield('page_js')
 @yield('scripts')
+<script>
+        function sendMarkRequest(id=null){
+            console.log(id);
+            return $.ajax("{{ route('markNotificacion') }}", {
+                method: 'POST',
+                data: {
+                    id
+                }
+            });
+        }
+
+        $(function(){
+            $('.mark-as-read').click(function(){
+                let request = sendMarkRequest($(this).data('id'));
+
+                request.done(() => {
+                    window.alert('Exito!');
+                });
+            });
+        })
+    </script>
 
 <script>
     let loggedInUser =@json(\Illuminate\Support\Facades\Auth::user());
@@ -261,14 +282,9 @@
 <script src="{{ asset('locales/es.js') }}"></script>
 
 <!-- Js de sweet alert 2 -->
-<script src="{{ asset('js/botones.js') }}"></script>
+<!-- <script src="{{ asset('js/botones.js') }}"></script> -->
 
 <script type="text/javascript">
-//   function salir(){
-//     // console.log("Hola");
-//     var elemento = document.getElementById('salir');
-//     elemento.click();
-// }
     $(document).ready(function() {
     $("#calendar").fullCalendar({
         header: {
@@ -432,13 +448,6 @@ eventClick:function(event){
 
 
   });
-
-
-//Oculta mensajes de Notificacion
-  setTimeout(function () {
-    $(".alert").slideUp(300);
-  }, 3000);
-
 
 });
 
