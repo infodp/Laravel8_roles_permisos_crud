@@ -30,17 +30,17 @@
                                                 <i class="fa fa-filter" aria-hidden="true"></i> Filtros
                                             </button>
                                             <div class="dropdown-menu" aria-labelledby="filtroDropdown">
-                                                <button type="submit" class="dropdown-item {{ request('filtro') === 'filtro1' ? 'active' : '' }}" name="filtro" value="filtro1"  title="Aplicar filtro">Activo</button>
-                                                <button type="submit" class="dropdown-item {{ request('filtro') === 'filtro2' ? 'active' : '' }}" name="filtro" value="filtro2"  title="Aplicar filtro">No activo</button>
+                                                <button type="submit" class="dropdown-item {{ request('filtro') === 'filtro1' ? 'active' : '' }}" name="filtro" value="filtro1" title="Aplicar filtro">Activo</button>
+                                                <button type="submit" class="dropdown-item {{ request('filtro') === 'filtro2' ? 'active' : '' }}" name="filtro" value="filtro2" title="Aplicar filtro">No activo</button>
                                                 <!-- Puedes agregar más opciones según tus necesidades -->
 
-                                                <button type="submit" class="btn btn-outline-danger btn-md" name="reset_filtro"  title="Eliminar filtros">
-                                                    <i class="fa fa-trash" aria-hidden="true" ></i> Borrar Filtros
+                                                <button type="submit" class="btn btn-outline-danger btn-md" name="reset_filtro" title="Eliminar filtros">
+                                                    <i class="fa fa-trash" aria-hidden="true"></i> Borrar Filtros
                                                 </button>
-
                                             </div>
                                         </div>
                                     </form>
+
                                 </div>
 
                             </div>
