@@ -43,8 +43,11 @@
     </a>
     @endcan
 
-
     <a class="nav-link" href="/calificacion">
         <i class="fas fa-graduation-cap"></i><span>Aprobaciones</span>
+    </a>
+
+    <a class="nav-link" href="/post">
+        <i class="fas fa-envelope"></i><span>Notificaciones</span>
     </a>
 </li>

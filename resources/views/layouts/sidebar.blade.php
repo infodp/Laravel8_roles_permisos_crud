@@ -5,7 +5,7 @@
     </div>
     <div class="sidebar-brand sidebar-brand-sm">
         <a href="{{ url('/') }}" class="small-sidebar-text">
-            <img class="navbar-brand-full" src="{{ asset('img/logo2.png') }}" width="150px" alt=""/>
+            <img class="navbar-brand-full img-fluid" src="{{ asset('img/logo2.png') }}" width="150px" alt=""/>
         </a>
     </div>
 

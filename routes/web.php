@@ -11,6 +11,7 @@ use App\Http\Controllers\CiudadanoController;
 use App\Http\Controllers\CargoController;
 use App\Http\Controllers\InscripcionController;
 use App\Http\Controllers\CalificacionController;
+use App\Http\Controllers\PostController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -63,4 +64,21 @@ Route::group(['middleware' => ['auth']], function() {
     Route::resource('cargos', CargoController::class);
     Route::resource('inscripcion', InscripcionController::class);
     Route::resource('calificacion', CalificacionController::class);
+    Route::resource('post', PostController::class);
 });
+
+//Ruta para marcar una notificacion como leída
+Route::get('marcarunanoti/{id}', [App\Http\Controllers\PostController::class, 'markone_as_read'])->name('marcarunanoti');
+
+// Ruta para marcar como leída las notificaciones
+Route::get('mark_as_read', [App\Http\Controllers\PostController::class, 'mark_as_read'])->name('mark_as_read');
+
+// Ruta para eliminar todas sus notifications leídas
+Route::get('destroyNotifications', [App\Http\Controllers\PostController::class, 'delet_full_notify_read'])->name('destroyNotifications');
+
+
+// Ruta para eliminar todas sus notifications ->IMPLEMENTAR SOLO SI ES NECESARIO.............
+// Route::get('destroyNotificationsss', function (){
+//     app(PostController::class)->delete_todas_noti();
+//     return redirect()->back();//te retorna a la misma vista
+// })->name('destroyNotificationsss');

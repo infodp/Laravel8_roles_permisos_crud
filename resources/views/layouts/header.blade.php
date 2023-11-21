@@ -14,25 +14,24 @@
                     <span class="badge badge-sm badge-danger">
                          {{ count(auth()->user()->unreadNotifications) }}
                     </span>
-                 @endif 
+                 @endif
                 <i class="fa fa-bell-o" aria-hidden="true" style="color: white;"></i>
             </a>
             <ul class="dropdown-menu dropdown-menu-right">
                 <span class="dropdown-header">Notificacion sin leer</span>
                 <!-- Contenido de notificaciones aquí -->
-                @forelse (auth()->user()->unreadNotifications as $notificacion)
-                
-                    <a class="dropdown-item has-icon" data-toggle="modal" href="#" data-target="#myModal-{{$notificacion->data['eventoID']}}">
+                @forelse (auth()->user()->unreadNotifications->take(5) as $notificacion)
+
+                    <a class="dropdown-item has-icon" href="{{route('post.index')}}">
                         <i class="fas fa-envelope mr-2"></i> {{$notificacion->data['nombre']}}
                         <span class="ml-3 pull-right text-muted text-sm">{{$notificacion->created_at->diffForHumans()}}</span>
                     </a>
-                    
-                    @empty
+                @empty
                     <span class="ml-3 text-muted text-sm">Sin notificaciones por leer</span>
                 @endforelse
                 <div class="dropdown-divider"> </div>
                 <span class="dropdown-header">Notificacion leidas</span>
-                @forelse (auth()->user()->readNotifications as $notificacion)
+                @forelse (auth()->user()->readNotifications->take(3 ) as $notificacion)
                     <a class="dropdown-item has-icon" href="#" >
                         <i class="fas fa-envelope mr-2"></i> {{$notificacion->data['nombre']}}
                     </a>
@@ -40,9 +39,11 @@
                     <span class="ml-3 text-muted text-sm">Sin notificaciones leídas</span>
                 @endforelse
                 <div class="dropdown-divider"> </div>
-                <a class="dropdown-footer dropdown-item" href="#" >Leer todas las notificaciones</a>
+                @if(auth()->user()->unreadNotifications()->get()->count() > 0)
+                    <a class="dropdown-footer dropdown-item"  href="{{ route('mark_as_read') }}" >Leer todas las notificaciones</a>
+                @endif
             </ul>
-            
+
         </li>
     </ul>
 </li>
