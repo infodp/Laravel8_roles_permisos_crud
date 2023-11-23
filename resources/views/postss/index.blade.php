@@ -15,60 +15,66 @@
                                 <div class="">
                                     <h3>No leídas</h3>
                                 </div>
+                                <div class='post-it-2'>
+                                <ul>
                                 @forelse ($postNotifications as $notification)
-                                    <div class="alert alert-info">
-                                        <h5 class="">
-                                            {{ $notification->data['nombre'] }}
-                                        </h5>
-                                        <p class="text-right" style="color: #e83030;">
-                                            {{ $notification->created_at->diffForHumans() }}
-                                        </p>
-
-                                        <div class="flex justify-between">
-                                            <p class="font-normal text-gray-700">{{ $notification->data['descripcion'] }}</p>
-                                            <a href="{{ route('marcarunanoti', $notification->id) }}" class="btn btn-primary" title="Marcar notificación como leída">
-                                                Marcar como leída
+                                        <li>
+                                            <a href="#JavaScript">
+                                                <h2>{{ $notification->data['nombre'] }}</h2>
+                                                <p>{{ $notification->data['descripcion'] }}</p>
+                                                <p>{{ $notification->data['fechaInicio'] }}</p>
+                                                <p>{{ $notification->created_at->diffForHumans() }}</p>
+                                                <btn class="btn btn-primary" onclick="location.href= '{{ route('marcarunanoti', $notification->id) }}'"  title="Marcar notificación como leída">
+                                                        Marcar como leída
+                                                </btn>
                                             </a>
-                                        </div>
-                                    </div>
-
-                                    @if ($loop->last)
-                                        <div class="flex justify-center px-6 py-2 bg-blue-50">
-                                            <a href="{{ route('mark_as_read') }}" class="btn btn-danger" title="Marcar notificaciones como leídas">
-                                                Marcar todas las notificaciones como leídas
-                                            </a>
-
-                                        </div>
-                                    @endif
+                                            
+                                            
+                                        </li>
                                 @empty
                                 <div class="alert alert-info">
-
                                     <div class="flex justify-between">
                                         <p>Sin notificaciones por leer</p>
                                     </div>
                                 </div>
+
                                 @endforelse
+                                </ul>
+                                </div>
+                                @if (auth()->user()->unreadNotifications()->get()->count() > 0)
+                                <div class="flex justify-center px-6 py-2 bg-blue-50">
+                                            <a href="{{ route('mark_as_read') }}" class="btn btn-success" title="Marcar notificaciones como leídas">
+                                                Marcar todas las notificaciones como leídas
+                                            </a>
+
+                                        </div>
+                                @endif
 
                                 <hr class="border-top border-primary">
                                 <div class="">
                                     <h3>Leídas</h3>
                                 </div>
 
-                                @forelse (auth()->user()->readNotifications as $notificatione)
-                                    <div class="alert alert-secondary">
-                                        <h5 class="">
-                                            {{ $notificatione->data['nombre'] }}
-                                        </h5>
-                                        <p class="text-right" style="color: #e83030;">
-                                            {{ $notificatione->created_at->diffForHumans() }}
-                                        </p>
-                                        <div class="flex justify-between">
-                                            <p class="font-normal text-gray-700">{{ $notificatione->data['descripcion'] }}</p>
-                                        </div>
-                                    </div>
+                                <div class='post-it'>
+                                <ul>
+                                @forelse (auth()->user()->readNotifications as $notificatione)                                    
+                                        <li>
+                                            <a href="#JavaScript">
+                                            <h2>{{ $notificatione->data['nombre'] }}</h2>
+                                                <p>{{ $notificatione->data['descripcion'] }}</p>
+                                                <p>{{ $notificatione->data['fechaInicio'] }}</p>
+                                                <p>{{ $notificatione->created_at->diffForHumans() }}</p>
+                                            </a>
+                                        </li>
                                 @empty
-                                    <p>Sin notificaciones leídas</p>
+                                <div class="alert alert-secondary">
+                                    <div class="flex justify-between">
+                                        <p>Sin notificaciones leídas</p>
+                                    </div>
+                                </div>
                                 @endforelse
+                                </ul>
+                                </div>
 
                                 @if (auth()->user()->readNotifications()->get()->count() > 0)
                                     <div>
@@ -85,6 +91,7 @@
             </div>
         </div>
     </div>
+
 @endsection
 
 

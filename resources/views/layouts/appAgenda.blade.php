@@ -253,7 +253,10 @@
                 let request = sendMarkRequest($(this).data('id'));
 
                 request.done(() => {
-                    window.alert('Exito!');
+                  window.alert('Exito!');
+                    $( "#recargar" ).load(window.location.href + " #recargar" );
+                    var value = $('#nombreModal').val();
+                    $('#'+value).modal('hide');
                 });
             });
         })

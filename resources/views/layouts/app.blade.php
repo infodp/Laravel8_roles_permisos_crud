@@ -29,6 +29,10 @@
 	<link rel="stylesheet" type="text/css" href="{{ asset('css/bootstrap.min.css') }}">
     <!-- <link rel="stylesheet" type="text/css" href="{{ asset('css/home.css') }}"> -->
 
+    <!-- Css de post-it -->
+    <link  href="http://fonts.googleapis.com/css?family=Reenie+Beanie:regular" rel="stylesheet" type="text/css">
+    <link href="{{ asset('css/post-it.css') }}" rel="stylesheet" type="text/css"/>
+
 @yield('page_css')
 <!-- Template CSS -->
     <link rel="stylesheet" href="{{ asset('web/css/style.css') }}">
