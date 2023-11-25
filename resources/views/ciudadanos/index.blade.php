@@ -54,6 +54,7 @@
                                   <th style="color:#fff; cursor: pointer;">Nombre <i class="fas fa-caret-square-o-down" aria-hidden="true"></i></th>
                                   <th style="color:#fff; cursor: pointer;">Apellido Paterno  <i class="fas fa-caret-square-o-down" aria-hidden="true"></i></th>
                                   <th style="color:#fff; cursor: pointer;">Apellido Materno  <i class="fas fa-caret-square-o-down" aria-hidden="true"></i></th>
+                                  <th style="color:#fff; cursor: pointer;">CURP  <i class="fas fa-caret-square-o-down" aria-hidden="true"></i></th>
                                   <th style="color:#fff; cursor: pointer;">Estado <i class="fas fa-caret-square-o-down" aria-hidden="true"></i></th>
                                   <th style="color:#fff;">Sexo</th>
                                   <th style="color:#fff;" class="text-center">Acciones</th>
@@ -65,6 +66,7 @@
                                     <td>{{ ucwords($ciudadano->nombre) }}</td>
                                     <td>{{ ucwords($ciudadano->apellido_p) }}</td>
                                     <td>{{ ucwords($ciudadano->apellido_m) }}</td>
+                                    <td>{{ ucwords($ciudadano->curp) }}</td>
                                     <td>
                                         @if ($ciudadano->estado==1)
                                             <span class="badge badge-success">Activo</span>
@@ -130,6 +132,7 @@
         { Apellido_m: 'Apellido_m' },
         { Estado: 'Estado' },
         { Sexo: 'Sexo' },
+        { CURP: 'CURP' },
         { Acciones: 'Acciones' }
     ],
 
