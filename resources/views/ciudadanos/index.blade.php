@@ -36,8 +36,8 @@
                                                 <button type="submit" class="dropdown-item {{ request('filtro') === 'filtro4' ? 'active' : '' }}" name="filtro" value="filtro4"  title="Aplicar filtro">No activo</button>
                                                 <!-- Puedes agregar más opciones según tus necesidades -->
 
-                                                <button type="submit" class="btn btn-outline-danger btn-md" name="reset_filtro"  title="Eliminar filtros">
-                                                    <i class="fa fa-trash" aria-hidden="true" ></i> Borrar Filtros
+                                                <button type="submit" class="btn btn-outline-danger btn-md" name="reset_filtro"  title="Quitar filtro">
+                                                    <i class="fa fa-trash" aria-hidden="true" ></i> Quitar Filtro
                                                 </button>
                                             </div>
                                         </div>

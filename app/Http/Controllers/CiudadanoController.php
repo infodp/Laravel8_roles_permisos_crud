@@ -78,13 +78,17 @@ class CiudadanoController extends Controller
             'apellido_m' => 'required',
             'sexo' => 'required',
             'fecha_nacimiento' => 'required',
-            'curp' =>  ['required', 'regex:/^([A-Z][AEIOUX][A-Z]{2}\d{2}(?:0[1-9]|1[0-2])(?:0[1-9]|[12]\d|3[01])[HM](?:AS|B[CS]|C[CLMSH]|D[FG]|G[TR]|HG|JC|M[CNS]|N[ETL]|OC|PL|Q[TR]|S[PLR]|T[CSL]|VZ|YN|ZS)[B-DF-HJ-NP-TV-Z]{3}[A-Z\d])(\d)$/'],
+            'curp' =>  ['required', 'regex:/^([A-Z][AEIOUX][A-Z]{2}\d{2}(?:0[1-9]|1[0-2])(?:0[1-9]|[12]\d|3[01])[HM](?:AS|B[CS]|C[CLMSH]|D[FG]|G[TR]|HG|JC|M[CNS]|N[ETL]|OC|PL|Q[TR]|S[PLR]|T[CSL]|VZ|YN|ZS)[B-DF-HJ-NP-TV-Z]{3}[A-Z\d])(\d)$/', 'unique:ciudadanos'],
             'num_telefonico' => 'required|regex:/^[0-9]{10}$/',
             'calle' => 'required',
             'num_calle' => 'required',
+            'num_exterior' => 'required',
+            'num_interior' => 'required',
+            'referencia' => 'required',
         ]);
         $ciudadanoData = $request->all();
         $ciudadanoData['estado'] = true;
+        $ciudadanoData['observaciones'] = " ";
 
         Ciudadano::create($ciudadanoData);
 
@@ -139,10 +143,19 @@ class CiudadanoController extends Controller
             'num_calle' => 'required',
             'estado'=>'required',
         ]);
+        $ciudadanoData = $request->all();
 
-        $ciudadano->update($request->all());
+        if($ciudadanoData['estado'] == true){
+            $nuevaRequest = $request->merge(['observaciones' => ' ']);
+            $ciudadano->update($nuevaRequest->all());
+            return redirect()->route('ciudadanos.index')->with('success', 'Ciudadano actualizado exitosamente.');
+        } else{
+            $ciudadano->update($request->all());
+            return redirect()->route('ciudadanos.index')->with('success', 'Ciudadano actualizado exitosamente.');
+        }
+        
 
-        return redirect()->route('ciudadanos.index')->with('success', 'Ciudadano actualizado exitosamente.');
+        
     }
 
     /**
