@@ -49,6 +49,10 @@ class CiudadanoFactory extends Factory
             'fecha_nacimiento'=>$this->faker->date(),
             'calle'=>$Calles,
             'num_calle'=>$this->faker->numberBetween(0, 100),
+            'num_exterior'=>$this->faker->numberBetween(0, 50),
+            'num_interior'=>$this->faker->numberBetween(0, 30),
+            'referencia'=> $this->faker->text(30),
+            'observaciones'=> $this->faker->text(30),
             'num_telefonico' => $this->faker->regexify('/^[0-9]{10}$/'),
             'estado'=>1,
         ];

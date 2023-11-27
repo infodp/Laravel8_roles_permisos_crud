@@ -37,6 +37,10 @@
     </a>
     @endcan
 
+    <a class="nav-link" href="/grupos">
+        <i class=" fas fa-university fa-lg"></i><span>Grupos</span>
+    </a>
+
     @can('ver-inscripcion')
     <a class="nav-link" href="/inscripcion">
         <i class="fas fa-address-book"></i><span>Inscripciones</span>

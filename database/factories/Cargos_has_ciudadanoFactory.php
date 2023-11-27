@@ -2,7 +2,7 @@
 
 namespace Database\Factories;
 
-use App\Models\Cargo;
+use App\Models\Grupo;
 use App\Models\Ciudadano;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -25,8 +25,9 @@ class Cargos_has_ciudadanoFactory extends Factory
         return [
             'fecha_inscripcion' =>$fecha1,
             'aprobado' => $this->faker->numberBetween(0, 1),
+            'observacion'=> $this->faker->text(40),
             'ciudadano_id'=>Ciudadano::inRandomOrder()->first()->id,
-            'cargo_id'=>Cargo::inRandomOrder()->first()->id,
+            'grupo_id'=>Grupo::inRandomOrder()->first()->id,
         ];
     }
 }

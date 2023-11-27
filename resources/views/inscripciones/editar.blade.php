@@ -33,23 +33,32 @@
                                             $ciudadano = \App\Models\Ciudadano::find($inscripcion->ciudadano_id);
                                             $nombreCiudadano = $ciudadano ? $ciudadano->nombre : '';
                                         @endphp
-                                        <input type="text" name="nombre" class="form-control" value="{{ $nombreCiudadano }}" autocomplete="off" readonly>
+                                        <label class="form-control" autocomplete="off" readonly>{{ ucwords($nombreCiudadano) }} {{ ucwords($ciudadano->apellido_p) }} {{ ucwords($ciudadano->apellido_m)}}</label>
                                     </div>
                                 </div>
 
+                                @php
+                                    $grupos = \App\Models\Grupo::query()
+                                            ->join('cargos','cargos.id','=','grupos.cargo_id')
+                                            ->select('grupos.id as idGrupo','grupos.nombre as nombreGrupo','cargos.nombre as cargo')
+                                            ->where('grupos.estado', 1)->get();
+                                @endphp
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <label for="cargo_id">Nombre del Cargo: <span class="required text-danger">*</span></label>
-                                        <select name="cargo_id" class="form-control">
-                                            <option value="">Seleccionar cargo</option>
-                                            @foreach(\App\Models\Cargo::where('estado', 1)->get() as $cargo)
-                                                <option value="{{ $cargo->id }}" {{ $inscripcion->cargo_id == $cargo->id ? 'selected' : '' }}>
-                                                    {{ $cargo->nombre }}
+
+                                        <label for="grupo_id">Grupo asignado: <span class="required text-danger">*</span></label>
+                                        <select name="grupo_id" class="form-control">
+                                            <option value="">Seleccionar grupo</option>
+                                            @foreach($grupos as $grupo)
+                                                <option value="{{ $grupo->idGrupo }}" {{ $inscripcion->grupo_id == $grupo->idGrupo ? 'selected' : '' }}>
+                                                    {{ $grupo->nombreGrupo }} {{'-> Cargo['}}{{$grupo->cargo}}{{']'}}
                                                 </option>
+
                                             @endforeach
                                         </select>
                                     </div>
                                 </div>
+
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label for="fecha_inscripcion">Fecha de inscripción: <span class="required text-danger">*</span></label>

@@ -3,7 +3,7 @@
 @section('content')
     <section class="section">
         <div class="section-header">
-            <h3 class="page__heading">Editar Cargo</h3>
+            <h3 class="page__heading">Editar grupo</h3>
         </div>
         <div class="section-body">
             <div class="row">
@@ -22,50 +22,65 @@
                             </button>
                             </div>
                         @endif
-                        <form action="{{ route('cargos.update', $cargo->id) }}" method="POST">
+                        <form action="{{ route('grupos.update', $grupo->id) }}" method="POST">
                             @csrf
                             @method('PUT')
                             <div class="row">
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <label for="nombre">Nombre del cargo: <span class="required text-danger">*</span></label>
-                                        <input type="text" name="nombre" class="form-control" value="{{ $cargo->nombre }}">
+                                        <label for="nombre">Nombre del grupo: <span class="required text-danger">*</span></label>
+                                        <input type="text" name="nombre" class="form-control" value="{{ $grupo->nombre ?? '' }}">
                                     </div>
                                 </div>
-                                <div class="col-md-8">
-                                    <div class="form-group">
-                                        <div class="form-floating">
-                                            <label for="nombre">Descripcion: <span class="required text-danger">*</span></label>
-                                            <textarea class="form-control" name="descripcion" style="height: 70px">{{ $cargo->descripcion }}</textarea>
-                                        </div>
-                                    </div>
-                                </div>
-                                {{-- <div class="col-md-4">
+
+                                <div class="col-md-4">
                                     <div class="form-group">
                                         <label for="fecha_inicio">Fecha de inicio: <span class="required text-danger">*</span></label>
-                                        <input type="date" name="fecha_inicio" class="form-control" min="{{ $cargo->fecha_inicio }}" value="{{ $cargo->fecha_inicio }}">
+                                        <input type="date" name="fecha_inicio" class="form-control" min="{{ $grupo->fecha_inicio }}" value="{{ $grupo->fecha_inicio }}">
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label for="fecha_fin">Fecha de fin: <span class="required text-danger">*</span></label>
-                                        <input type="date" name="fecha_fin" min="{{ $cargo->fecha_fin }}" class="form-control" value="{{ $cargo->fecha_fin }}">
+                                        <input type="date" name="fecha_fin" min="{{ $grupo->fecha_fin }}" class="form-control" value="{{ $grupo->fecha_fin }}">
+                                    </div>
+                                </div>
+
+                                {{-- <div class="col-md-8">
+                                    <div class="form-group">
+                                        <div class="form-floating">
+                                            <label for="nombre">Descripcion: <span class="required text-danger">*</span></label>
+                                            <textarea class="form-control" name="descripcion" style="height: 70px">{{ $grupo->descripcion }}</textarea>
+                                        </div>
                                     </div>
                                 </div> --}}
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="cargo_id">Nombre del Cargo: <span class="required text-danger">*</span></label>
+                                        <select name="cargo_id" class="form-control">
+                                            <option value="">Seleccionar cargo</option>
+                                            @foreach(\App\Models\Cargo::where('estado', 1)->get() as $cargo)
+                                                <option value="{{ $cargo->id }}" {{ $grupo->cargo_id == $cargo->id ? 'selected' : '' }}>
+                                                    {{ $cargo->nombre }}
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label for="estado">Estado: <span class="required text-danger">*</span></label>
                                         <select name="estado" class="form-control">
                                             <option disabled>Selecciona Estado</option>
-                                            <option value="1" {{ $cargo->estado === 1 ? 'selected' : '' }}>Activo</option>
-                                            <option value="0" {{ $cargo->estado === 0 ? 'selected' : '' }}>Inactivo</option>
+                                            <option value="1" {{ $grupo->estado === 1 ? 'selected' : '' }}>Activo</option>
+                                            <option value="0" {{ $grupo->estado === 0 ? 'selected' : '' }}>Inactivo</option>
                                         </select>
                                     </div>
                                 </div>
 
                                 <div class="col-md-12">
                                     <button type="submit" class="btn btn-primary">Guardar</button>
-                                    <a href="{{ route('cargos.index') }}" class="btn btn-warning">Cancelar</a>
+                                    <a href="{{ route('grupos.index') }}" class="btn btn-warning">Cancelar</a>
                                 </div>
                             </div>
                         </form>

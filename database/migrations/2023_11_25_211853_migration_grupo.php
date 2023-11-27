@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class MigrationCargo extends Migration
+class MigrationGrupo extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,16 @@ class MigrationCargo extends Migration
      */
     public function up()
     {
-        Schema::create('cargos', function (Blueprint $table) {
+        Schema::create('grupos', function (Blueprint $table) {
             $table->id();
             $table->string('nombre');
-            $table->text('descripcion');
+            $table->date('fecha_inicio');
+            $table->date('fecha_fin');
             $table->boolean('estado');
             $table->timestamps();
+            $table->foreignId('cargo_id') ->nullable()
+            ->constrained()
+            ->onDelpphete('set null');
         });
     }
 
@@ -29,6 +33,6 @@ class MigrationCargo extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('cargos');
+        Schema::dropIfExists('grupos');
     }
 }

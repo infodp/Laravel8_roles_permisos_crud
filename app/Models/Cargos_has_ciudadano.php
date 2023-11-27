@@ -9,6 +9,6 @@ class Cargos_has_ciudadano extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['ciudadano_id','cargo_id','fecha_inscripcion','aprobado'];
+    protected $fillable = ['ciudadano_id','grupo_id','fecha_inscripcion','observacion','aprobado'];
 
 }

@@ -33,7 +33,15 @@
                                         <input type="text" name="nombre" class="form-control" required>
                                     </div>
                                 </div>
-                                <div class="col-md-4">
+                                <div class="col-md-8">
+                                    <div class="form-group">
+                                        <div class="form-floating">
+                                            <label for="descripcion">Descipción del cargo: <span class="required text-danger">*</span></label>
+                                            <textarea class="form-control" name="descripcion" style="height: 80px"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                                {{-- <div class="col-md-4">
                                     <div class="form-group">
                                         <label for="fecha_inicio">Fecha de inicio: <span class="required text-danger">*</span></label>
                                         <input type="date" name="fecha_inicio" class="form-control" required>
@@ -56,7 +64,7 @@
                                         <label for="fecha_fin">Fecha de fin: <span class="required text-danger">*</span></label>
                                         <input type="date" name="fecha_fin" min="{{$fecha_fi}}" class="form-control">
                                     </div>
-                                </div>
+                                </div> --}}
 
 
                                 <div class="col-md-12">

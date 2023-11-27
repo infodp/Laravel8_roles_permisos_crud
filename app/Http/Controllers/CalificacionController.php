@@ -16,8 +16,9 @@ class CalificacionController extends Controller
     public function index(Request $request)
 {
     $query = Cargos_has_ciudadano::query()
-        ->join('cargos', 'cargos.id', '=', 'cargos_has_ciudadanos.cargo_id')
+        ->join('grupos', 'grupos.id', '=', 'cargos_has_ciudadanos.grupo_id')
         ->join('ciudadanos', 'ciudadanos.id', '=', 'cargos_has_ciudadanos.ciudadano_id')
+        ->join('cargos','cargos.id', '=', 'grupos.cargo_id')
         ->select(
             'cargos_has_ciudadanos.id as idd',
             'cargos_has_ciudadanos.aprobado as apro',
@@ -25,9 +26,10 @@ class CalificacionController extends Controller
             'ciudadanos.nombre as ciudadano',
             'ciudadanos.apellido_p as ap',
             'ciudadanos.apellido_m as am',
-            'cargos.nombre as cargo',
-            'cargos.fecha_inicio as fi',
-            'cargos.fecha_fin as ff'
+            'grupos.nombre as grupo',
+            'grupos.fecha_inicio as fi',
+            'grupos.fecha_fin as ff',
+            'cargos.nombre as cargo'
         );
 
     // Aplicar filtros según la solicitud

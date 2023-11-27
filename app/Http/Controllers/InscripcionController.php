@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Cargos_has_ciudadano;
 use App\Models\Ciudadano;
+use App\Models\Grupo;
+use DateTime;
 use Illuminate\Support\Facades\DB;
 
 class InscripcionController extends Controller
@@ -25,9 +27,10 @@ class InscripcionController extends Controller
     public function index()
     {
         $inscripciones = Cargos_has_ciudadano::query()
-            ->join('cargos', 'cargos.id', '=', 'cargos_has_ciudadanos.cargo_id')
+            ->join('grupos', 'grupos.id', '=', 'cargos_has_ciudadanos.grupo_id')
             ->join('ciudadanos', 'ciudadanos.id', '=', 'cargos_has_ciudadanos.ciudadano_id')
-            ->select('cargos_has_ciudadanos.id as idd','ciudadanos.id', 'ciudadanos.nombre as ciudadano', 'ciudadanos.apellido_p as ap', 'ciudadanos.apellido_m as am', 'cargos.nombre as cargo','cargos.fecha_inicio as fi','cargos.fecha_fin as ff', 'cargos.estado as estado')
+            ->join('cargos','cargos.id', '=', 'grupos.cargo_id')
+            ->select('cargos_has_ciudadanos.id as idd','ciudadanos.id', 'ciudadanos.nombre as ciudadano', 'ciudadanos.apellido_p as ap', 'ciudadanos.apellido_m as am', 'grupos.nombre as grupo','grupos.fecha_inicio as fi','grupos.fecha_fin as ff', 'grupos.estado as estado','cargos.nombre as cargo')
             ->get();
         return view('inscripciones.index', compact('inscripciones'));
     }
@@ -59,7 +62,13 @@ class InscripcionController extends Controller
     // Filtrar por ciudadanos con estado igual a 1
     $ciudadanos = $query->where('estado', '=', 1)->get();
 
-    return view('inscripciones.crear', compact('ciudadanos'));
+    $grupos = Grupo::query()
+                ->join('cargos','cargos.id','=','grupos.cargo_id')
+                ->select('grupos.id as id','grupos.nombre as nombre','grupos.fecha_inicio','grupos.fecha_fin','grupos.estado','cargos.nombre as nom_cargos')
+                ->where('grupos.estado', '=',1)
+                ->get();
+
+    return view('inscripciones.crear', compact('ciudadanos','grupos'));
 }
 
 
@@ -71,12 +80,15 @@ class InscripcionController extends Controller
      */
     public function store(Request $request, $ciudadanoId)
     {
-        request()->validate([
-           'cargo_id' => 'required',
-           'fecha_inscripcion' => 'required',
-        ]);
-        $ciudadanoData = $request->all();
+        $grupoId = $request->input('inscribir');
+        // dd($grupoId);
+        // request()->validate([
+        //    'grupo_id' => 'required',
+        // ]);
+        $ciudadanoData['fecha_inscripcion'] = today();
         $ciudadanoData['aprobado'] = false;
+        $ciudadanoData['observacion'] = '';
+        $ciudadanoData['grupo_id'] = $grupoId;
         $ciudadanoData['ciudadano_id'] = $ciudadanoId;
 
         Cargos_has_ciudadano::create($ciudadanoData);
@@ -122,7 +134,7 @@ class InscripcionController extends Controller
     {
         request()->validate([
             'fecha_inscripcion' => 'required',
-            'cargo_id' => 'required',
+            'grupo_id' => 'required',
         ]);
 
         $inscripcion->update($request->all());

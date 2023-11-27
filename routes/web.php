@@ -12,6 +12,7 @@ use App\Http\Controllers\CargoController;
 use App\Http\Controllers\InscripcionController;
 use App\Http\Controllers\CalificacionController;
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\GrupoController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -52,8 +53,14 @@ Route::post('mark-as-read',[AgendaController::class, 'markNotificacion'])->name(
 // Route::post('/mark-as-read', 'AgendaController@markNotificacion')->name('markNotificacion');
 
 Route::get('inscribir/{ciudadano}', [App\Http\Controllers\InscripcionController::class, 'inscribir'])->name('inscribir');
-Route::post('inscribir/{ciudadano}', [App\Http\Controllers\InscripcionController::class, 'store'])->name('store');
+// Route::post('inscribir/{ciudadano}', [App\Http\Controllers\InscripcionController::class, 'store'])->name('storeInscripcion');
+Route::post('inscribir/{ciudadano}', [App\Http\Controllers\InscripcionController::class, 'store'])->name('storeInscripcion');
 Route::post('calificar/{inscripcion}', [App\Http\Controllers\CalificacionController::class, 'update'])->name('calificaciones.update');
+// Route::post('guardarGrupo/{cargo}', [App\Http\Controllers\GrupoController::class, 'store'])->name('storeGrupo');
+Route::post('guardarGrupo/{cargo}', [GrupoController::class, 'store'])
+    ->name('storeGrupo');
+
+Route::post('grupos/eliminar/{id}',[GrupoController::class, 'eliminar'])->name('grupos.eliminar');
 //y creamos un grupo de rutas protegidas para los controladores
 Route::group(['middleware' => ['auth']], function() {
     Route::resource('roles', RolController::class);
@@ -65,6 +72,7 @@ Route::group(['middleware' => ['auth']], function() {
     Route::resource('inscripcion', InscripcionController::class);
     Route::resource('calificacion', CalificacionController::class);
     Route::resource('post', PostController::class);
+    Route::resource('grupos', GrupoController::class);
 });
 
 //Ruta para marcar una notificacion como leída
@@ -75,7 +83,6 @@ Route::get('mark_as_read', [App\Http\Controllers\PostController::class, 'mark_as
 
 // Ruta para eliminar todas sus notifications leídas
 Route::get('destroyNotifications', [App\Http\Controllers\PostController::class, 'delet_full_notify_read'])->name('destroyNotifications');
-
 
 // Ruta para eliminar todas sus notifications ->IMPLEMENTAR SOLO SI ES NECESARIO.............
 // Route::get('destroyNotificationsss', function (){

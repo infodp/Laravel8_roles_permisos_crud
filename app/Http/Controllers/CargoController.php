@@ -67,9 +67,8 @@ class CargoController extends Controller
     public function store(Request $request)
     {
         request()->validate([
-            'nombre' => 'required',
-            'fecha_inicio' => 'required|regex:/^\d{4}-\d{2}-\d{2}$/',
-            'fecha_fin' => 'required|regex:/^\d{4}-\d{2}-\d{2}$/',
+            'nombre' => ['required', 'unique:cargos'],
+            'descripcion' => 'required',
         ]);
         $cargoData = $request->all();
         $cargoData['estado'] = true;
@@ -115,9 +114,8 @@ class CargoController extends Controller
         // dd($request->fecha_inicio);
         request()->validate([
             'nombre' => 'required',
-            'fecha_inicio' => 'required|regex:/^\d{4}-\d{2}-\d{2}$/',
-            'fecha_fin' => 'required|regex:/^\d{4}-\d{2}-\d{2}$/',
-            'estado'=>'required',
+            'descripcion'=>'required',
+            'estado' => 'required|boolean',
         ]);
 
         $cargo->update($request->all());

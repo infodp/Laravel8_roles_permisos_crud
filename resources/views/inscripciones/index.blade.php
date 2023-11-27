@@ -20,10 +20,11 @@
                             <table class="table table-striped mt-2 table_id" id="miTabla2">
                               <thead style="background-color:#6777ef">
                                   <th style="display: none;">ID</th>
-                                  <th style="color:#fff; cursor: pointer;">Nombre <i class="fas fa-caret-square-o-down" aria-hidden="true"></i></th>
-                                  <th style="color:#fff; cursor: pointer;">Cargo inscrito <i class="fas fa-caret-square-o-down" aria-hidden="true"></i></th>
-                                  <th style="color:#fff; cursor: pointer;">Periodo del cargo <i class="fas fa-caret-square-o-down" aria-hidden="true"></i></th>
-                                  <th style="color:#fff;">Acciones</th>
+                                  <th style="color:#fff; cursor: pointer;">Ciudadano <i class="fas fa-caret-square-o-down" aria-hidden="true"></i></th>
+                                  <th style="color:#fff; cursor: pointer;">Cargo Inscrito<i class="fas fa-caret-square-o-down" aria-hidden="true"></i></th>
+                                  <th style="color:#fff; cursor: pointer;">Grupo <i class="fas fa-caret-square-o-down" aria-hidden="true"></i></th>
+                                  <th style="color:#fff; cursor: pointer;">Tiempo Restante <i class="fas fa-caret-square-o-down" aria-hidden="true"></i></th>
+                                  <th style="color:#fff;" class="text-center">Acciones</th>
                               </thead>
                               <tbody>
                                 @foreach ($inscripciones as $inscripcion)
@@ -31,15 +32,25 @@
                                         <td style="display: none;">{{ $inscripcion->idd }}</td>
                                         <td>{{ ucwords($inscripcion->ciudadano) }} {{' '}} {{ ucwords($inscripcion->ap) }} {{' '}} {{ ucwords($inscripcion->am) }}</td>
                                         <td>{{ ucwords($inscripcion->cargo) }}</td>
-                                        <td>{{ date('d/m/Y', strtotime($inscripcion->fi)) }} al {{ date('d/m/Y', strtotime($inscripcion->ff)) }}</td>
+                                        <td>{{ ucwords($inscripcion->fi) }}</td>
                                         <td>
+                                            @if($inscripcion->fi < now())
+                                                    {{ ucwords('Curso impartido')}}
+                                            @else
+                                                @php
+                                                    $fechaRestante = \Carbon\Carbon::parse($inscripcion->fi)->diff(now());
+                                                @endphp
+                                                    {{ ucwords($fechaRestante->days . ' días') }}
+                                            @endif
+                                        </td>
+                                        <td class="text-center">
                                             <!-- <form action="{{ route('inscripcion.destroy', $inscripcion->idd) }}" method="POST" id="frmDatos"> -->
                                                 @csrf
                                                 @method('DELETE')
                                                @php
                                                     $date=date("Y-m-d");
                                                @endphp
-                                                @if($date <= $inscripcion->ff)
+                                                @if($date <= $inscripcion->fi)
                                                     @can('editar-inscripcion')
                                                     <a class="btn btn-info" href="{{ route('inscripcion.edit', $inscripcion->idd) }}" title="Editar inscripción">
                                                         <i class="fa fa-pencil" aria-hidden="true"></i> Editar
@@ -105,8 +116,8 @@
     <script>
         new DataTable('#miTabla2', {
     lengthMenu: [
-        [3, 5, 15],
-        [3, 5, 15]
+        [8, 12, 15],
+        [8, 12, 15]
     ],
 
     columns: [
@@ -115,7 +126,8 @@
         // { Ap: 'Ap' },
         // { Am: 'Am' },
         { Cargo: 'Cargo' },
-        { Periodo: 'fi' },
+        { Grupo: 'grupo' },
+        { TiempoR: 'tr' },
         { Acciones: 'Acciones' }
     ],
 

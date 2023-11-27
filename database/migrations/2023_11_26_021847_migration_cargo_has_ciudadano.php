@@ -17,10 +17,11 @@ class MigrationCargoHasCiudadano extends Migration
             $table->id();
             $table->date('fecha_inscripcion');
             $table->boolean('aprobado');
+            $table->text('observacion');
             $table->foreignId('ciudadano_id') ->nullable()
             ->constrained()
             ->onDelete('set null');
-            $table->foreignId('cargo_id') ->nullable()
+            $table->foreignId('grupo_id') ->nullable()
             ->constrained()
             ->onDelete('set null');
             $table->timestamps();

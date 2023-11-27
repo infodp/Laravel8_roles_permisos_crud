@@ -3,7 +3,7 @@
 @section('content')
 <section class="section">
   <div class="section-header">
-      <h3 class="page__heading">Cargos</h3>
+      <h3 class="page__heading">Grupos</h3>
   </div>
       <div class="section-body">
           <div class="row">
@@ -13,8 +13,8 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <!-- Botón para crear nuevo ciudadano -->
-                                @can('crear-cargo')
-                                    <a class="btn btn-warning" href="{{ route('cargos.create') }}" title="Crear nuevo Cargo"><i class="fa fa-plus" aria-hidden="true"></i> Nuevo Cargo</a>
+                                @can('crear-grupo')
+                                    <a class="btn btn-warning" href="{{ route('grupos.create') }}" title="Crear nuevo Grupo"><i class="fa fa-plus" aria-hidden="true"></i> Nuevo grupo</a>
                                  @endcan
 
                             </div>
@@ -23,7 +23,7 @@
                             <div class="col-md-6">
                                 <!-- Dropdown de filtros -->
                                 <div class="dropdown">
-                                    <form action="{{ route('cargos.index') }}" method="GET">
+                                    <form action="{{ route('grupos.index') }}" method="GET">
                                         <!-- Otros campos de formulario según tus necesidades -->
                                         <div class="dropdown">
                                             <button class="btn btn-info dropdown-toggle" type="button" id="filtroDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Seleccionar filtros">
@@ -51,26 +51,29 @@
                               <thead style="background-color:#6777ef">
                                   <th style="display: none;">ID</th>
                                   <th style="color: #fff; cursor: pointer;">Nombre <i class="fas fa-caret-square-o-down" aria-hidden="true"></i></th>
-                                  <th style="color:#fff">Estado</th>
+                                  <th style="color:#fff; cursor: pointer; ">Fecha Inicio <i class="fas fa-caret-square-o-down" aria-hidden="true"></i></th>
+                                  <th style="color:#fff; cursor: pointer; ">Fecha Fin <i class="fas fa-caret-square-o-down" aria-hidden="true"></i></th>
+                                  <th style="color:#fff; cursor: pointer;">Cargo <i class="fas fa-caret-square-o-down" aria-hidden="true"></i></th>
+                                  <th style="color:#fff; cursor: pointer;">Estado <i class="fas fa-caret-square-o-down" aria-hidden="true"></i></th>
                                   <th style="color:#fff;">Acciones</th>
                               </thead>
                               <tbody>
-                                @foreach ($cargos as $cargo)
+                                @foreach ($grupos as $grupo)
                                   <tr>
-                                    <td style="display: none;">{{ $cargo->id }}</td>
-                                    <td>{{ ucwords( $cargo->nombre) }}</td>
-                                    {{-- <td>{{ ucwords($cargo->fecha_inicio)}}</td>
+                                    <td style="display: none;">{{ $grupo->id }}</td>
+                                    <td>{{ ucwords( $grupo->nombre) }}</td>
+                                    <td>{{ ucwords($grupo->fecha_inicio)}}</td>
                                     @php
                                         \Carbon\Carbon::setlocale(LC_TIME, 'es_ES.utf8');
                                      @endphp
 
-                                    <td>{{ \Carbon\Carbon::createFromFormat('Y-m-d', $cargo->fecha_fin)->formatLocalized('%d de %B de %Y') }}</td> --}}
-
+                                    <td>{{ \Carbon\Carbon::createFromFormat('Y-m-d', $grupo->fecha_fin)->formatLocalized('%d de %B de %Y') }}</td>
+                                    <td>{{ ucwords( $grupo->nom_cargos) }}</td>
                                     <td>
                                         {{-- <div class="form-check">
                                             <input type="checkbox" disabled {{ $cargo->estado == 1 ? 'checked' : '' }} class="form-check-input"> --}}
                                             <label class="form-check-label">
-                                                @if ($cargo->estado == 1)
+                                                @if ($grupo->estado == 1)
                                                     <span class="badge badge-success">Activo</span>
                                                 @else
                                                     <span class="badge badge-danger">No activo</span>
@@ -80,33 +83,29 @@
                                     </td>
 
                                     <td>
-                                        <!-- <form action="{{ route('cargos.destroy', $cargo->id) }}" method="POST" id="frmDatos"> -->
                                             @csrf
                                             @method('DELETE')
-                                            @can('editar-cargo')
-                                            <a class="btn btn-info" href="{{ route('cargos.edit', $cargo->id) }}">
-                                                <i class="fa fa-pencil" aria-hidden="true"></i> Editar
-                                            </a>
+                                            @can('editar-grupo')
+                                                <a class="btn btn-info" href="{{ route('grupos.edit', $grupo->id) }}">
+                                                    <i class="fa fa-pencil" aria-hidden="true"></i> Editar
+                                                </a>
                                             @endcan
                                             @php
-                                                $cargoId = $cargo->id;
-                                                $cargo = \App\Models\Cargo::with('ciudadanos')->find($cargoId);
-                                                $canDelete = $cargo->ciudadanos->isEmpty() && Gate::allows('borrar-cargo');
+                                                $grupoId = $grupo->id;
+                                                $grupo = \App\Models\Grupo::with('ciudadanos')->find($grupoId);
+                                                $canDelete = $grupo->ciudadanos->isEmpty() && Gate::allows('borrar-grupo');
                                             @endphp
-                                                @can('editar-cargo')
+                                            @can('editar-grupo')
                                                 @if ($canDelete)
                                                     @csrf
                                                     @method('DELETE')
 
-                                                        <button type="submit" class="btn btn-danger" onclick="fntDeleteCargo({{ $cargo->id }})" title='Eliminar cargo'>
+                                                        <button type="submit" class="btn btn-danger" onclick="fntDeleteCargo({{ $grupo->id }})" title='Eliminar cargo'>
                                                             <i class="fa fa-trash" aria-hidden="true"></i> Borrar
                                                         </button>
 
                                                 @endif
-                                                @endcan
-                                        <!-- </form> -->
-
-                                        {{-- <i class="fa-solid fa-pen-to-square"></i> --}}
+                                            @endcan
                                     </td>
                                   </tr>
                                 @endforeach
@@ -139,6 +138,9 @@
     columns: [
         { Id: 'Id' },
         { Nombre: 'Nombre' },
+        { Fecha_inicio: 'fecha_inicio' },
+        { fecha_fin: 'fecha_fin' },
+        { cargos: 'nom_cargos' },
         { Estado: 'Estado' },
         { Acciones: 'Acciones' }
     ],
@@ -163,10 +165,10 @@
     @endif
 
     <script>
-        function fntDeleteCargo(cargoId){
+        function fntDeleteCargo(grupoId){
             Swal.fire({
-                title: '¿Deseas eliminar este cargo?',
-                text: "Ya no podrás visualizar este cargo en la tabla.",
+                title: '¿Deseas eliminar este grupo?',
+                text: "Ya no podrás visualizar este grupo en la tabla.",
                 icon: 'warning',
                 showCancelButton: true,
                 confirmButtonColor: '#3085d6',
@@ -177,9 +179,9 @@
             if (result.isConfirmed) {
                 $.ajax({
                     type: "post",
-                    url: "cargos/eliminar/"+cargoId,
+                    url: "cargos/eliminar/"+grupoId,
                 });
-                window.location="http://127.0.0.1:8000/cargos";
+                window.location="http://127.0.0.1:8000/grupos";
             }
         })
         }
