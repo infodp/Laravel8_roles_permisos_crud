@@ -106,6 +106,10 @@
                                     <option value="0"  {{ $inscripcion->apro === 0  ? 'selected' : '' }}>No Aprobado</option>
                                 </select>
                             </div>
+                            <div class="form-group">
+                                <label for="observacion">Observaciones:</label>
+                                <textarea  name="observacion" class="form-control" rows="4">{{ $inscripcion->observacion }}</textarea>
+                            </div>
                         </div>
                     </div>
                     <div class="row">

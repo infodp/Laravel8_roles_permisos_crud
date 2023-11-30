@@ -22,6 +22,7 @@ class CalificacionController extends Controller
         ->select(
             'cargos_has_ciudadanos.id as idd',
             'cargos_has_ciudadanos.aprobado as apro',
+            'cargos_has_ciudadanos.observacion as observacion',
             'ciudadanos.id',
             'ciudadanos.nombre as ciudadano',
             'ciudadanos.apellido_p as ap',
@@ -118,8 +119,9 @@ class CalificacionController extends Controller
     {
          request()->validate([
             'aprobado' => 'required',
+            'observacion' => 'required',
         ]);
-
+        
         $inscripcion->update($request->all());
 
         return redirect()->route('calificacion.index')->with('success', 'Calificación actualizada exitosamente.');
