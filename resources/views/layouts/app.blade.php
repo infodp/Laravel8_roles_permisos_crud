@@ -72,7 +72,7 @@
         <div class="main-content">
             @yield('content')
         </div>
-        
+
         <footer class="main-footer">
             @include('layouts.footer')
         </footer>
@@ -81,6 +81,7 @@
 
 @include('profile.change_password')
 @include('profile.edit_profile')
+@include('layouts.modalNotificacionInfo')
 </body>
 <!-- <script src="{{ asset('assets/js/jquery.min.js') }}"></script> -->
 <script src ="{{ asset('js/jquery-3.0.0.min.js') }}"> </script>
@@ -128,7 +129,7 @@
 <script src="{{ asset('js/popper.min.js') }}"></script>
 <!-- <script src="{{ asset('js/bootstrap.min.js') }}"></script> -->
 
-<script type="text/javascript" src="{{ asset('js/moment.min.js') }}"></script>	
+<script type="text/javascript" src="{{ asset('js/moment.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('js/fullcalendar.min.js') }}"></script>
 <script src="{{ asset('locales/es.js') }}"></script>
 

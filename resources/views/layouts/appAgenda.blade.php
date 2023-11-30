@@ -237,7 +237,28 @@
 
 @yield('page_js')
 @yield('scripts')
-
+<script>
+    function sendMarkRequest(id=null){
+        console.log(id);
+        return $.ajax("{{ route('markNotificacion') }}", {
+            method: 'POST',
+            data: {
+                id
+            }
+        });
+    }
+    $(function(){
+        $('.mark-as-read').click(function(){
+            let request = sendMarkRequest($(this).data('id'));
+            request.done(() => {
+              window.alert('Exito!');
+                $( "#recargar" ).load(window.location.href + " #recargar" );
+                var value = $('#nombreModal').val();
+                $('#'+value).modal('hide');
+            });
+        });
+    })
+</script>
 <script>
     let loggedInUser =@json(\Illuminate\Support\Facades\Auth::user());
     let loginUrl = '{{ route('login') }}';
