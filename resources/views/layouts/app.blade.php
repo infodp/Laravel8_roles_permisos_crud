@@ -81,7 +81,6 @@
 
 @include('profile.change_password')
 @include('profile.edit_profile')
-@include('layouts.modalNotificacionInfo')
 </body>
 <!-- <script src="{{ asset('assets/js/jquery.min.js') }}"></script> -->
 <script src ="{{ asset('js/jquery-3.0.0.min.js') }}"> </script>

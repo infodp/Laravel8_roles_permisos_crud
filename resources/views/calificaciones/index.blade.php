@@ -111,10 +111,8 @@
                                 </select>
                             </div>
                             <div class="form-group">
-                                <div class="form-floating">
-                                        <label for="observacion">Observacion: <span class="required text-danger">*</span></label>
-                                        <textarea class="form-control" name="observacion" style="height: 70px" required>{{ $inscripcion->observacion }}</textarea>
-                                </div>
+                                <label for="observacion">Observaciones:</label>
+                                <textarea  name="observacion" class="form-control" rows="4">{{ $inscripcion->observacion }}</textarea>
                             </div>
                         </div>
                     </div>
