@@ -46,6 +46,8 @@ Route::post('ciudadanos/eliminarId/{id}',[CiudadanoController::class, 'eliminarI
 
 Route::post('cargos/eliminar/{id}',[CargoController::class, 'eliminar'])->name('cargos.eliminar');
 
+Route::post('grupos/eliminar/{id}',[GrupoController::class, 'eliminar'])->name('grupos.eliminar');
+
 Route::post('inscripcion/eliminar/{id}',[InscripcionController::class, 'eliminar'])->name('inscripciones.eliminar');
 
 Route::post('mark-as-read',[AgendaController::class, 'markNotificacion'])->name('markNotificacion');

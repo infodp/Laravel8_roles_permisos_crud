@@ -90,7 +90,7 @@
                                             @if ($canDelete)
                                                 @csrf
                                                 @method('DELETE')
-                                                <button type="submit" class="btn btn-danger" onclick="fntDeleteCiudadano({{ $ciudadano->id }})">
+                                                <button type="submit" class="btn btn-danger" onclick="fntDeleteCiudadano('{{ $ciudadano->id }}', '{{ $ciudadano->nombre }}')">
                                                     <i class="fa fa-trash" aria-hidden="true"></i> Borrar
                                                 </button>
                                             @endif
@@ -156,9 +156,9 @@
     @endif
 
 <script>
-        function fntDeleteCiudadano(ciudadanoId){
+        function fntDeleteCiudadano(ciudadanoId, ciudadano){
             Swal.fire({
-                title: '¿Deseas eliminar este ciudadano?',
+                title: '¿Deseas eliminar al ciudadan@ ' + ciudadano + '?',
                 text: "Ya no podrás visualizar este ciudadano en la tabla.",
                 icon: 'warning',
                 showCancelButton: true,

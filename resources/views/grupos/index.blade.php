@@ -99,8 +99,7 @@
                                                 @if ($canDelete)
                                                     @csrf
                                                     @method('DELETE')
-
-                                                        <button type="submit" class="btn btn-danger" onclick="fntDeleteCargo({{ $grupo->id }})" title='Eliminar cargo'>
+                                                        <button type="submit" class="btn btn-danger" onclick="fntDeleteCargo('{{ $grupo->id }}', '{{ $grupo->nombre }}')">
                                                             <i class="fa fa-trash" aria-hidden="true"></i> Borrar
                                                         </button>
 
@@ -165,9 +164,9 @@
     @endif
 
     <script>
-        function fntDeleteCargo(grupoId){
+        function fntDeleteCargo(grupoId, nombre){
             Swal.fire({
-                title: '¿Deseas eliminar este grupo?',
+                title: '¿Deseas eliminar el grupo ' + nombre + '?',
                 text: "Ya no podrás visualizar este grupo en la tabla.",
                 icon: 'warning',
                 showCancelButton: true,
@@ -179,7 +178,7 @@
             if (result.isConfirmed) {
                 $.ajax({
                     type: "post",
-                    url: "cargos/eliminar/"+grupoId,
+                    url: "grupos/eliminar/"+grupoId,
                 });
                 window.location="http://127.0.0.1:8000/grupos";
             }

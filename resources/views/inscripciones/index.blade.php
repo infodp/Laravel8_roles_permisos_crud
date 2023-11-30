@@ -32,7 +32,7 @@
                                         <td style="display: none;">{{ $inscripcion->idd }}</td>
                                         <td>{{ ucwords($inscripcion->ciudadano) }} {{' '}} {{ ucwords($inscripcion->ap) }} {{' '}} {{ ucwords($inscripcion->am) }}</td>
                                         <td>{{ ucwords($inscripcion->cargo) }}</td>
-                                        <td>{{ ucwords($inscripcion->fi) }}</td>
+                                        <td>{{ ucwords($inscripcion->grupo) }}</td>
                                         <td>
                                             @if($inscripcion->fi < now())
                                                     {{ ucwords('Curso impartido')}}
@@ -62,9 +62,9 @@
                                                 </button>
 
                                                 @can('borrar-ciudadanos')
-                                                <button type="submit" class="btn btn-danger" title="Eliminar inscripción">
-                                                    <i class="fa fa-trash" aria-hidden="true"></i> Borrar
-                                                </button>
+                                                    <button type="submit" class="btn btn-danger" onclick="fntDeleteInscripcion('{{ $inscripcion->idd }}', '{{ $inscripcion->ciudadano }}')">
+                                                        <i class="fa fa-trash" aria-hidden="true"></i> Borrar
+                                                    </button>
                                                 @endcan
 
                                             <!-- </form> -->
@@ -93,10 +93,11 @@
             </div>
             <div class="modal-body">
                 <h4>Información de la inscripción</h4>
-                <p><strong>Nombre:</strong> {{ $inscripcion->ciudadano }}</p>
-                <p><strong>Apellido Paterno:</strong> {{ $inscripcion->ap }}</p>
-                <p><strong>Apellido Materno:</strong> {{ $inscripcion->am }}</p>
+                <p><strong>Ciudadano:</strong> {{ ucwords($inscripcion->ciudadano) }} {{' '}} {{ ucwords($inscripcion->ap) }} {{' '}} {{ ucwords($inscripcion->am) }}</p>
+                <p><strong>Fecha de inicio:</strong> {{ $inscripcion->fi }}</p>
+                <p><strong>Fecha de fin:</strong> {{ $inscripcion->ff }}</p>
                 <p><strong>Cargo inscrito:</strong> {{ $inscripcion->cargo }}</p>
+                <p><strong>Grupo inscrito:</strong> {{ $inscripcion->grupo }}</p>
                 <!-- Agrega más detalles aquí -->
             </div>
             <div class="modal-footer">
@@ -151,10 +152,9 @@
     @endif
 
     <script>
-        function fntDeleteInscripcion(inscripcionId){
-            console.log(inscripcionId);
+        function fntDeleteInscripcion(inscripcionId, ciudadano){
             Swal.fire({
-                title: '¿Deseas eliminar esta inscripción?',
+                title: '¿Deseas eliminar la inscripción del ciudadano '+ ciudadano + '?',
                 text: "Ya no podrás visualizar esta inscripción en la tabla.",
                 icon: 'warning',
                 showCancelButton: true,
@@ -164,10 +164,14 @@
                 cancelButtonText: "Cancelar"
             }).then((result) => {
             if (result.isConfirmed) {
-                this.submit();
+                $.ajax({
+                    type: "post",
+                    url: "inscripcion/eliminar/"+inscripcionId,
+                });
+                window.location="http://127.0.0.1:8000/inscripcion";
             }
-})
         })
+        }
 
     </script>
 @endsection

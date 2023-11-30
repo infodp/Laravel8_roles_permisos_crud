@@ -66,7 +66,11 @@
                                         </td>
                                         <td>{{ date('d/m/Y', strtotime($inscripcion->fi)) }} al {{ date('d/m/Y', strtotime($inscripcion->ff)) }}</td>
                                         <td>
-                                            <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#myModal-{{ $inscripcion->idd }}" title="Calificar ciudadano">Calificar</a>
+                                            <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#myModal-{{ $inscripcion->idd }}" title="Calificar ciudadano"><i class="fa fa-pencil" aria-hidden="true"></i> Evaluar</a>
+
+                                            @if ($inscripcion->apro == 1)
+                                                 <a class="btn btn-secondary" href="#"><i class="fa fa-file-pdf-o" aria-hidden="true"></i>  Descargar constancia</a>
+                                            @endif
                                         </td>
                                     </tr>
                                 @endforeach
@@ -92,8 +96,8 @@
             </div>
             <div class="modal-body">
                 <!-- Agrega aquí los detalles de la inscripción del ciudadano -->
-                <h4 class="modal-title">Calificar el cargo del ciudadano:</h4>
-                <p class="modal-title">{{ $inscripcion->ciudadano }} {{ $inscripcion->ap }} {{ $inscripcion->am }}</p>
+                <h6 class="modal-title">Evaluar el cargo del ciudadano:</h6>
+                <H5 class="modal-title" style="color: #0000ffc2;">{{ ucwords($inscripcion->ciudadano) }} {{ ucwords($inscripcion->ap) }} {{ ucwords($inscripcion->am) }}</H5>
                 <form action="{{ route('calificaciones.update',$inscripcion->idd) }}" method="POST">
                     @csrf
                     <div class="row">
@@ -105,6 +109,12 @@
                                     <option value="1" {{ $inscripcion->apro === 1 ? 'selected' : '' }}>Aprobado</option>
                                     <option value="0"  {{ $inscripcion->apro === 0  ? 'selected' : '' }}>No Aprobado</option>
                                 </select>
+                            </div>
+                            <div class="form-group">
+                                <div class="form-floating">
+                                        <label for="observacion">Observacion: <span class="required text-danger">*</span></label>
+                                        <textarea class="form-control" name="observacion" style="height: 70px" required>{{ $inscripcion->observacion }}</textarea>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -132,8 +142,8 @@
 <script>
     new DataTable('#miTabla2', {
         lengthMenu: [
-            [3, 5, 15],
-            [3, 5, 15]
+            [5, 10, 15],
+            [5, 10, 15]
         ],
         columns: [
             { Id: 'Id' },
