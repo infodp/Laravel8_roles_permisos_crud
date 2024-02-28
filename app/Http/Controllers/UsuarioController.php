@@ -22,11 +22,12 @@ class UsuarioController extends Controller
     public function index(Request $request)
     {      
         //Sin paginación
+        $usuarios = User::all();
         /* $usuarios = User::all();
         return view('usuarios.index',compact('usuarios')); */
 
         //Con paginación
-        $usuarios = User::paginate(5);
+        // $usuarios = User::paginate(2);
         return view('usuarios.index',compact('usuarios'));
 
         //al usar esta paginacion, recordar poner en el el index.blade.php este codigo  {!! $usuarios->links() !!}

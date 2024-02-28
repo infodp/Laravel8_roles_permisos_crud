@@ -9,16 +9,22 @@
           <div class="row">
               <div class="col-lg-12">
                   <div class="card">
-                      <div class="card-body">                           
-                          <a class="btn btn-warning" href="{{ route('usuarios.create') }}">Nuevo</a>        
-                         
-                            <table class="table table-striped mt-2">
-                              <thead style="background-color:#6777ef">                                     
+                      <div class="card-body">
+
+                        @can('ver-usuario')
+                            <a class="btn btn-warning" href="{{ route('usuarios.create') }}" title="Crear nuevo usuario"> <i class="fa fa-plus" aria-hidden="true"></i> Nuevo usuario</a>
+                        @endcan
+                      <div>
+                      <br>
+                      </div>
+
+                            <table class="table table-striped mt-2 table_id" id="miTabla">
+                              <thead style="background-color:#6777ef">
                                   <th style="display: none;">ID</th>
                                   <th style="color:#fff;">Nombre</th>
-                                  <th style="color:#fff;">E-mail</th>
+                                  <th style="color:#fff;">Correo electronico</th>
                                   <th style="color:#fff;">Rol</th>
-                                  <th style="color:#fff;">Acciones</th>                                                                   
+                                  <th style="color:#fff;">Acciones</th>
                               </thead>
                               <tbody>
                                 @foreach ($usuarios as $usuario)
@@ -28,14 +34,14 @@
                                     <td>{{ $usuario->email }}</td>
                                     <td>
                                       @if(!empty($usuario->getRoleNames()))
-                                        @foreach($usuario->getRoleNames() as $rolNombre)                                       
+                                        @foreach($usuario->getRoleNames() as $rolNombre)
                                           <h5><span class="badge badge-dark">{{ $rolNombre }}</span></h5>
                                         @endforeach
                                       @endif
                                     </td>
 
-                                    <td>                                  
-                                      <a class="btn btn-info" href="{{ route('usuarios.edit',$usuario->id) }}">Editar</a>
+                                    <td>
+                                      <a class="btn btn-info" href="{{ route('usuarios.edit',$usuario->id) }}" title="Editar usuario"><i class="fa fa-pencil" aria-hidden="true"></i> Editar</a>
 
                                       {!! Form::open(['method' => 'DELETE','route' => ['usuarios.destroy', $usuario->id],'style'=>'display:inline']) !!}
                                           {!! Form::submit('Borrar', ['class' => 'btn btn-danger']) !!}
@@ -46,14 +52,37 @@
                               </tbody>
                             </table>
                             <!-- Centramos la paginacion a la derecha -->
-                          <div class="pagination justify-content-end">
-                            {!! $usuarios->links() !!}
-                          </div>     
-                            
+
                       </div>
                   </div>
               </div>
           </div>
       </div>
     </section>
+    <!-- JQUERY -->
+    <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+    <!-- DATATABLES -->
+    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+    <!-- BOOTSTRAP -->
+    <script src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js"></script>
+    <script>
+        new DataTable('#miTabla', {
+    lengthMenu: [
+        [2, 5, 10],
+        [2, 5, 10]
+    ],
+
+    columns: [
+        { Id: 'Id' },
+        { Nombre: 'Nombre' },
+        { Email: 'E-mail' },
+        { Rol: 'Rol' },
+        { Acciones: 'Acciones' }
+    ],
+
+    language: {
+        url: 'https://cdn.datatables.net/plug-ins/1.13.6/i18n/es-ES.json',
+    }
+});
+    </script>
 @endsection

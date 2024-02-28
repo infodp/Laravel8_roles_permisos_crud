@@ -6,7 +6,7 @@
     <title>@yield('title') | {{ config('app.name') }}</title>
     <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
     <!-- Bootstrap 4.1.1 -->
-    <link href="{{ asset('assets/css/bootstrap.min.css') }}" rel="stylesheet" type="text/css"/>
+    <!-- <link href="{{ asset('assets/css/bootstrap.min.css') }}" rel="stylesheet" type="text/css"/> -->
     <!-- Ionicons -->
     <link href="//fonts.googleapis.com/css?family=Lato&display=swap" rel="stylesheet">
     <link href="{{ asset('assets/css/@fortawesome/fontawesome-free/css/all.css') }}" rel="stylesheet" type="text/css">
@@ -14,10 +14,43 @@
     <link href="{{ asset('assets/css/sweetalert.css') }}" rel="stylesheet" type="text/css"/>
     <link href="{{ asset('assets/css/select2.min.css') }}" rel="stylesheet" type="text/css"/>
 
+    <!-- Nuevo -->
+    <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700&display=swap" rel="stylesheet">
+
+	  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+      <!-- Script de sweet alert 2 -->
+      <script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+
+    <!-- FullCalendar css -->
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/fullcalendar.min.css') }}">
+	<link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<link rel="stylesheet" type="text/css" href="{{ asset('css/bootstrap.min.css') }}">
+    <!-- <link rel="stylesheet" type="text/css" href="{{ asset('css/home.css') }}"> -->
+
+    <!-- Css de post-it -->
+    <link  href="http://fonts.googleapis.com/css?family=Reenie+Beanie:regular" rel="stylesheet" type="text/css">
+    <link href="{{ asset('css/post-it.css') }}" rel="stylesheet" type="text/css"/>
+
 @yield('page_css')
 <!-- Template CSS -->
     <link rel="stylesheet" href="{{ asset('web/css/style.css') }}">
     <link rel="stylesheet" href="{{ asset('web/css/components.css')}}">
+
+    <link rel="stylesheet" href="{{ asset('css/bootstrap-datetimepicker.min.css')}}">
+
+    <style>
+      .toolbar {
+    float: left;
+    }
+    .searching{
+        float: right;
+    }
+    .card-1{
+        background-color: #D6EAF8;
+    }
+    </style>
     @yield('page_css')
 
 
@@ -39,6 +72,7 @@
         <div class="main-content">
             @yield('content')
         </div>
+
         <footer class="main-footer">
             @include('layouts.footer')
         </footer>
@@ -47,9 +81,12 @@
 
 @include('profile.change_password')
 @include('profile.edit_profile')
-
+@include('layouts.modalNotificacionInfo')
 </body>
-<script src="{{ asset('assets/js/jquery.min.js') }}"></script>
+<!-- <script src="{{ asset('assets/js/jquery.min.js') }}"></script> -->
+<script src ="{{ asset('js/jquery-3.0.0.min.js') }}"> </script>
+<!-- <script src="{{ asset('https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js') }}"></script> -->
+
 <script src="{{ asset('assets/js/popper.min.js') }}"></script>
 <script src="{{ asset('assets/js/bootstrap.min.js') }}"></script>
 <script src="{{ asset('assets/js/sweetalert.min.js') }}"></script>
@@ -62,8 +99,18 @@
 <script src="{{ asset('web/js/scripts.js') }}"></script>
 <script src="{{ mix('assets/js/profile.js') }}"></script>
 <script src="{{ mix('assets/js/custom/custom.js') }}"></script>
+<script src="{{ asset('assets/js/custom/buscador.js') }}"></script>
+
+<!-- Nuevo -->
+<script src="{{ asset('js/popper.js') }}"></script>
+<script src="{{ asset('js/moment-with-locales.min.js') }}"></script>
+<script src="{{ asset('js/bootstrap-datetimepicker.min.js') }}"></script>
+<script src="{{ asset('js/main.js') }}"></script>
+<script src="{{ asset('js/fullcalendar.min.js') }}"></script>
+
 @yield('page_js')
 @yield('scripts')
+
 <script>
     let loggedInUser =@json(\Illuminate\Support\Facades\Auth::user());
     let loginUrl = '{{ route('login') }}';
@@ -79,4 +126,12 @@
         };
     }(jQuery));
 </script>
+<script src="{{ asset('js/popper.min.js') }}"></script>
+<!-- <script src="{{ asset('js/bootstrap.min.js') }}"></script> -->
+
+<script type="text/javascript" src="{{ asset('js/moment.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('js/fullcalendar.min.js') }}"></script>
+<script src="{{ asset('locales/es.js') }}"></script>
+
+
 </html>
